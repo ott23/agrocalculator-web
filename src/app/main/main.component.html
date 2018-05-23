@@ -1,0 +1,36 @@
+<div id="header">
+
+  <div (click)="toogleSidebar()" class="hamburger-button">
+    <div class="hamburger" [ngClass]="{isActive: isSidebarActive}">
+      <span class="line"></span>
+      <span class="line"></span>
+      <span class="line"></span>
+    </div>
+  </div>
+
+  <div id="logo">
+    <img src="/assets/images/tn-group.png" class="img-responsive">
+  </div>
+</div>
+
+<div id="wrapper" [ngClass]="{sidebarActive: isSidebarActive}">
+
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li><a href="http://yandex.ru" class="active">Раз</a></li>
+      <li><a href="#">Раз</a></li>
+      <li><a href="#">Раз</a></li>
+      <li><a href="#">Раз</a></li>
+      <li><a href="#">Раз</a></li>
+
+    </ul>
+  </div>
+
+  <div id="page-wrapper">
+    <div class="container-fluid"><a href="http://yandex.ru">Раз</a>
+    </div>
+  </div>
+
+</div>
+
+<router-outlet name="main"></router-outlet>
