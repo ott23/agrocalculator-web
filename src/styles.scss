@@ -1,3 +1,27 @@
+// colors
+$bright: #F1F1F1;
+
+$blue-bright: #0FA0CE;
+$blue-middle: #4797cc;
+
+$gray-bright: #888888;
+$gray-middle: #555555;
+$gray-dark: #333333;
+
+// other properties
+$gray-shadow: 0 0 5px 2px $gray-middle;
+$blue-shadow: 0 0 5px 2px $blue-bright;
+
+$sidebar-width: 17%;
+
+
+
+* {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 12pt;
+  font-weight: normal;
+}
+
 body {
-  background: #EEEEEE;
+  background: $bright;
 }

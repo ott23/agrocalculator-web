@@ -1,0 +1,50 @@
+@import "../../../styles";
+
+.sidebar-header {
+  width: 100%;
+  height: 80px;
+  line-height: 80px;
+  font-size: 18pt;
+  font-weight: bold;
+  color: $bright;
+  text-align: center;
+  border-bottom: 1px solid $gray-bright;
+}
+
+.sidebar-menu {
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: block;
+    width: 100%;
+    height: 60px;
+
+    a {
+      position: relative;
+      display: block;
+      padding-left: 50px;
+      width: 100%;
+      line-height: 60px;
+      text-decoration: none;
+      color: $bright;
+      transition: all 0.1s ease-in-out;
+
+      &:hover {
+        background: $gray-bright;
+      }
+
+      &.active::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 10px;
+        height: 100%;
+        background: $blue-bright;
+      }
+    }
+  }
+}

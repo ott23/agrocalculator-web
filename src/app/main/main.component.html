@@ -1,33 +1,28 @@
-<div id="header">
+<div class="wrapper" [ngClass]="{sidebarActive: isSidebarActive}">
 
-  <div (click)="toogleSidebar()" class="hamburger-button">
-    <div class="hamburger" [ngClass]="{isActive: isSidebarActive}">
-      <span class="line"></span>
-      <span class="line"></span>
-      <span class="line"></span>
-    </div>
+  <div class="sidebar">
+    <app-menu></app-menu>
   </div>
 
-  <div id="logo">
-    <img src="/assets/images/tn-group.png" class="img-responsive">
-  </div>
-</div>
-
-<div id="wrapper" [ngClass]="{sidebarActive: isSidebarActive}">
-
-  <div id="sidebar-wrapper">
-    <ul class="sidebar-nav">
-      <li><a href="http://yandex.ru" class="active">Раз</a></li>
-      <li><a href="#">Раз</a></li>
-      <li><a href="#">Раз</a></li>
-      <li><a href="#">Раз</a></li>
-      <li><a href="#">Раз</a></li>
-
-    </ul>
-  </div>
-
-  <div id="page-wrapper">
-    <div class="container-fluid"><a href="http://yandex.ru">Раз</a>
+  <div class="main">
+    <div class="container-fluid">
+      <div class="header row">
+        <div class="col d-flex align-content-center justify-content-start">
+          <div (click)="toogleSidebar()" class="hamburger">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+          </div>
+        </div>
+        <div class="col d-flex align-content-center justify-content-center">
+          <a href="/"><img src="../../assets/images/tn-group.png" class="img-responsible"></a>
+        </div>
+        <div class="col d-flex align-content-center justify-content-end">
+          <a class="button" href="#">Выйти</a>
+        </div>
+      </div>
+      <div class="content row">
+      </div>
     </div>
   </div>
 
