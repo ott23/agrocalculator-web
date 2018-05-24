@@ -33,8 +33,11 @@ export class AuthenticationService {
   }
 
   isLoggedIn() {
+    /*
     const helper = new JwtHelperService();
     return !helper.isTokenExpired(localStorage.getItem('token'));
+    */
+    return false;
   }
 
 }

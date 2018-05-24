@@ -1,5 +1,6 @@
 // colors
 $bright: #F1F1F1;
+$dark: #333333;
 
 $blue-bright: #0FA0CE;
 $blue-middle: #4797cc;
@@ -15,13 +16,29 @@ $blue-shadow: 0 0 5px 2px $blue-bright;
 $sidebar-width: 17%;
 
 
-
 * {
   font-family: 'Ubuntu', sans-serif;
   font-size: 12pt;
   font-weight: normal;
+  color: $dark;
 }
 
 body {
   background: $bright;
+}
+
+.button {
+  margin: auto 20px;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 12pt;
+  color: $bright;
+  background-color: $blue-bright;
+  box-shadow: 2px 2px 10px 2px $gray-dark;
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    background: $blue-middle;
+  }
 }
