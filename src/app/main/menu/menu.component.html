@@ -5,7 +5,7 @@
 <ul class="sidebar-menu" *ngFor="let link of menu">
 
   <li>
-    <a href="{{link.href}}" [ngClass]="{active: isActive(link.href)}">{{link.title}}</a>
+    <a href="{{link.href}}" routerLinkActive="active">{{link.title}}</a>
   </li>
 
 </ul>

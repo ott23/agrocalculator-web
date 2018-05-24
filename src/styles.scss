@@ -3,15 +3,19 @@ $bright: #F1F1F1;
 $dark: #333333;
 
 $blue-bright: #0FA0CE;
-$blue-middle: #4797cc;
+$blue-middle: #4287b4;
 
 $gray-bright: #888888;
 $gray-middle: #555555;
 $gray-dark: #333333;
 
+$red-bright: #cc0000;
+$red-middle: #b50000;
+
 // other properties
 $gray-shadow: 0 0 5px 2px $gray-middle;
 $blue-shadow: 0 0 5px 2px $blue-bright;
+$red-shadow: 0 0 5px 2px $red-bright;
 
 $sidebar-width: 17%;
 
@@ -27,18 +31,38 @@ body {
   background: $bright;
 }
 
-.button {
+input {
+  outline: none;
+
+  &:focus {
+    border: 0;
+    box-shadow: 0 0 3px 2px $blue-bright;
+  }
+}
+
+button {
   margin: auto 20px;
   padding: 10px 20px;
   text-decoration: none;
   font-weight: bold;
   font-size: 12pt;
   color: $bright;
-  background-color: $blue-bright;
+  background: $blue-bright;
   box-shadow: 2px 2px 10px 2px $gray-dark;
+  border: 0;
+  outline: none;
+  cursor: pointer;
   transition: all 0.1s ease-in-out;
+
+  &.red {
+    background: $red-bright;
+  }
 
   &:hover {
     background: $blue-middle;
+
+    &.red {
+      background: $red-middle;
+    }
   }
 }

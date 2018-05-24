@@ -10,7 +10,6 @@ export class Interceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('qwe');
     const TOKEN_HEADER = 'Authorization';
     const TOKEN_PREFIX = 'Bearer';
     const token = localStorage.getItem('token');

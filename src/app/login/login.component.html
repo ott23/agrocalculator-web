@@ -1,8 +1,24 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="login d-flex align-items-center col-sm-10 offset-sm-1 col-md-4 offset-md-4">
-      <div class="login-logo"><img src="../../assets/images/tn-group.png" class="img-responsive"></div>
-      <div></div>
+<div class="login d-flex justify-content-center align-items-center">
+  <div class="login-panel">
+    <div class="d-flex align-content-center justify-content-center">
+      <a href="/"><img src="../../assets/images/tn-group.png" class="img-responsive"></a>
     </div>
+
+    <div>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <input type="text" placeholder="Логин" formControlName="username">
+        <input type="password" placeholder="Пароль" formControlName="password">
+        <button type="submit">Войти</button>
+        <button (click)="reset()" class="red" type="reset">Сбросить</button>
+      </form>
+    </div>
+
+    <div class="error d-flex justify-content-center align-items-center" [ngClass]="{errorActive: error}">
+      {{error}}
+    </div>
+
+    <div></div>
+
   </div>
+
 </div>

@@ -1,9 +1,53 @@
+@import "../../styles";
+
 .login {
+  width: 100%;
   min-height: 100vh;
 
-  > div {
-    width: 100%;
-    height: 400px;
-    background: red;
+  .login-panel {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    background: $gray-middle;
+    box-shadow: $gray-shadow;
   }
+
+  img {
+    margin: 5px;
+  }
+
+  input, button {
+    margin: 10px 5%;
+    width: 90%;
+    height: 40px;
+    padding: 3px 10px;
+    font-size: 12pt;
+  }
+
+  input {
+    font-size: 14pt;
+    color: $dark;
+  }
+
+  .error {
+    z-index: -1;
+    position: absolute;
+    width: 90%;
+    height: 60px;
+    bottom: 5px;
+    left: 5%;
+    text-align: center;
+    font-size: 14pt;
+    font-weight: bold;
+    color: $bright;
+    background: $red-bright;
+    box-shadow: $gray-shadow;
+    transition: all 0.2s ease-in-out;
+
+    &.errorActive {
+      bottom: -60px;
+    }
+  }
+
 }
