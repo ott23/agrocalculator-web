@@ -1,24 +1,24 @@
-<div class="login d-flex justify-content-center align-items-center">
+<div class="login">
+
+  <div class="logo">
+    <a href="/">Threads<br>Monitor</a>
+  </div>
+
   <div class="login-panel">
-    <div class="d-flex align-content-center justify-content-center">
-      <a href="/"><img src="../../assets/images/tn-group.png" class="img-responsive"></a>
-    </div>
 
-    <div>
-      <form [formGroup]="form" (ngSubmit)="submit()">
-        <input type="text" placeholder="Логин" formControlName="username">
-        <input type="password" placeholder="Пароль" formControlName="password">
-        <button type="submit">Войти</button>
-        <button (click)="reset()" class="red" type="reset">Сбросить</button>
-      </form>
-    </div>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <input type="text" placeholder="Логин" formControlName="username">
+      <input type="password" placeholder="Пароль" formControlName="password">
 
-    <div class="error d-flex justify-content-center align-items-center" [ngClass]="{errorActive: error}">
-      {{error}}
-    </div>
-
-    <div></div>
+      <button type="submit" class="color">Войти</button>
+      <button class="gray" type="reset" (click)="reset()">Сбросить</button>
+    </form>
 
   </div>
 
+</div>
+
+<div class="wrapper">
+  <app-loader [ngClass]="{active: isLoadingActive}"></app-loader>
+  <div class="error" [ngClass]="{active: isErrorActive}">{{error}}</div>
 </div>

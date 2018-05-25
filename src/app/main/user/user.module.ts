@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './login.component';
+import {UserComponent} from './user.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {LoaderModule} from '../loader/loader.module';
+import {LoaderModule} from '../../loader/loader.module';
 
 @NgModule({
   imports: [
@@ -11,6 +11,7 @@ import {LoaderModule} from '../loader/loader.module';
     ReactiveFormsModule,
     LoaderModule
   ],
-  declarations: [LoginComponent]
+  exports: [UserComponent],
+  declarations: [UserComponent]
 })
-export class LoginModule { }
+export class UserModule { }

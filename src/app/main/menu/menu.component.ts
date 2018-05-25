@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -9,23 +8,27 @@ import {Router} from '@angular/router';
 export class MenuComponent implements OnInit {
 
   menu = [{
-    'title': 'title1',
-    'href': 'href1'
+    'title': '<i class="fa fa-desktop"></i> <span>Монитор</span>',
+    'href': '#'
   }, {
-    'title': 'title2',
-    'href': 'href2'
+    'title': '<i class="fa fa-calculator"></i> <span>Вычислители</span>',
+    'href': '#'
   }, {
-    'title': 'title3',
-    'href': 'href3'
+    'title': '<i class="fa fa-map"></i> <span>Инструменты карты</span>',
+    'href': '#'
+  }, {
+    'title': '<i class="fa fa-users"></i> <span>Пользователи</span>',
+    'href': 'user'
+  }, {
+    'title': '<i class="fa fa-cog"></i> <span>Параметры</span>',
+    'href': '#'
   }];
 
-  constructor(private router: Router) { }
 
-  ngOnInit() {
+  constructor() {
   }
 
-  isActive(location) {
-    return location === this.router.url;
+  ngOnInit() {
   }
 
 }

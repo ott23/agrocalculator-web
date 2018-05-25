@@ -15,6 +15,9 @@ export class LoginComponent implements OnInit {
   error: string;
   form: FormGroup;
 
+  isLoadingActive: boolean;
+  isErrorActive: boolean;
+
   constructor(private fb: FormBuilder,
               private auth: AuthenticationService,
               private router: Router,
@@ -25,7 +28,9 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
 
-    this.error = '';
+    this.error = null;
+    this.isLoadingActive = false;
+    this.isErrorActive = false;
   }
 
   ngOnInit() {
@@ -36,15 +41,21 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    this.error = null;
+    console.log('Submitting login form');
     const val = this.form.value;
 
+    this.reset();
+
     if (this.form.valid) {
+      this.isLoadingActive = true;
       this.auth.doLogin(val).subscribe(
         () => {
+          this.isLoadingActive = false;
           this.router.navigateByUrl(this.redirect);
         },
         (error) => {
+          this.isLoadingActive = false;
+          this.isErrorActive = true;
           switch (error.status) {
             case 0: {
               this.error = 'Сервер не отвечает';
@@ -62,16 +73,15 @@ export class LoginComponent implements OnInit {
         }
       );
     } else {
+      this.isErrorActive = true;
       this.error = 'Введены некорректные данные';
     }
   }
 
   reset() {
     this.error = null;
-  }
-
-  isNull(value) {
-    return isNull(value);
+    this.isLoadingActive = false;
+    this.isErrorActive = false;
   }
 
 }

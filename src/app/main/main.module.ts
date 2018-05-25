@@ -1,17 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MainComponent } from './main.component';
-import {MainRouting} from './main.routing';
-import { MenuComponent } from './menu/menu.component';
-import {BrowserModule} from '@angular/platform-browser';
-import { UsersComponent } from './users/users.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {UserModule} from './user/user.module';
+import {RouterModule} from '@angular/router';
+import {MainComponent} from './main.component';
+import {MenuComponent} from './menu/menu.component';
+import {mainRoutes} from './main.routing';
 
 @NgModule({
   imports: [
     CommonModule,
-    BrowserModule,
-    MainRouting
+    UserModule,
+    RouterModule.forChild(mainRoutes)
   ],
-  declarations: [MainComponent, MenuComponent, UsersComponent]
+  declarations: [MainComponent, MenuComponent]
 })
-export class MainModule { }
+export class MainModule {
+}

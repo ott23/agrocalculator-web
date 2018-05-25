@@ -1,49 +1,51 @@
 @import "../../../styles";
 
-.sidebar-header {
-  width: 100%;
-  height: 80px;
-  line-height: 80px;
-  font-size: 18pt;
-  font-weight: bold;
-  color: $bright;
-  background: $blue-bright;
-  text-align: center;
-}
-
 .sidebar-menu {
   width: 100%;
   list-style-type: none;
-  margin: 0;
+  margin: 20px 0;
   padding: 0;
 
   li {
-    display: block;
-    width: 100%;
-    height: 60px;
+    margin: 10px 0;
 
     a {
       position: relative;
-      display: block;
-      padding-left: 50px;
+      display: flex;
+      align-items: center;
       width: 100%;
-      line-height: 60px;
+      padding-left: 25px;
+      height: 50px;
+      font-size: 14pt;
       text-decoration: none;
       color: $bright;
       transition: all 0.1s ease-in-out;
 
-      &:hover {
-        background: $gray-bright;
+      ::ng-deep span {
+        margin-left: 10px;
       }
 
-      &.active::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 10px;
-        height: 100%;
-        background: $blue-bright;
+      ::ng-deep i {
+        width: 25px;
+        font-size: 25px;
+      }
+
+      &:hover {
+        background: $gray-2;
+      }
+
+      &.active {
+        font-weight: bold;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 10px;
+          height: 100%;
+          background: $color-1;
+        }
       }
     }
   }
