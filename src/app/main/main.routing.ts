@@ -8,8 +8,13 @@ export const mainRoutes: Routes = [
     component: MainComponent,
     children: [
       {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'user'
+      },
+      {
         path: 'user',
-        component: UserComponent
+        component: UserComponent,
       }
     ]
   }

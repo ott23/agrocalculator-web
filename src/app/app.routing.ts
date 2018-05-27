@@ -1,16 +1,12 @@
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import {RouterModule, Routes} from '@angular/router';
-import {NgModule} from '@angular/core';
 import {LoginComponent} from './login/login.component';
-import {MainRouting} from './main/main.routing';
-import {UserComponent} from './main/user/user.component';
-import {MainComponent} from './main/main.component';
 import {AuthenticationGuard} from './authentication/authentication.guard';
+import {Routes} from '@angular/router';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/main',
+    redirectTo: 'main',
     pathMatch: 'full'
   },
   {

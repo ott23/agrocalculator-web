@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Router} from '@angular/router';
+import {SharedService} from './shared.service';
 
 @Component({
   selector: 'app-main',
@@ -9,9 +10,19 @@ import {Router} from '@angular/router';
 })
 export class MainComponent implements OnInit {
 
-  isSidebarActive = true;
+  isSidebarActive: boolean;
+  isLoaderActive: boolean;
 
-  constructor(private auth: AuthenticationService, private router: Router) { }
+  constructor(private auth: AuthenticationService,
+              private router: Router,
+              private sharedService: SharedService) {
+    this.isSidebarActive = true;
+    this.isLoaderActive = true;
+
+    this.sharedService.loaderStatusObservable.subscribe(
+      (loaderStatus) => this.isLoaderActive = loaderStatus
+    );
+  }
 
   ngOnInit() {
 
@@ -24,6 +35,10 @@ export class MainComponent implements OnInit {
   logout() {
     this.auth.doLogout();
     this.router.navigate(['../login']);
+  }
+
+  onLoaderStatusChanged(loaderStatus: boolean) {
+    this.isLoaderActive = loaderStatus;
   }
 
 }

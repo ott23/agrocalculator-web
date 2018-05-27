@@ -1,7 +1,7 @@
 <div class="header row">
 
   <div class="col-6 left">
-    <div class="hamburger" [ngClass]="{active: isSidebarActive}" (click)="toogleSidebar()">
+    <div class="hamburger" [ngClass]="{sidebarActive: isSidebarActive}" (click)="toogleSidebar()">
       <span class="line"></span>
       <span class="line"></span>
       <span class="line"></span>
@@ -22,14 +22,19 @@
 
 </div>
 
-<div class="wrapper" [ngClass]="{active: isSidebarActive}">
+<div class="wrapper" [ngClass]="{sidebarActive: isSidebarActive}">
 
   <div class="sidebar">
     <app-menu></app-menu>
   </div>
 
-  <div class="content">
-    <router-outlet></router-outlet>
+  <div class="main">
+    <div class="content">
+      <div class="loader center" [ngClass]="{active: isLoaderActive}">
+        <app-loader></app-loader>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
   </div>
 
 </div>

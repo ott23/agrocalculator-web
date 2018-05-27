@@ -3,11 +3,11 @@
 .sidebar-menu {
   width: 100%;
   list-style-type: none;
-  margin: 20px 0;
+  margin: 10px 0;
   padding: 0;
 
   li {
-    margin: 10px 0;
+    margin: 5px 0;
 
     a {
       position: relative;
@@ -15,10 +15,10 @@
       align-items: center;
       width: 100%;
       padding-left: 25px;
-      height: 50px;
-      font-size: 14pt;
+      height: 35px;
+      font-size: 12pt;
       text-decoration: none;
-      color: $bright;
+      color: $font-bright;
       transition: all 0.1s ease-in-out;
 
       ::ng-deep span {
@@ -27,11 +27,11 @@
 
       ::ng-deep i {
         width: 25px;
-        font-size: 25px;
+        font-size: 20px;
       }
 
       &:hover {
-        background: $gray-2;
+        background: $gray-normal;
       }
 
       &.active {
@@ -44,7 +44,7 @@
           left: 0;
           width: 10px;
           height: 100%;
-          background: $color-1;
+          background: $color-main;
         }
       }
     }

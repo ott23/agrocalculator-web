@@ -14,7 +14,7 @@ export class MenuComponent implements OnInit {
     'title': '<i class="fa fa-calculator"></i> <span>Вычислители</span>',
     'href': '#'
   }, {
-    'title': '<i class="fa fa-map"></i> <span>Инструменты карты</span>',
+    'title': '<i class="fa fa-map"></i> <span>Карта</span>',
     'href': '#'
   }, {
     'title': '<i class="fa fa-users"></i> <span>Пользователи</span>',
@@ -23,7 +23,6 @@ export class MenuComponent implements OnInit {
     'title': '<i class="fa fa-cog"></i> <span>Параметры</span>',
     'href': '#'
   }];
-
 
   constructor() {
   }

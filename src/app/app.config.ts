@@ -1,5 +1,5 @@
 export class AppConfig {
   public static get baseURL(): string {
-    return 'http://localhost:8080';
+    return 'http://192.168.1.10:8080';
   }
 }

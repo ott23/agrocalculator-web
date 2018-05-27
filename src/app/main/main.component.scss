@@ -4,11 +4,11 @@
   position: fixed;
   z-index: 10;
   width: 100%;
-  height: 60px;
+  height: $header-height;
   padding: 0 !important;
   margin: 0 !important;
-  background: $gray-2;
-  box-shadow: $gray-shadow;
+  background: $gray-bright;
+  box-shadow: 0 0 5px 2px $gray-normal;
   transition: all 0.5s ease-in-out 0.1s;
 
   > * {
@@ -33,8 +33,8 @@
     .line {
       width: 35px;
       height: 5px;
-      background: $gray-1;
-      box-shadow: 1px 1px 3px 0px $gray-0;
+      background: $gray-normal;
+      box-shadow: 1px 1px 3px 0 $gray-dark;
       display: block;
       margin: 7px auto;
       transition: all 0.3s ease-in-out 0.4s, background 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -44,7 +44,7 @@
       cursor: pointer;
 
       .line {
-        background: $color-1;
+        background: $color-main;
         box-shadow: none;
       }
     }
@@ -57,52 +57,37 @@
 
       .line:nth-child(1),
       .line:nth-child(3) {
-        width: 27px;
+        width: 20px;
       }
 
       .line:nth-child(1) {
-        transform: translateX(-10px) translateY(4px) rotate(-45deg);
+        transform: translateX(-3px) translateY(7px) rotate(-45deg);
       }
 
       .line:nth-child(3) {
-        transform: translateX(-10px) translateY(-4px) rotate(45deg);
+        transform: translateX(-3px) translateY(-7px) rotate(45deg);
       }
     }
   }
 
   .logo {
     margin: 0 20px;
-    text-shadow: 0 0 5px $color-1;
+    text-shadow: 0 0 5px $gray-normal;
 
     a {
       font-family: 'Audiowide', cursive;
-      font-size: 35pt;
-      color: $color-1;
+      font-size: 22pt;
+      color: $color-main;
       text-decoration: none;
 
       &:hover {
-        color: $color-1;
+        color: $color-main;
       }
     }
   }
 
   button {
-    height: 32px;
     margin-left: 20px;
-    padding: 3px 15px;
-    outline: none;
-    border: 0;
-    background: $gray-1;
-    box-shadow: 3px 3px 3px 0px $gray-0;
-    font-size: 12pt;
-    color: $font-bright;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-
-    &:hover {
-      background: $color-1;
-      box-shadow: none;
-    }
   }
 }
 
@@ -113,32 +98,54 @@
     z-index: 10;
     overflow: hidden;
     position: fixed;
-    top: 60px;
+    top: $header-height;
     left: -$sidebar-width;
     width: $sidebar-width;
     height: 100vh;
     transition: all 0.5s ease-in-out 0.1s;
-    background: $gray-1;
+    background: $gray-dark;
   }
 
-  .content {
+  .main {
     z-index: 5;
-    position: relative;
     width: 100%;
     min-height: 100vh;
-    padding-top: 60px;
+    padding-top: $header-height;
     padding-left: 0;
     transition: all 0.5s ease-in-out 0.1s;
   }
 
-  &.active {
+  .content {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - #{$header-height});
+    overflow-y: scroll;
+    transition: all 0.5s ease-in-out 0.1s;
+  }
+
+  .loader.center {
+    display: none;
+    opacity: 0;
+    transition: margin 0.5s ease-in-out 0.1s, opacity 0.2s ease-in-out;
+
+    &.active {
+      display: block;
+      opacity: 1;
+    }
+  }
+
+  &.sidebarActive {
 
     .sidebar {
       left: 0;
     }
 
-    .content {
+    .main {
       padding-left: $sidebar-width;
+    }
+
+    .content {
+      width: calc(100vw - #{$sidebar-width});
     }
   }
 

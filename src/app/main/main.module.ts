@@ -5,14 +5,23 @@ import {RouterModule} from '@angular/router';
 import {MainComponent} from './main.component';
 import {MenuComponent} from './menu/menu.component';
 import {mainRoutes} from './main.routing';
+import {LoaderModule} from '../loader/loader.module';
+import {SharedService} from './shared.service';
 
 @NgModule({
   imports: [
     CommonModule,
     UserModule,
+    LoaderModule,
     RouterModule.forChild(mainRoutes)
   ],
-  declarations: [MainComponent, MenuComponent]
+  declarations: [
+    MainComponent,
+    MenuComponent
+  ],
+  providers: [
+    SharedService
+  ]
 })
 export class MainModule {
 }
