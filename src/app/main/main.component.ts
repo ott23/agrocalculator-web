@@ -7,32 +7,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
-  animations: [
-    trigger(
-      'loaderTrigger',
-      [
-        state(
-          'void',
-          style({
-            opacity: 0
-          })
-        ),
-        state(
-          '*',
-          style({
-            opacity: 1
-          })
-        ),
-        transition(
-          'void => * , * => void',
-          [
-            animate('200ms ease-in-out')
-          ]
-        )
-      ]
-    )
-  ]
+  styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
 

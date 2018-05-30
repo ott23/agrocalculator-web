@@ -1,4 +1,4 @@
-<app-modal id="add-user">Привет</app-modal>
+<app-modal [(visible)]="isAddUserModalVisible">Привет</app-modal>
 
 <div class="container-fluid">
 
@@ -6,7 +6,7 @@
 
   <div class="row">
     <div class="col">
-      <button (click)="openModal('add-user')">Добавить</button>
+      <button (click)="toggleAddUserModal()">Добавить</button>
     </div>
   </div>
 

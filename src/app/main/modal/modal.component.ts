@@ -1,5 +1,4 @@
-import {Component, ElementRef, Input, OnDestroy, OnInit} from '@angular/core';
-import {ModalService} from './modal.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
@@ -7,70 +6,39 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
   animations: [
-    trigger(
-      'modalTrigger',
-      [
-        state(
-          'void',
-          style({
-            opacity: 0
-          })
-        ),
-        state(
-          '*',
-          style({
-            opacity: 1
-          })
-        ),
-        transition(
-          'void => * , * => void',
-          [
-            animate('1200ms ease-in-out')
-          ]
-        )
-      ]
-    )
+    trigger('modalWindowTrigger', [
+      transition('void => *', [
+        style({
+          transform: 'translate(-50%, -50%) scale3d(.3, .3, .3)'}),
+        animate(200)
+      ]),
+      transition('* => void', [
+        animate(200),
+        style({transform: 'scale3d(.0, .0, .0)'})
+      ])
+    ]),
+    trigger('modalBackgroundTrigger', [
+      state('void', style({opacity: 0})),
+      state('*', style({opacity: 0.6})),
+      transition('void <=> *', animate(100))
+    ])
   ]
 })
-export class ModalComponent implements OnInit, OnDestroy {
-  @Input() id: string;
-  private element: any;
 
-  constructor(private modalService: ModalService, private el: ElementRef) {
-    this.element = el.nativeElement;
+export class ModalComponent implements OnInit {
+
+  @Input() visible: boolean;
+  @Output() visibleChange = new EventEmitter<boolean>();
+
+  constructor() {
   }
 
   ngOnInit(): void {
-    const modal = this;
-
-    if (!this.id) {
-      console.error('modal must have an id');
-      return;
-    }
-
-    document.body.appendChild(this.element);
-
-    this.element.addEventListener('click', function (e: any) {
-      if (e.target.className === 'modal') {
-        modal.close();
-      }
-    });
-
-    this.modalService.add(this);
   }
 
-  ngOnDestroy(): void {
-    this.modalService.remove(this.id);
-    this.element.remove();
+  close() {
+    this.visible = false;
+    this.visibleChange.emit(this.visible);
   }
 
-  open(): void {
-    this.element.style.display = 'block';
-    document.body.classList.add('modal-open');
-  }
-
-  close(): void {
-    this.element.style.display = 'none';
-    document.body.classList.remove('modal-open');
-  }
 }

@@ -19,9 +19,7 @@
 </div>
 
 <div class="wrapper">
-  <div class="loader" [ngClass]="{active: isLoadingActive}">
-    <app-loader></app-loader>
-  </div>
+  <app-loader [centred]="true" [visible]="isLoaderActive"></app-loader>
   <div class="error" [ngClass]="{active: isErrorActive}">
     {{error}}
   </div>

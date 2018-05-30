@@ -36,8 +36,5 @@
 
 </div>
 
-<template *ngIf="isLoaderActive">
-  <div @loaderTrigger class="loader center">
-    <app-loader></app-loader>
-  </div>
-</template>
+
+<app-loader [centred]="true" [visible]="isLoaderActive"></app-loader>

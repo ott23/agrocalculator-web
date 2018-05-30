@@ -5,8 +5,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LoaderModule} from '../../loader/loader.module';
 import {UserService} from './user.service';
 import {SharedService} from '../shared.service';
-import {ModalService} from '../modal/modal.service';
-import {ModalComponent} from '../modal/modal.component';
 import {ModalModule} from '../modal/modal.module';
 import { AddUserComponent } from './add-user/add-user.component';
 

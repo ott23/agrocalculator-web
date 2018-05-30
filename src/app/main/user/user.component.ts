@@ -2,7 +2,6 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UserService} from './user.service';
 import {SharedService} from '../shared.service';
 import {User} from './user.model';
-import {ModalService} from '../modal/modal.service';
 
 @Component({
   selector: 'app-user',
@@ -13,28 +12,28 @@ export class UserComponent implements OnInit {
 
   @Output() loaderStatusChanged = new EventEmitter<boolean>();
 
+  isAddUserModalVisible = false;
   userList = [];
 
-  constructor(private userService: UserService, private modalService: ModalService, private sharedService: SharedService) {
+  constructor(private userService: UserService, private sharedService: SharedService) {
   }
 
   ngOnInit() {
     this.updateList();
   }
 
-  openModal(id: string) {
-    this.modalService.open(id);
-  }
-
-  closeModal(id: string) {
-    this.modalService.close(id);
+  toggleAddUserModal() {
+    this.isAddUserModalVisible = !this.isAddUserModalVisible;
   }
 
   addUser(user) {
+    this.sharedService.emitLoaderStatus(true);
     this.userService.create(user).subscribe(
-      (user) => this.userList.push(user)
+      (data) => {
+        this.userList.push(data);
+        this.sharedService.emitLoaderStatus(false);
+      }
     );
-    this.closeModal('add-user');
   }
 
   deleteUser(user) {
@@ -50,7 +49,7 @@ export class UserComponent implements OnInit {
   updateList() {
     this.sharedService.emitLoaderStatus(true);
     this.userService.getAll().subscribe(
-      data => {
+      (data) => {
         this.userList = data;
         this.sharedService.emitLoaderStatus(false);
       }
