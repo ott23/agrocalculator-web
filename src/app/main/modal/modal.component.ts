@@ -7,20 +7,14 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   styleUrls: ['./modal.component.scss'],
   animations: [
     trigger('modalWindowTrigger', [
-      transition('void => *', [
-        style({
-          transform: 'translate(-50%, -50%) scale3d(.3, .3, .3)'}),
-        animate(200)
-      ]),
-      transition('* => void', [
-        animate(200),
-        style({transform: 'scale3d(.0, .0, .0)'})
-      ])
+      state('void', style({transform: 'translate(-50%, -50%) scale3d(.3, .3, .3)'})),
+      state('*', style({transform: 'translate(-50%, -50%) scale3d(1, 1, 1)'})),
+      transition('void <=> *', animate(200))
     ]),
     trigger('modalBackgroundTrigger', [
       state('void', style({opacity: 0})),
       state('*', style({opacity: 0.6})),
-      transition('void <=> *', animate(100))
+      transition('void <=> *', animate(200))
     ])
   ]
 })

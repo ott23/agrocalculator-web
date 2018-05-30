@@ -28,13 +28,11 @@
     <app-menu></app-menu>
   </div>
 
-  <div class="main">
-    <div class="content">
-      <router-outlet></router-outlet>
-    </div>
+  <div class="content">
+    <router-outlet></router-outlet>
   </div>
 
 </div>
 
 
-<app-loader [centred]="true" [visible]="isLoaderActive"></app-loader>
+<app-loader [centred]="true" [visible]="isLoadingActive"></app-loader>
