@@ -2,11 +2,37 @@ import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Router} from '@angular/router';
 import {SharedService} from './shared.service';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
+  animations: [
+    trigger(
+      'loaderTrigger',
+      [
+        state(
+          'void',
+          style({
+            opacity: 0
+          })
+        ),
+        state(
+          '*',
+          style({
+            opacity: 1
+          })
+        ),
+        transition(
+          'void => * , * => void',
+          [
+            animate('200ms ease-in-out')
+          ]
+        )
+      ]
+    )
+  ]
 })
 export class MainComponent implements OnInit {
 
@@ -35,10 +61,6 @@ export class MainComponent implements OnInit {
   logout() {
     this.auth.doLogout();
     this.router.navigate(['../login']);
-  }
-
-  onLoaderStatusChanged(loaderStatus: boolean) {
-    this.isLoaderActive = loaderStatus;
   }
 
 }

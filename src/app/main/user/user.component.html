@@ -1,32 +1,50 @@
+<app-modal id="add-user">Привет</app-modal>
+
 <div class="container-fluid">
+
+  <div class="buffer"></div>
+
+  <div class="row">
+    <div class="col">
+      <button (click)="openModal('add-user')">Добавить</button>
+    </div>
+  </div>
+
+  <div class="buffer"></div>
 
   <div class="row">
 
-    <table class="table table-striped">
+    <div class="col">
 
-      <thead>
-      <tr class="d-flex">
-        <th class="col-1">#</th>
-        <th class="col-4">Логин</th>
-        <th class="col-5">Роли</th>
-        <th class="col-2">Управление</th>
-      </tr>
-      </thead>
+      <table class="table table-striped">
 
-      <tbody>
-      <tr class="d-flex" *ngFor="let user of userList">
-        <td class="col-1">{{user.id}}</td>
-        <td class="col-4">{{user.username}}</td>
-        <td class="col-5"></td>
-        <td class="col-2">
-          <button title="Сменить пароль" (click)="changePassword(user)"><i class="fa fa-key"></i></button>
-          <button title="Изменить данные" (click)="editUser(user)"><i class="fa fa-pencil"></i></button>
-          <button title="Удалить пользователя" class="btn-alert" (click)="deleteUser(user)"><i class="fa fa-trash"></i></button>
-        </td>
-      </tr>
-      </tbody>
+        <thead>
+        <tr class="d-flex">
+          <th class="col-1">#</th>
+          <th class="col-sm-4 col-lg-4">Логин</th>
+          <th class="col-sm-4 col-lg-5">Роли</th>
+          <th class="col-sm-3 col-lg-2">Управление</th>
+        </tr>
+        </thead>
 
-    </table>
+        <tbody>
+        <tr class="d-flex" *ngFor="let user of userList">
+          <td class="col-1">{{user.id}}</td>
+          <td class="col-sm-4 col-lg-4">{{user.username}}</td>
+          <td class="col-sm-4 col-lg-5"></td>
+          <td class="col-sm-3 col-lg-2">
+            <button title="Сменить пароль" (click)="changePassword(user)"><i class="fa fa-key"></i></button>
+            <button title="Изменить данные" (click)="editUser(user)"><i class="fa fa-pencil"></i></button>
+            <button title="Удалить пользователя" class="btn-alert" (click)="deleteUser(user)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+
+      </table>
+
+    </div>
 
   </div>
 

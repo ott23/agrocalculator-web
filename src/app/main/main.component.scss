@@ -123,16 +123,6 @@
     transition: all 0.5s ease-in-out 0.1s;
   }
 
-  .loader.center {
-    display: none;
-    opacity: 0;
-    transition: margin 0.5s ease-in-out 0.1s, opacity 0.2s ease-in-out;
-
-    &.active {
-      display: block;
-      opacity: 1;
-    }
-  }
 
   &.sidebarActive {
 
@@ -148,5 +138,4 @@
       width: calc(100vw - #{$sidebar-width});
     }
   }
-
 }

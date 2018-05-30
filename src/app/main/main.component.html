@@ -30,11 +30,14 @@
 
   <div class="main">
     <div class="content">
-      <div class="loader center" [ngClass]="{active: isLoaderActive}">
-        <app-loader></app-loader>
-      </div>
       <router-outlet></router-outlet>
     </div>
   </div>
 
 </div>
+
+<template *ngIf="isLoaderActive">
+  <div @loaderTrigger class="loader center">
+    <app-loader></app-loader>
+  </div>
+</template>
