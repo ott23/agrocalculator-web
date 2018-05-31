@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UserService} from './user.service';
 import {SharedService} from '../shared.service';
-import {User} from './user.model';
 
 @Component({
   selector: 'app-user',
@@ -27,6 +26,7 @@ export class UserComponent implements OnInit {
   }
 
   addUser(user) {
+    this.toggleAddUserModal();
     this.sharedService.emitLoaderStatus(true);
     this.userService.create(user).subscribe(
       (data) => {

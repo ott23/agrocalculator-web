@@ -1,6 +1,9 @@
 <div class="modal-window" [@modalWindowTrigger] *ngIf="visible">
   <div class="modal-window-body">
-    <ng-content></ng-content>
+    <div class="modal-window-head">{{title}}</div>
+    <div class="modal-window-content">
+      <ng-content></ng-content>
+    </div>
   </div>
   <button class="modal-window-close-button" (click)="close()"><i class="fa fa-close"></i></button>
 </div>

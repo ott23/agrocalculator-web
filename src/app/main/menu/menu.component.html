@@ -1,5 +1,12 @@
 <ul class="sidebar-menu">
   <li *ngFor="let link of menu">
-    <a routerLink="{{link.href}}" [innerHTML]="link.title" routerLinkActive="active"></a>
+    <a routerLink="{{link.href}}" routerLinkActive="active">
+      <div class="icon">
+        <i ngClass="{{link.icon}}"></i>
+      </div>
+      <div class="title" *ngIf="isSidebarActive" [@menuTrigger]>
+        {{link.title}}
+      </div>
+    </a>
   </li>
 </ul>

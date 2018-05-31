@@ -3,31 +3,37 @@
 .sidebar-menu {
   width: 100%;
   list-style-type: none;
-  margin: 10px 0;
+  margin: 0;
   padding: 0;
 
   li {
-    margin: 5px 0;
+    margin: 0;
 
     a {
       position: relative;
       display: flex;
-      align-items: center;
-      width: 100%;
-      padding-left: 6px;
-      height: 35px;
-      font-size: 12pt;
+      flex: 1;
+      font-size: 11pt;
       text-decoration: none;
       color: $font-bright;
-      transition: all 0.1s ease-in-out;
+      transition: background 150ms ease-in-out;
 
-      ::ng-deep span {
-        margin-left: 10px;
+      .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+
+        i {
+          font-size: 20pt;
+        }
       }
 
-      ::ng-deep i {
-        width: 25px;
-        font-size: 20px;
+      .title {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
       }
 
       &:hover {
@@ -35,17 +41,13 @@
       }
 
       &.active {
-        font-weight: bold;
 
-        &::before {
-          z-index: -10;
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 35px;
-          height: 100%;
+        .icon {
           background: $color-main;
+        }
+
+        .title {
+          font-weight: bold;
         }
       }
     }

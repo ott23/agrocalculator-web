@@ -1,7 +1,8 @@
 <div class="header row">
 
   <div class="col-6 left">
-    <div class="hamburger" [ngClass]="{sidebarActive: isSidebarActive}" (click)="toogleSidebar()">
+
+    <div class="hamburger" [ngClass]="{active: isSidebarActive}" (click)="toggleSidebar()">
       <span class="line"></span>
       <span class="line"></span>
       <span class="line"></span>
@@ -22,13 +23,13 @@
 
 </div>
 
-<div class="wrapper" [ngClass]="{sidebarActive: isSidebarActive}">
+<div class="wrapper">
 
-  <div class="sidebar">
-    <app-menu></app-menu>
+  <div class="sidebar" #sidebar>
+    <app-menu [isSidebarActive]="isSidebarActive"></app-menu>
   </div>
 
-  <div class="content">
+  <div class="content" [@contentTrigger]="{value: isSidebarActive ? 'sidebarOn' : 'sidebarOff', params: {sidebarWidth: sidebarWidth}}">
     <router-outlet></router-outlet>
   </div>
 

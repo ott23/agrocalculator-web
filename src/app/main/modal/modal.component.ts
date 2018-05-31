@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
@@ -7,7 +7,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   styleUrls: ['./modal.component.scss'],
   animations: [
     trigger('modalWindowTrigger', [
-      state('void', style({transform: 'translate(-50%, -50%) scale3d(.3, .3, .3)'})),
+      state('void', style({transform: 'translate(-50%, -50%) scale3d(0, 0, 0)'})),
       state('*', style({transform: 'translate(-50%, -50%) scale3d(1, 1, 1)'})),
       transition('void <=> *', animate(200))
     ]),
@@ -19,15 +19,13 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   ]
 })
 
-export class ModalComponent implements OnInit {
+export class ModalComponent {
 
+  @Input() title: string;
   @Input() visible: boolean;
   @Output() visibleChange = new EventEmitter<boolean>();
 
   constructor() {
-  }
-
-  ngOnInit(): void {
   }
 
   close() {

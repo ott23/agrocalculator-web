@@ -1,6 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../user.service';
 import {User} from '../user.model';
 
 @Component({
@@ -8,7 +7,7 @@ import {User} from '../user.model';
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.scss']
 })
-export class AddUserComponent implements OnInit {
+export class AddUserComponent {
 
   @Output() userEmitter = new EventEmitter<User>();
   form: FormGroup;
@@ -18,9 +17,6 @@ export class AddUserComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-  }
-
-  ngOnInit() {
   }
 
   addUser() {

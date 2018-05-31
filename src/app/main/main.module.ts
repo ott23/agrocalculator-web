@@ -7,9 +7,6 @@ import {MenuComponent} from './menu/menu.component';
 import {mainRoutes} from './main.routing';
 import {LoaderModule} from '../loader/loader.module';
 import {SharedService} from './shared.service';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {BrowserModule} from '@angular/platform-browser';
-import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   imports: [

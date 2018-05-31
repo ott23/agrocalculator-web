@@ -9,8 +9,17 @@ body, html {
   color: $font-dark;
 }
 
+input, button {
+  outline: none;
+}
+
+input {
+  border: 1px solid $gray-normal;
+  border-radius: 0;
+  color: $font-dark;
+}
+
 button {
-  margin: 5px;
   padding: 4px 15px;
   outline: none;
   border: 0;
@@ -24,13 +33,61 @@ button {
   &:hover {
     background: $color-main;
     box-shadow: none;
+
+    &.btn-alert {
+      background: $color-alert;
+    }
   }
 
-  &.btn-alert:hover {
-    background: $color-alert;
+  &.gray {
+    background: $gray-dark;
+  }
+
+  &.color {
+    background: $color-main;
+  }
+}
+
+form {
+
+  label {
+    margin: 7px 0 0;
+  }
+
+  input, button {
+    width: 100%;
+    height: 40px;
+    margin: 7px 0;
+    padding: 3px 10px;
+  }
+
+  input {
+    font-size: 14pt;
+    line-height: 14pt;
+  }
+
+  button {
+    font-size: 14pt;
   }
 }
 
 .buffer {
   height: 20px;
 }
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $color-main;
+}
+
