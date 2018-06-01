@@ -34,7 +34,7 @@ export class MenuComponent implements OnInit {
   }, {
     'title': 'Карта',
     'icon': 'fa fa-map',
-    'href': '#'
+    'href': 'map'
   }, {
     'title': 'Пользователи',
     'icon': 'fa fa-users',

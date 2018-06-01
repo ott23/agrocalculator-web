@@ -38,15 +38,12 @@ export class MainComponent implements AfterContentChecked {
   @ViewChild('sidebar') sidebar: ElementRef;
   sidebarWidth: number;
 
-  isSidebarActive: boolean;
-  isLoadingActive: boolean;
+  isSidebarActive = false;
+  isLoadingActive = false;
 
   constructor(private auth: AuthenticationService,
               private router: Router,
               private sharedService: SharedService) {
-    this.isSidebarActive = false;
-    this.isLoadingActive = true;
-
     this.sharedService.loaderStatusObservable.subscribe(
       (loaderStatus) => this.isLoadingActive = loaderStatus
     );

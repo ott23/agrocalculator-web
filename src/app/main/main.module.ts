@@ -7,10 +7,12 @@ import {MenuComponent} from './menu/menu.component';
 import {mainRoutes} from './main.routing';
 import {LoaderModule} from '../loader/loader.module';
 import {SharedService} from './shared.service';
+import {MapModule} from './map/map.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    MapModule,
     UserModule,
     LoaderModule,
     RouterModule.forChild(mainRoutes)

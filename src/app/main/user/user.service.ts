@@ -18,8 +18,13 @@ export class UserService {
     return this.http.get<User[]>(url);
   }
 
-  public getOne(id: number): Observable<User> {
-    const url = this.baseURL + '/' + id;
+  public getOneById(id: number): Observable<User> {
+    const url = this.baseURL + '/getById/' + id;
+    return this.http.get<User>(url);
+  }
+
+  public getOneByUsername(username: string): Observable<User> {
+    const url = this.baseURL + '/getByUsername/' + username;
     return this.http.get<User>(url);
   }
 

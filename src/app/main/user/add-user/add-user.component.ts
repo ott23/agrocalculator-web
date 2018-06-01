@@ -1,6 +1,10 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {User} from '../user.model';
+import {UserService} from '../user.service';
+import {SharedService} from '../../shared.service';
+import {catchError, map} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
 
 @Component({
   selector: 'app-add-user',
@@ -11,8 +15,9 @@ export class AddUserComponent {
 
   @Output() userEmitter = new EventEmitter<User>();
   form: FormGroup;
+  user: User;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private userService: UserService, private sharedService: SharedService) {
     this.form = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -21,10 +26,32 @@ export class AddUserComponent {
 
   addUser() {
     const val = this.form.value;
-    if (val.username && val.password) {
-      const user = new User(val.username, val.password);
-      this.userEmitter.emit(user);
+    this.sharedService.emitLoaderStatus(true);
+    try {
+      this.isUserExistingByUsername(val.username).subscribe((bool) => {
+        if (!this.form.valid) {
+          alert('Введены некорректные данные');
+          return;
+        }
+        if (bool) {
+          alert('Пользователь с таким именем уже существует');
+          return;
+        }
+        this.userEmitter.emit(new User(val.username, val.password));
+      });
+    } finally {
+      this.sharedService.emitLoaderStatus(false);
     }
+
   }
 
+  isUserExistingByUsername(username): Observable<boolean> {
+    return this.userService.getOneByUsername(username).pipe(
+      map((user) => user != null),
+      catchError(() => of(false))
+    );
+  }
+
+
 }
+

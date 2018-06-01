@@ -18,6 +18,7 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.sharedService.emitLoaderStatus(false);
     this.updateList();
   }
 
