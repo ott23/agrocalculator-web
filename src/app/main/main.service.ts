@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 
 @Injectable()
-export class SharedService {
+export class MainService {
 
   private loaderStatus = new Subject<boolean>();
   loaderStatusObservable = this.loaderStatus.asObservable();

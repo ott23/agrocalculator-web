@@ -2,7 +2,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {User} from '../user.model';
 import {UserService} from '../user.service';
-import {SharedService} from '../../shared.service';
+import {MainService} from '../../main.service';
 import {catchError, map} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 
@@ -17,7 +17,7 @@ export class AddUserComponent {
   form: FormGroup;
   user: User;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private sharedService: SharedService) {
+  constructor(private fb: FormBuilder, private userService: UserService, private mainService: MainService) {
     this.form = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -26,7 +26,7 @@ export class AddUserComponent {
 
   addUser() {
     const val = this.form.value;
-    this.sharedService.emitLoaderStatus(true);
+    this.mainService.emitLoaderStatus(true);
     try {
       this.isUserExistingByUsername(val.username).subscribe((bool) => {
         if (!this.form.valid) {
@@ -40,7 +40,7 @@ export class AddUserComponent {
         this.userEmitter.emit(new User(val.username, val.password));
       });
     } finally {
-      this.sharedService.emitLoaderStatus(false);
+      this.mainService.emitLoaderStatus(false);
     }
 
   }

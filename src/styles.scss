@@ -9,11 +9,11 @@ body, html {
   color: $font-dark;
 }
 
-input, button {
+input[type="text"], input[type="password"], button {
   outline: none;
 }
 
-input {
+input[type="text"], input[type="password"] {
   border: 1px solid $gray-normal;
   border-radius: 0;
   color: $font-dark;
@@ -48,7 +48,7 @@ button {
   }
 }
 
-form {
+form.form {
 
   label {
     margin: 7px 0 0;
@@ -90,4 +90,3 @@ form {
 ::-webkit-scrollbar-thumb {
   background: $color-main;
 }
-

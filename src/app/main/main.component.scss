@@ -76,7 +76,7 @@
 
     a {
       font-family: 'Audiowide', cursive;
-      font-size: 22pt;
+      font-size: 24pt;
       color: $color-main;
       text-decoration: none;
 
@@ -92,6 +92,8 @@
 }
 
 .wrapper {
+  position: relative;
+  z-index: 5;
   width: 100%;
   overflow: hidden;
 

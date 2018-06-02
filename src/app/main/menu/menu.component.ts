@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {AppConfig} from '../../app.config';
 
 @Component({
   selector: 'app-menu',
@@ -23,27 +24,7 @@ export class MenuComponent implements OnInit {
 
   @Input() isSidebarActive;
 
-  menu = [{
-    'title': 'Монитор',
-    'icon': 'fa fa-desktop',
-    'href': '#'
-  }, {
-    'title': 'Вычислители',
-    'icon': 'fa fa-calculator',
-    'href': '#'
-  }, {
-    'title': 'Карта',
-    'icon': 'fa fa-map',
-    'href': 'map'
-  }, {
-    'title': 'Пользователи',
-    'icon': 'fa fa-users',
-    'href': 'user'
-  }, {
-    'title': 'Параметры',
-    'icon': 'fa fa-cog',
-    'href': '#'
-  }];
+  menu = AppConfig.mainMenu;
 
   constructor() {
   }

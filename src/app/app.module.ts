@@ -8,7 +8,7 @@ import {AppComponent} from './app.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
-import {Interceptor} from './authentication/token.interceptor';
+import {AuthenticationInterceptor} from './authentication/authentication.interceptor';
 import {PreloadAllModules, RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -28,7 +28,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: Interceptor,
+      useClass: AuthenticationInterceptor,
       multi: true
     }
   ],

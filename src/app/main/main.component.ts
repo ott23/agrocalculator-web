@@ -1,7 +1,7 @@
 import {AfterContentChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Router} from '@angular/router';
-import {SharedService} from './shared.service';
+import {MainService} from './main.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
@@ -43,8 +43,8 @@ export class MainComponent implements AfterContentChecked {
 
   constructor(private auth: AuthenticationService,
               private router: Router,
-              private sharedService: SharedService) {
-    this.sharedService.loaderStatusObservable.subscribe(
+              private mainService: MainService) {
+    this.mainService.loaderStatusObservable.subscribe(
       (loaderStatus) => this.isLoadingActive = loaderStatus
     );
   }
