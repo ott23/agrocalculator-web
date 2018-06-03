@@ -65,12 +65,6 @@ export class MapComponent implements OnInit {
       });
   }
 
-  disableMouseEvent(elementId: string) {
-    const element = <HTMLElement>document.getElementById(elementId);
-
-    L.DomEvent.disableClickPropagation(element);
-    L.DomEvent.disableScrollPropagation(element);
-  }
 
   fitBounds(bounds: L.LatLngBounds) {
     this.map.fitBounds(bounds, {});

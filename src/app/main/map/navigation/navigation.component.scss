@@ -1,0 +1,15 @@
+:host {
+  padding: 10px;
+}
+
+#navigation-panel {
+  z-index: 500;
+  position: relative;
+  width: 460px;
+  height: 35px;
+  padding: 5px;
+  cursor: auto;
+  background-color: white;
+  border: 2px solid rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
