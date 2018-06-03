@@ -4,7 +4,7 @@ import {UserComponent} from './user.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LoaderModule} from '../../loader/loader.module';
 import {UserService} from './user.service';
-import {MainService} from '../main.service';
+import {SharedService} from '../../shared.service';
 import {ModalModule} from '../modal/modal.module';
 import { AddUserComponent } from './add-user/add-user.component';
 
@@ -20,7 +20,7 @@ import { AddUserComponent } from './add-user/add-user.component';
   declarations: [UserComponent, AddUserComponent],
   providers: [
     UserService,
-    MainService
+    SharedService
   ]
 })
 export class UserModule { }

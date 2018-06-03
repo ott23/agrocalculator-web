@@ -1,7 +1,7 @@
 import {AfterContentChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Router} from '@angular/router';
-import {MainService} from './main.service';
+import {SharedService} from '../shared.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
@@ -39,12 +39,12 @@ export class MainComponent implements AfterContentChecked {
   sidebarWidth: number;
 
   isSidebarActive = false;
-  isLoadingActive = false;
+  isLoadingActive = true;
 
   constructor(private auth: AuthenticationService,
               private router: Router,
-              private mainService: MainService) {
-    this.mainService.loaderStatusObservable.subscribe(
+              private sharedService: SharedService) {
+    this.sharedService.loaderStatusObservable.subscribe(
       (loaderStatus) => this.isLoadingActive = loaderStatus
     );
   }

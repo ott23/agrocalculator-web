@@ -6,7 +6,7 @@ import {MainComponent} from './main.component';
 import {MenuComponent} from './menu/menu.component';
 import {mainRoutes} from './main.routing';
 import {LoaderModule} from '../loader/loader.module';
-import {MainService} from './main.service';
+import {SharedService} from '../shared.service';
 import {MapModule} from './map/map.module';
 
 @NgModule({
@@ -22,7 +22,7 @@ import {MapModule} from './map/map.module';
     MenuComponent
   ],
   providers: [
-    MainService
+    SharedService
   ]
 })
 export class MainModule {

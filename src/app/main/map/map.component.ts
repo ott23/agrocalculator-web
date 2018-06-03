@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {MainService} from '../main.service';
+import {SharedService} from '../../shared.service';
 import * as L from 'leaflet';
 import {AppConfig} from '../../app.config';
 import {MapService} from './map.service';
@@ -14,16 +14,19 @@ import {of} from 'rxjs';
 })
 export class MapComponent implements OnInit {
 
-  @Output() loaderStatusChanged = new EventEmitter<boolean>();
+  isAddGeoModalVisible = false;
   mapLayers = AppConfig.mapLayers;
   map: L.Map;
 
-  constructor(private mainService: MainService, private mapService: MapService) {
+  constructor(private sharedService: SharedService, private mapService: MapService) {
+    this.sharedService.emitLoaderStatus(true);
+    this.sharedService.addGeoModalVisibleStatusObservable.subscribe(
+      (addGeoModalVisibleStatus) => this.isAddGeoModalVisible = addGeoModalVisibleStatus
+    );
   }
 
   ngOnInit() {
-    this.mainService.emitLoaderStatus(false);
-
+    this.sharedService.emitLoaderStatus(true);
     this.mapService.getLocation()
       .pipe(
         catchError(err => {
@@ -61,10 +64,19 @@ export class MapComponent implements OnInit {
 
         // const polygon = L.geoJSON()
 
+        this.sharedService.emitLoaderStatus(false);
+
         this.map = map;
       });
   }
 
+  toggleAddGeoModal() {
+    this.sharedService.emitAddGeoModalVisibleStatus();
+  }
+
+  addGeo(geojson: string) {
+
+  }
 
   fitBounds(bounds: L.LatLngBounds) {
     this.map.fitBounds(bounds, {});

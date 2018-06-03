@@ -1,3 +1,7 @@
+<app-modal [title]="'Импорт GeoJSON'" [(visible)]="isAddGeoModalVisible" (visibleEmitter)="toggleAddGeoModal()">
+  <app-add-geo (GeoEmitter)="addGeo($event)"></app-add-geo>
+</app-modal>
+
 <div id="map">
-  <app-navigation></app-navigation>
+  <app-navigation (showAddGeoModalEmitter)="toggleAddGeoModal()"></app-navigation>
 </div>

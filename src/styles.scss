@@ -9,11 +9,11 @@ body, html {
   color: $font-dark;
 }
 
-input[type="text"], input[type="password"], button {
+textarea, input[type="text"], input[type="password"], button {
   outline: none;
 }
 
-input[type="text"], input[type="password"] {
+textarea, input[type="text"], input[type="password"] {
   border: 1px solid $gray-normal;
   border-radius: 0;
   color: $font-dark;
@@ -54,19 +54,20 @@ form.form {
     margin: 7px 0 0;
   }
 
-  input, button {
+  textarea, input, button {
     width: 100%;
-    height: 40px;
     margin: 7px 0;
     padding: 3px 10px;
   }
 
   input {
+    height: 40px;
     font-size: 14pt;
     line-height: 14pt;
   }
 
   button {
+    height: 40px;
     font-size: 14pt;
   }
 }

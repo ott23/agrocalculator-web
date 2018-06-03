@@ -23,14 +23,13 @@ export class ModalComponent {
 
   @Input() title: string;
   @Input() visible: boolean;
-  @Output() visibleChange = new EventEmitter<boolean>();
+  @Output() visibleEmitter = new EventEmitter<boolean>();
 
   constructor() {
   }
 
   close() {
-    this.visible = false;
-    this.visibleChange.emit(this.visible);
+    this.visibleEmitter.emit(this.visible);
   }
 
 }

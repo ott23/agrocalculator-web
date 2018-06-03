@@ -93,7 +93,7 @@
 
 .wrapper {
   position: relative;
-  z-index: 5;
+  z-index: 10;
   width: 100%;
   overflow: hidden;
 
@@ -109,7 +109,7 @@
   }
 
   .content {
-    z-index: 5;
+    z-index: 15;
     height: calc(100vh - #{$header-height});
     margin-top: $header-height;
   }
