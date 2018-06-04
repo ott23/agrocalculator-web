@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SharedService} from '../../shared.service';
 import * as L from 'leaflet';
 import {AppConfig} from '../../app.config';
@@ -6,6 +6,7 @@ import {MapService} from './map.service';
 import {catchError} from 'rxjs/internal/operators';
 import {Location} from './models/location.model';
 import {of} from 'rxjs';
+import {Geometry} from './models/geometry.model';
 
 @Component({
   selector: 'app-map',
@@ -14,14 +15,21 @@ import {of} from 'rxjs';
 })
 export class MapComponent implements OnInit {
 
-  isAddGeoModalVisible = false;
+  isAddGeometryModalVisible = false;
+  isGeometryListModalVisible = false;
   mapLayers = AppConfig.mapLayers;
+  location: Location;
   map: L.Map;
+  layerGroup: L.FeatureGroup;
+  geometryArray: Geometry[] = [];
 
   constructor(private sharedService: SharedService, private mapService: MapService) {
     this.sharedService.emitLoaderStatus(true);
-    this.sharedService.addGeoModalVisibleStatusObservable.subscribe(
-      (addGeoModalVisibleStatus) => this.isAddGeoModalVisible = addGeoModalVisibleStatus
+    this.sharedService.addGeometryModalVisibleStatusObservable.subscribe(
+      (addGeometryModalVisibleStatus) => this.isAddGeometryModalVisible = addGeometryModalVisibleStatus
+    );
+    this.sharedService.geometryListModalVisibleStatusObservable.subscribe(
+      (geoListModalVisibleStatus) => this.isGeometryListModalVisible = geoListModalVisibleStatus
     );
   }
 
@@ -37,6 +45,7 @@ export class MapComponent implements OnInit {
         })
       )
       .subscribe((location: Location) => {
+        this.location = location;
         const map = L.map('map', {
           zoomControl: false,
           center: location.latlng,
@@ -46,10 +55,6 @@ export class MapComponent implements OnInit {
           crs: L.CRS.EPSG3857,
           layers: [this.mapLayers.OpenStreetMap]
         });
-
-        L.control.layers(this.mapLayers, {}, {position: 'topright'}).addTo(map);
-        L.control.zoom({position: 'topright'}).addTo(map);
-        L.control.scale().addTo(map);
 
         map.on('baselayerchange', function (e: any) {
           const center = map.getCenter();
@@ -62,7 +67,12 @@ export class MapComponent implements OnInit {
           map.setView(center, zoom);
         });
 
-        // const polygon = L.geoJSON()
+        L.control.layers(this.mapLayers, {}, {position: 'topright'}).addTo(map);
+        L.control.zoom({position: 'topright'}).addTo(map);
+        L.control.scale().addTo(map);
+
+        this.layerGroup = new L.FeatureGroup();
+        this.layerGroup.addTo(map);
 
         this.sharedService.emitLoaderStatus(false);
 
@@ -70,16 +80,92 @@ export class MapComponent implements OnInit {
       });
   }
 
-  toggleAddGeoModal() {
-    this.sharedService.emitAddGeoModalVisibleStatus();
+  toggleAddGeometryModal() {
+    this.sharedService.emitAddGeometryModalVisibleStatus();
   }
 
-  addGeo(geojson: string) {
+  toggleGeometryListModal() {
+    this.sharedService.emitGeometryListModalVisibleStatus();
+  }
 
+  navigation(command: string) {
+    switch (command) {
+      case 'showAddGeometryModal':
+        this.toggleAddGeometryModal();
+        break;
+      case 'showGeometryListModal':
+        this.toggleGeometryListModal();
+        break;
+      case 'refreshMap':
+        this.clearLayers();
+        break;
+      case 'fitBounds':
+        this.fitBounds(this.layerGroup.getBounds());
+        break;
+      case 'showClient':
+        this.map.setView(this.location.latlng, this.map.getZoom());
+        break;
+      default:
+        break;
+    }
+  }
+
+  geometryList(input) {
+    const operation = input[0];
+    const id = input[1];
+
+    switch (operation) {
+      case 'remove':
+        this.removeGeometry(id);
+        break;
+      case 'toggle':
+        this.toggleGeometry(id);
+        break;
+      default:
+        break;
+    }
+
+  }
+
+  addGeometry(geometry) {
+    if (this.isAddGeometryModalVisible) {
+      this.toggleAddGeometryModal();
+    }
+    const name = geometry[0];
+    const geo = L.geoJSON(JSON.parse(geometry[1]));
+    this.geometryArray.push(new Geometry(name, geo));
+    this.layerGroup.addLayer(geo);
+    this.fitBounds(geo.getBounds());
+  }
+
+  toggleGeometry(id: number) {
+    const geo = this.geometryArray[id];
+    if (geo.isVisible) {
+      this.layerGroup.removeLayer(geo.layer);
+    } else {
+      this.layerGroup.addLayer(geo.layer);
+    }
+    // geo.isVisible = !geo.isVisible;
+    this.geometryArray[id].isVisible = !this.geometryArray[id].isVisible;
+  }
+
+  removeGeometry(id: number) {
+    const geo = this.geometryArray[id];
+    this.layerGroup.removeLayer(geo.layer);
+    this.geometryArray.splice(id);
   }
 
   fitBounds(bounds: L.LatLngBounds) {
-    this.map.fitBounds(bounds, {});
+    try {
+      this.map.fitBounds(bounds, {});
+    } catch (e) {
+      alert('Границы не доступны');
+    }
+  }
+
+  clearLayers() {
+    this.layerGroup.clearLayers();
+    this.geometryArray = [];
   }
 
 }

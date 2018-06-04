@@ -14,9 +14,14 @@ export class SharedService {
   addUserModalVisibleStatusObservable = this.addUserModalVisibleStatus.asObservable();
 
   // Окно импорта GeoJSON: объявление
-  private isAddGeoModalVisible = false;
-  private addGeoModalVisibleStatus = new Subject<boolean>();
-  addGeoModalVisibleStatusObservable = this.addGeoModalVisibleStatus.asObservable();
+  private isAddGeometryModalVisible = false;
+  private addGeometryModalVisibleStatus = new Subject<boolean>();
+  addGeometryModalVisibleStatusObservable = this.addGeometryModalVisibleStatus.asObservable();
+
+  // Окно списка гео: объявление
+  private isGeometryListModalVisible = false;
+  private geometryListModalVisibleStatus = new Subject<boolean>();
+  geometryListModalVisibleStatusObservable = this.geometryListModalVisibleStatus.asObservable();
 
 
   // Анимация загрзуки: реализация
@@ -31,8 +36,14 @@ export class SharedService {
   }
 
   // Окно импорта GeoJSON: реализация
-  emitAddGeoModalVisibleStatus() {
-    this.isAddGeoModalVisible = !this.isAddGeoModalVisible;
-    this.addGeoModalVisibleStatus.next(this.isAddGeoModalVisible);
+  emitAddGeometryModalVisibleStatus() {
+    this.isAddGeometryModalVisible = !this.isAddGeometryModalVisible;
+    this.addGeometryModalVisibleStatus.next(this.isAddGeometryModalVisible);
+  }
+
+  // Окно списка гео: реализация
+  emitGeometryListModalVisibleStatus() {
+    this.isGeometryListModalVisible = !this.isGeometryListModalVisible;
+    this.geometryListModalVisibleStatus.next(this.isGeometryListModalVisible);
   }
 }

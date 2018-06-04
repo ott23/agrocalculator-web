@@ -1,7 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {MapService} from '../map.service';
 import * as L from 'leaflet';
-import {SharedService} from '../../../shared.service';
 
 @Component({
   selector: 'app-navigation',
@@ -10,7 +8,7 @@ import {SharedService} from '../../../shared.service';
 })
 export class NavigationComponent implements OnInit {
 
-  @Output() showAddGeoModalEmitter = new EventEmitter<boolean>();
+  @Output() navigationEmitter = new EventEmitter<string>();
 
   constructor() {
   }
@@ -25,16 +23,24 @@ export class NavigationComponent implements OnInit {
     L.DomEvent.disableScrollPropagation(element);
   }
 
-  showAddGeoModal() {
-    this.showAddGeoModalEmitter.emit(true);
+  showAddGeometryModal() {
+    this.navigationEmitter.emit('showAddGeometryModal');
+  }
+
+  showGeometryListModal() {
+    this.navigationEmitter.emit('showGeometryListModal');
   }
 
   refreshMap() {
-
+    this.navigationEmitter.emit('refreshMap');
   }
 
-  showGeoListModal() {
+  fitBounds() {
+    this.navigationEmitter.emit('fitBounds');
+  }
 
+  showClient() {
+    this.navigationEmitter.emit('showClient');
   }
 
 }

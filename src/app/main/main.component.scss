@@ -1,8 +1,10 @@
 @import "../../styles";
 
 .header {
+  z-index: 500;
   position: fixed;
-  z-index: 10;
+  top: 0;
+  left: 0;
   width: 100%;
   height: $header-height;
   padding: 0 !important;
@@ -91,27 +93,23 @@
   }
 }
 
-.wrapper {
-  position: relative;
-  z-index: 10;
-  width: 100%;
+
+.sidebar {
+  z-index: 600;
   overflow: hidden;
+  position: fixed;
+  top: $header-height;
+  left: 0;
+  width: $sidebar-width;
+  height: calc(100vh - #{$header-height});
+  background: $gray-dark;
+}
 
-  .sidebar {
-    z-index: 10;
-    overflow: hidden;
-    position: fixed;
-    top: $header-height;
-    left: 0;
-    width: $sidebar-width;
-    height: calc(100vh - #{$header-height});
-    background: $gray-dark;
-  }
-
-  .content {
-    z-index: 15;
-    height: calc(100vh - #{$header-height});
-    margin-top: $header-height;
-  }
-
+.content {
+  position: relative;
+  z-index: 600;
+  height: calc(100vh - #{$header-height});
+  margin-top: $header-height;
+  overflow-y: auto;
+  overflow-x: hidden;
 }

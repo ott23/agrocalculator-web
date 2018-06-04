@@ -23,17 +23,12 @@
 
 </div>
 
-<div class="wrapper">
-
-  <div class="sidebar" #sidebar>
-    <app-menu [isSidebarActive]="isSidebarActive"></app-menu>
-  </div>
-
-  <div class="content" [@contentTrigger]="{value: isSidebarActive ? 'sidebarOn' : 'sidebarOff', params: {sidebarWidth: sidebarWidth}}">
-    <router-outlet></router-outlet>
-  </div>
-
+<div class="sidebar" #sidebar>
+  <app-menu [isSidebarActive]="isSidebarActive"></app-menu>
 </div>
 
+<div class="content" [@contentTrigger]="{value: isSidebarActive ? 'sidebarOn' : 'sidebarOff', params: {sidebarWidth: sidebarWidth}}">
+  <router-outlet></router-outlet>
+</div>
 
 <app-loader [centred]="true" [visible]="isLoadingActive"></app-loader>

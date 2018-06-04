@@ -1,4 +1,6 @@
-<app-modal [title]="'Добавление пользователя'" [visible]="isAddUserModalVisible" (visibleEmitter)="toggleAddUserModal()"><app-add-user (userEmitter)="addUser($event)"></app-add-user></app-modal>
+<app-modal [title]="'Добавление пользователя'" [visible]="isAddUserModalVisible" (visibleEmitter)="toggleAddUserModal()">
+  <app-add-user (userEmitter)="addUser($event)"></app-add-user>
+</app-modal>
 
 <div class="container-fluid">
 

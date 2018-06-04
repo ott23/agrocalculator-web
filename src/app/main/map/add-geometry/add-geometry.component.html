@@ -1,0 +1,9 @@
+<form class="form big-input-form" [formGroup]="form" (ngSubmit)="addGeometry()">
+  <label>Название:</label><br>
+  <input name="name" formControlName="name"><br>
+  <label>GeoJSON:</label><br>
+  <textarea class="big-input" name="geojson" formControlName="geojson"></textarea><br>
+  <button type="submit" class="color">
+    Импортировать
+  </button>
+</form>
