@@ -23,7 +23,6 @@ export class MapService {
           return location;
         })
       );
-
   }
 
 }

@@ -1,73 +1,11 @@
 @import "styles-variables";
 @import "styles-loader";
+@import "styles-form";
+@import "styles-common";
 
 body, html {
-  position: relative;
   font-family: 'Arimo', sans-serif;
   color: $font-dark;
-}
-
-textarea, input[type="text"], input[type="password"], button {
-  outline: none;
-}
-
-textarea, input[type="text"], input[type="password"] {
-  border: 1px solid $gray-normal;
-  border-radius: 0;
-  color: $font-dark;
-}
-
-button {
-  padding: 4px 15px;
-  outline: none;
-  border: 0;
-  background: $gray-normal;
-  box-shadow: 1px 1px 3px 0 $gray-dark;
-  font-size: 12pt;
-  color: $font-bright;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    background: $color-main;
-    box-shadow: none;
-
-    &.btn-alert {
-      background: $color-alert;
-    }
-  }
-
-  &.gray {
-    background: $gray-dark;
-  }
-
-  &.color {
-    background: $color-main;
-  }
-}
-
-form.form {
-
-  label {
-    margin: 7px 0 0;
-  }
-
-  textarea, input, button {
-    width: 100%;
-    margin: 7px 0;
-    padding: 3px 10px;
-  }
-
-  input {
-    height: 40px;
-    font-size: 14pt;
-    line-height: 14pt;
-  }
-
-  button {
-    height: 40px;
-    font-size: 14pt;
-  }
 }
 
 .buffer {

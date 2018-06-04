@@ -1,14 +1,16 @@
-import {AfterContentChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterContentChecked, Component, ElementRef, ViewChild} from '@angular/core';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Router} from '@angular/router';
 import {SharedService} from '../shared.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {transitionAnimationTrigger} from './main.animations';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
   animations: [
+    transitionAnimationTrigger,
     trigger('contentTrigger', [
       state('sidebarOn', style({
         width: 'calc(100% - 200px)',

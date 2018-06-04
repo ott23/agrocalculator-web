@@ -1,0 +1,87 @@
+@import "styles-variables";
+
+textarea, input[type="text"], input[type="password"] {
+  outline: none;
+  border: 1px solid $gray-normal;
+  border-radius: 0;
+  color: $font-dark;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $gray-normal;
+  outline: none;
+  border: 0;
+  box-shadow: 1px 1px 3px 0 $gray-dark;
+  font-size: 12pt;
+  color: $font-bright;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &.button-icon {
+    width: 34px;
+    height: 34px;
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    font-size: 18pt;
+
+    &.text {
+      width: auto;
+      height: 34px;
+      font-size: 20pt;
+
+      span {
+        margin-left: 5px;
+        font-size: 13pt;
+      }
+    }
+  }
+
+  &:hover {
+    background: $color-main;
+    box-shadow: none;
+
+    &.btn-alert {
+      background: $color-alert;
+    }
+  }
+
+  &.gray {
+    background: $gray-dark;
+  }
+
+  &.color {
+    background: $color-main;
+  }
+}
+
+form.form {
+
+  label {
+    margin: 7px 0 0;
+  }
+
+  textarea, input, button {
+    width: 100%;
+    margin: 7px 0;
+    padding: 3px 10px;
+    font-size: 14pt;
+  }
+
+  input {
+    height: 40px;
+  }
+
+  button {
+    height: 40px;
+  }
+
+  textarea {
+    height: 300px;
+  }
+}

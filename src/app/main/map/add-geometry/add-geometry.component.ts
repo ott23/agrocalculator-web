@@ -30,6 +30,7 @@ export class AddGeometryComponent implements OnInit {
     if (val.name === '') {
       val.name = 'Без названия';
     }
+    this.form.reset();
     this.geometryEmitter.emit([val.name, val.geojson]);
   }
 

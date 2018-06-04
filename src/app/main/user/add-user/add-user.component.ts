@@ -37,6 +37,7 @@ export class AddUserComponent {
           alert('Пользователь с таким именем уже существует');
           return;
         }
+        this.form.reset();
         this.userEmitter.emit(new User(val.username, val.password));
       });
     } finally {

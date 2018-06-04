@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from './user.service';
 import {SharedService} from '../../shared.service';
+import {animate, query, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-user',

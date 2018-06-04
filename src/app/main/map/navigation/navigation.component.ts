@@ -14,7 +14,7 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.disableMouseEvent('navigation-panel');
+    this.disableMouseEvent('navigation');
   }
 
   disableMouseEvent(elementId: string) {

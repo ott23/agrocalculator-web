@@ -51,7 +51,7 @@ export class MapComponent implements OnInit {
           center: location.latlng,
           zoom: 12,
           minZoom: 4,
-          maxZoom: 19,
+          maxZoom: 18,
           crs: L.CRS.EPSG3857,
           layers: [this.mapLayers.OpenStreetMap]
         });

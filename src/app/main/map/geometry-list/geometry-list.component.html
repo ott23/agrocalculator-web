@@ -1,0 +1,30 @@
+<table class="table table-striped">
+
+  <thead>
+  <tr class="d-flex">
+    <th class="col-6">Геометрия</th>
+    <th class="col-4">Видимость</th>
+    <th class="col-2"></th>
+  </tr>
+  </thead>
+
+  <div *ngIf="geometryArray.length===0" class="d-flex justify-content-center">
+    Список геометрий пуст
+  </div>
+
+  <tbody>
+  <tr class="d-flex" *ngFor="let geometry of geometryArray; let i = index">
+    <td class="col-6">{{geometry.name}}</td>
+    <td class="col-4">{{geometry.isVisible}}</td>
+    <td class="col-2 d-flex justify-content-end">
+      <button title="Показать / спрятать" class="button-icon" (click)="toggleGeometry(i)">
+        <i class="fa fa-eye"></i>
+      </button>
+      <button title="Удалить геометрию" class="button-icon" (click)="removeGeometry(i)">
+        <i class="fa fa-trash"></i>
+      </button>
+    </td>
+  </tr>
+  </tbody>
+
+</table>
