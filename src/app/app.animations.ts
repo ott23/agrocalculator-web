@@ -7,11 +7,11 @@ export const fadeAnimationTrigger = trigger('fadeAnimationTrigger', [
     group([
       query(':enter', [
         style({opacity: '0'}),
-        animate('0.7s ease-in-out', style({opacity: '1'}))
+        animate('0.5s ease-in-out', style({opacity: '1'}))
       ], {optional: true}),
       query(':leave', [
         style({opacity: '1'}),
-        animate('0.5s ease-in-out', style({opacity: '0'}))
+        animate('0.3s ease-in-out', style({opacity: '0'}))
       ], {optional: true}),
     ])
   ])

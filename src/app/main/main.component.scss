@@ -1,4 +1,4 @@
-@import "../../styles";
+@import "../../styles-variables";
 
 .header {
   z-index: 100;
@@ -34,7 +34,7 @@
 
     .line {
       width: 35px;
-      height: 5px;
+      height: 6px;
       background: $gray-normal;
       box-shadow: 1px 1px 3px 0 $gray-dark;
       display: block;
@@ -63,11 +63,11 @@
       }
 
       .line:nth-child(1) {
-        transform: translateX(7px) translateY(7px) rotate(-45deg);
+        transform: translateX(7px) translateY(8px) rotate(-45deg);
       }
 
       .line:nth-child(3) {
-        transform: translateX(7px) translateY(-7px) rotate(45deg);
+        transform: translateX(7px) translateY(-8px) rotate(45deg);
       }
     }
   }
@@ -78,7 +78,7 @@
 
     a {
       font-family: 'Audiowide', cursive;
-      font-size: 24pt;
+      font-size: 28pt;
       color: $color-main;
       text-decoration: none;
 
@@ -88,8 +88,37 @@
     }
   }
 
-  button {
-    margin-left: 20px;
+  .messages {
+    display: flex;
+
+    .item {
+      position: relative;
+      margin: 0 10px;
+    }
+
+    .number {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 23px;
+      height: 23px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 15px;
+      background: $gray-dark;
+      transform: translate(25%, -10%);
+      color: $font-bright;
+
+      &.colored {
+        background: $color-main;
+      }
+    }
+
+    i {
+      color: $gray-normal;
+      font-size: 25pt;
+    }
   }
 }
 

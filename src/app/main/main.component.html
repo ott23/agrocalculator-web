@@ -1,6 +1,6 @@
 <div class="header row">
 
-  <div class="col-7 left">
+  <div class="col-4 col-lg-6 left">
 
     <div class="hamburger" [ngClass]="{active: isSidebarActive}" (click)="toggleSidebar()">
       <span class="line"></span>
@@ -8,18 +8,27 @@
       <span class="line"></span>
     </div>
 
-    <div class="logo">
+    <div class="logo d-none d-lg-block">
       <a href="/">Threads Monitor</a>
     </div>
   </div>
 
-  <div class="col-2 center">
-
+  <div class="col-4 col-lg-5 right">
+    <div class="messages">
+      <div class="item">
+        <div class="number colored">1</div>
+        <i class="fa fa-comment"></i>
+      </div>
+      <div class="item">
+        <div class="number">0</div>
+        <i class="fa fa-bell"></i>
+      </div>
+    </div>
   </div>
 
-  <div class="col-3 right">
-    <button title="Удалить пользователя" class="button-icon text" (click)="logout()">
-      <i class="fa fa-power-off"></i> <span>Выйти</span>
+  <div class="col-4 col-lg-1 right">
+    <button title="Удалить пользователя" class="button-icon big-text" (click)="logout()">
+      <i class="fa fa-power-off"></i><span>{{currentUser}}</span>
     </button>
   </div>
 
@@ -31,8 +40,9 @@
 
 
 <div class="content"
-     [@contentTrigger]="{value: isSidebarActive ? 'sidebarOn' : 'sidebarOff', params: {sidebarWidth: sidebarWidth}}"
-     [@transitionAnimationTrigger]="o.isActivated ? o.activatedRoute : ''">
+     [@contentTrigger]="{value: isSidebarActive ? 'sidebarOn' : 'sidebarOff'}"
+     [@enterLeaveAnimationTrigger]="o.isActivated ? o.activatedRoute : ''"
+     [ngClass]="{'sidebarOn': isSidebarActive, 'sidebarOff': !isSidebarActive }">
   <router-outlet #o="outlet"></router-outlet>
 </div>
 

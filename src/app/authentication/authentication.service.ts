@@ -20,6 +20,7 @@ export class AuthenticationService {
     return this.http.post<any>(url, credentials, {observe: 'response'}).pipe(
       map(
         data => { // Success
+          localStorage.setItem('user', data.headers.get('X-User'));
           localStorage.setItem('token', data.headers.get('X-Token'));
           return data;
         }
@@ -29,6 +30,7 @@ export class AuthenticationService {
 
 
   doLogout() {
+    localStorage.removeItem('user');
     localStorage.removeItem('token');
   }
 
