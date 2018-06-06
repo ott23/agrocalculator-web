@@ -5,6 +5,7 @@ import {UserService} from '../user.service';
 import {SharedService} from '../../../shared.service';
 import {catchError, map} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
+import {RolesEnum} from '../roles.enum';
 
 @Component({
   selector: 'app-add-user',
@@ -16,12 +17,16 @@ export class AddUserComponent {
   @Output() userEmitter = new EventEmitter<User>();
   form: FormGroup;
   user: User;
+  roles = RolesEnum;
+  roleKeys;
 
   constructor(private fb: FormBuilder, private userService: UserService, private sharedService: SharedService) {
     this.form = this.fb.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      role: ['', Validators.required]
     });
+    this.roleKeys = Object.keys(this.roles);
   }
 
   addUser() {
@@ -38,7 +43,7 @@ export class AddUserComponent {
           return;
         }
         this.form.reset();
-        this.userEmitter.emit(new User(val.username, val.password));
+        this.userEmitter.emit(new User(val.username, val.password, val.role));
       });
     } finally {
       this.sharedService.emitLoaderStatus(false);

@@ -13,7 +13,12 @@
     </div>
   </div>
 
-  <div class="col-4 col-lg-5 right">
+  <div class="col-3 col-lg-3 right">
+
+  </div>
+
+  <div class="col-5 col-lg-3 right">
+
     <div class="messages">
       <div class="item">
         <div class="number colored">1</div>
@@ -24,11 +29,9 @@
         <i class="fa fa-bell"></i>
       </div>
     </div>
-  </div>
 
-  <div class="col-4 col-lg-1 right">
-    <button title="Удалить пользователя" class="button-icon big-text" (click)="logout()">
-      <i class="fa fa-power-off"></i><span>{{currentUser}}</span>
+    <button title="Выйти" class="button-icon big-text" (click)="logout()">
+      <i class="fa fa-power-off"></i><span>{{currentUser.username}}</span><span *ngIf="currentUser.authority">({{roles[currentUser.authority]}})</span>
     </button>
   </div>
 

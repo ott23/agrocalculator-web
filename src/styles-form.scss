@@ -1,6 +1,6 @@
 @import "styles-variables";
 
-textarea, input[type="text"], input[type="password"] {
+textarea, input[type="text"], input[type="password"], .form-select {
   outline: none;
   border: 1px solid $gray-normal;
   border-radius: 0;
@@ -83,15 +83,51 @@ form.form {
     font-size: 14pt;
   }
 
-  input {
-    height: 40px;
-  }
-
-  button {
+  input, button {
     height: 40px;
   }
 
   textarea {
     height: 300px;
   }
+
+  /* Custom Select */
+  .form-select {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    margin: 14px 0;
+    display: block;
+    overflow: hidden;
+
+    &::after {
+      content: '\25BC';
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      padding: 0 1em;
+      color: $font-bright;
+      background: $color-main;
+      pointer-events: none;
+
+      &:hover {
+        color: #9AB999;
+      }
+    }
+
+    select {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0 10px;
+      border: 0;
+      cursor: pointer;
+    }
+  }
+
 }

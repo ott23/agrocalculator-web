@@ -1,8 +1,14 @@
 <form class="form" [formGroup]="form" (ngSubmit)="addUser()">
   <label>Имя пользователя:</label><br>
-  <input name="username" formControlName="username"><br>
+  <input name="username" formControlName="username" type="text"><br>
   <label>Пароль:</label><br>
   <input name="password" formControlName="password" type="password"><br>
+  <label>Роль:</label><br>
+  <div class="form-select">
+    <select name="role" required="" formControlName="role">
+      <option *ngFor="let key of roleKeys" [value]="key">{{roles[key]}}</option>
+    </select>
+  </div>
   <button type="submit" class="color">
     Добавить
   </button>

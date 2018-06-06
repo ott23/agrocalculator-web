@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthenticationService} from '../authentication/authentication.service';
+import {SecurityService} from '../security/security.service';
 import {isNull} from 'util';
 
 @Component({
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   isErrorActive: boolean;
 
   constructor(private fb: FormBuilder,
-              private auth: AuthenticationService,
+              private auth: SecurityService,
               private router: Router,
               private route: ActivatedRoute) {
 

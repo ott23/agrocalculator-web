@@ -1,8 +1,10 @@
 import {AfterContentChecked, Component, ElementRef, ViewChild} from '@angular/core';
-import {AuthenticationService} from '../authentication/authentication.service';
+import {SecurityService} from '../security/security.service';
 import {Router} from '@angular/router';
 import {SharedService} from '../shared.service';
 import {animate, group, query, state, style, transition, trigger} from '@angular/animations';
+import {RoleGuard} from '../security/role.guard';
+import {RolesEnum} from './user/roles.enum';
 
 @Component({
   selector: 'app-main',
@@ -65,15 +67,15 @@ export class MainComponent implements AfterContentChecked {
   isLoadingActive = true;
 
   currentUser: string;
+  roles = RolesEnum;
 
-  constructor(private auth: AuthenticationService,
+  constructor(private auth: SecurityService,
               private router: Router,
               private sharedService: SharedService) {
     this.sharedService.loaderStatusObservable.subscribe(
       (loaderStatus) => this.isLoadingActive = loaderStatus
     );
-
-    this.currentUser = localStorage.getItem('user');
+    this.currentUser = JSON.parse(localStorage.getItem('user'));
   }
 
   ngAfterContentChecked() {
@@ -82,7 +84,6 @@ export class MainComponent implements AfterContentChecked {
 
   toggleSidebar() {
     this.isSidebarActive = !this.isSidebarActive;
-    console.log(this.isSidebarActive);
   }
 
   logout() {

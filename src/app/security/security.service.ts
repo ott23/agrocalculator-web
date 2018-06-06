@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/internal/operators';
 
 @Injectable()
-export class AuthenticationService {
+export class SecurityService {
 
   baseURL: string;
 
@@ -20,7 +20,11 @@ export class AuthenticationService {
     return this.http.post<any>(url, credentials, {observe: 'response'}).pipe(
       map(
         data => { // Success
-          localStorage.setItem('user', data.headers.get('X-User'));
+
+          const helper = new JwtHelperService();
+          const token = data.headers.get('X-Token');
+          const subject = helper.decodeToken(token).sub;
+          localStorage.setItem('user', subject);
           localStorage.setItem('token', data.headers.get('X-Token'));
           return data;
         }

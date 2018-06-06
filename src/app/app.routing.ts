@@ -1,6 +1,6 @@
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {LoginComponent} from './login/login.component';
-import {AuthenticationGuard} from './authentication/authentication.guard';
+import {CommonGuard} from './security/common.guard';
 import {Routes} from '@angular/router';
 
 export const routes: Routes = [
@@ -15,7 +15,7 @@ export const routes: Routes = [
   },
   {
     path: 'main',
-    canActivate: [AuthenticationGuard],
+    canActivate: [CommonGuard],
     loadChildren: './main/main.module#MainModule'
   },
   {

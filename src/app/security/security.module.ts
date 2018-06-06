@@ -1,8 +1,9 @@
 import {NgModule} from '@angular/core';
-import {AuthenticationGuard} from './authentication.guard';
-import {AuthenticationService} from './authentication.service';
+import {CommonGuard} from './common.guard';
+import {SecurityService} from './security.service';
 import {HttpClientModule} from '@angular/common/http';
 import {JwtModule} from '@auth0/angular-jwt';
+import {RoleGuard} from './role.guard';
 
 @NgModule({
   imports: [
@@ -10,9 +11,10 @@ import {JwtModule} from '@auth0/angular-jwt';
     JwtModule
   ],
   providers: [
-    AuthenticationGuard,
-    AuthenticationService
+    CommonGuard,
+    RoleGuard,
+    SecurityService
   ]
 })
-export class AuthenticationModule {
+export class SecurityModule {
 }

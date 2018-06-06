@@ -25,7 +25,7 @@
         <tr class="d-flex">
           <th class="col-1">#</th>
           <th class="col-sm-4 col-lg-4">Логин</th>
-          <th class="col-sm-4 col-lg-5">Роли</th>
+          <th class="col-sm-4 col-lg-5">Роль</th>
           <th class="col-sm-3 col-lg-2"></th>
         </tr>
         </thead>
@@ -34,7 +34,7 @@
         <tr class="d-flex" *ngFor="let user of userList">
           <td class="col-1">{{user.id}}</td>
           <td class="col-sm-4 col-lg-4">{{user.username}}</td>
-          <td class="col-sm-4 col-lg-5"></td>
+          <td class="col-sm-4 col-lg-5">{{roles[user.role]}}</td>
           <td class="col-sm-3 col-lg-2 d-flex justify-content-end">
             <button title="Удалить пользователя" class="btn-alert button-icon" (click)="deleteUser(user)">
               <i class="fa fa-trash"></i>

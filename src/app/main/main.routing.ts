@@ -2,6 +2,7 @@ import {Routes} from '@angular/router';
 import {MainComponent} from './main.component';
 import {UserComponent} from './user/user.component';
 import {MapComponent} from './map/map.component';
+import {RoleGuard} from '../security/role.guard';
 
 export const mainRoutes: Routes = [
   {
@@ -20,6 +21,10 @@ export const mainRoutes: Routes = [
       {
         path: 'user',
         component: UserComponent,
+        canActivate: [RoleGuard],
+        data: {
+          expectedRole: 'ROLE_ADMIN'
+        }
       }
     ]
   }

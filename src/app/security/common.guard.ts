@@ -1,13 +1,13 @@
-import {AuthenticationService} from './authentication.service';
+import {SecurityService} from './security.service';
 import {CanActivate, Router} from '@angular/router';
 import {Injectable} from '@angular/core';
 
 @Injectable()
-export class AuthenticationGuard implements CanActivate {
+export class CommonGuard implements CanActivate {
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService) {
+    private authenticationService: SecurityService) {
   }
 
   canActivate() {

@@ -5,7 +5,7 @@ import {AppConfig} from '../app.config';
 
 
 @Injectable()
-export class AuthenticationInterceptor implements HttpInterceptor {
+export class SecurityInterceptor implements HttpInterceptor {
 
   constructor() {
   }
