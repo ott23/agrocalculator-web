@@ -8,10 +8,12 @@ import {mainRoutes} from './main.routing';
 import {LoaderModule} from '../loader/loader.module';
 import {SharedService} from '../shared.service';
 import {MapModule} from './map/map.module';
+import {CalculatorModule} from './calculator/calculator.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    CalculatorModule,
     MapModule,
     UserModule,
     LoaderModule,

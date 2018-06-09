@@ -28,9 +28,9 @@ export class UserService {
     return this.http.get<User>(url);
   }
 
-  public create(user): Observable<User> {
+  public create(user): Observable<any> {
     const url = this.baseURL + '/add';
-    return this.http.post<User>(url, user);
+    return this.http.post(url, user);
   }
 
   public delete(id: number): Observable<any> {

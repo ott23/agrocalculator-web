@@ -75,7 +75,9 @@ export class MainComponent implements AfterContentChecked {
     this.sharedService.loaderStatusObservable.subscribe(
       (loaderStatus) => this.isLoadingActive = loaderStatus
     );
-    this.currentUser = JSON.parse(localStorage.getItem('user'));
+    if (localStorage.getItem('user') != null) {
+      this.currentUser = JSON.parse(localStorage.getItem('user'));
+    }
   }
 
   ngAfterContentChecked() {

@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, NgZone} from '@angular/core';
 import {UserService} from './user.service';
 import {SharedService} from '../../shared.service';
-import {animate, query, style, transition, trigger} from '@angular/animations';
 import {RolesEnum} from './roles.enum';
+import {timer} from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -15,8 +15,8 @@ export class UserComponent implements OnInit {
   userList = [];
   roles = RolesEnum;
 
-  constructor(private userService: UserService, private sharedService: SharedService) {
-    this.sharedService.emitLoaderStatus(true);
+  constructor(private userService: UserService, private sharedService: SharedService, private zone: NgZone) {
+    this.sharedService.emitLoaderStatus(false);
     this.sharedService.addUserModalVisibleStatusObservable.subscribe(
       (addUserModalVisibleStatus) => this.isAddUserModalVisible = addUserModalVisibleStatus
     );
@@ -24,37 +24,41 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.sharedService.emitLoaderStatus(true);
-    this.userService.getAll().subscribe(
-      (data) => {
-        this.userList = data;
-        this.sharedService.emitLoaderStatus(false);
-      }
-    );
+    this.refreshList();
+    this.sharedService.emitLoaderStatus(false);
+    timer(2000, 10000).subscribe(() => this.refreshList());
   }
 
   toggleAddUserModal() {
     this.sharedService.emitAddUserModalVisibleStatus();
   }
 
-  addUser(user) {
-    this.sharedService.emitAddUserModalVisibleStatus();
-    this.sharedService.emitLoaderStatus(true);
-    this.userService.create(user).subscribe(
+  refreshList() {
+    this.userService.getAll().subscribe(
       (data) => {
-        this.userList.push(data);
-        this.sharedService.emitLoaderStatus(false);
+        this.zone.run(() => {
+          this.userList = data;
+          this.sharedService.emitLoaderStatus(false);
+        });
       }
     );
   }
 
+  addUser(user) {
+    this.sharedService.emitAddUserModalVisibleStatus();
+    this.sharedService.emitLoaderStatus(true);
+    this.userService.create(user).subscribe(() => {
+      this.refreshList();
+      this.sharedService.emitLoaderStatus(false);
+    });
+  }
+
   deleteUser(user) {
     this.sharedService.emitLoaderStatus(true);
-    this.userService.delete(user.id).subscribe(
-      () => {
-        this.userList = this.userList.filter((u) => u !== user);
-        this.sharedService.emitLoaderStatus(false);
-      }
-    );
+    this.userService.delete(user.id).subscribe(() => {
+      this.refreshList();
+      this.sharedService.emitLoaderStatus(false);
+    });
   }
 
 }

@@ -1,0 +1,52 @@
+<div class="container-fluid">
+
+  <div class="buffer"></div>
+
+  <div class="row">
+    <div class="col">
+      <button class="button-icon text" (click)="toggleAddUserModal()"><i class="fa fa-plus"></i><span>Добавить</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="buffer"></div>
+
+  <div class="row">
+
+    <div class="col">
+
+      <table class="table table-striped">
+
+        <thead>
+        <tr class="d-flex">
+          <th class="col-1">#</th>
+          <th class="col-3">Имя</th>
+          <th class="col-2">Адрес</th>
+          <th class="col-2">Ключ</th>
+          <th class="col-2">Актив</th>
+          <th class="col-2">Архив</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="d-flex" *ngFor="let calculator of calculatorList">
+          <td class="col-1">{{calculator.id}}</td>
+          <td class="col-3">{{calculator.name}}</td>
+          <td class="col-2">{{calculator.address}}</td>
+          <td class="col-2">{{calculator.needKey}}
+            <div *ngIf="calculator.needKey">
+              <button (click)="sendKey(calculator)">Отправить</button>
+            </div>
+          </td>
+          <td class="col-2">{{calculator.active}}</td>
+          <td class="col-2">{{calculator.archive}}</td>
+        </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

@@ -16,7 +16,7 @@ export class AppConfig {
     }, {
       'title': 'Вычислители',
       'icon': 'fa fa-calculator',
-      'href': '#'
+      'href': 'calculator'
     }, {
       'title': 'Карта',
       'icon': 'fa fa-map',
