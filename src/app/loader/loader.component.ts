@@ -19,6 +19,7 @@ export class LoaderComponent {
 
   @Input() visible: boolean;
   @Input() centred: boolean;
+  @Input() small: boolean;
 
   constructor() {
   }

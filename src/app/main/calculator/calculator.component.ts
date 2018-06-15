@@ -10,17 +10,28 @@ import {timer} from 'rxjs';
 })
 export class CalculatorComponent implements OnInit {
 
+  isStatusModalVisible = false;
+
   calculatorList = [];
 
+  calculator = null;
+
   constructor(private calculatorService: CalculatorService, private sharedService: SharedService, private zone: NgZone) {
-    this.sharedService.emitLoaderStatus(false);
+    this.sharedService.emitLoader(true);
+    this.sharedService.statusModalVisibleSubjectObservable.subscribe(
+      (statusModalVisibleStatus) => this.isStatusModalVisible = statusModalVisibleStatus
+    );
   }
 
   ngOnInit() {
-    this.sharedService.emitLoaderStatus(true);
+    this.sharedService.emitLoader(true);
     this.refreshList();
-    this.sharedService.emitLoaderStatus(false);
-    timer(2000, 10000).subscribe(() => this.refreshList());
+    timer(10000, 10000).subscribe(() => this.refreshList());
+  }
+
+  toggleStatusModal() {
+    this.sharedService.emitCalculator(this.calculator);
+    this.sharedService.emitStatusModalVisible();
   }
 
   refreshList() {
@@ -28,7 +39,7 @@ export class CalculatorComponent implements OnInit {
       (data) => {
         this.zone.run(() => {
           this.calculatorList = data;
-          this.sharedService.emitLoaderStatus(false);
+          this.sharedService.emitLoader(false);
         });
       }
     );
@@ -40,6 +51,11 @@ export class CalculatorComponent implements OnInit {
         this.refreshList();
       }
     });
+  }
+
+  status(calculator) {
+    this.calculator = calculator;
+    this.toggleStatusModal();
   }
 
 }

@@ -1,49 +1,72 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
+import {Calculator} from './main/calculator/calculator.model';
 
 @Injectable()
 export class SharedService {
 
   // Анимация загрузки: объявление
-  private loaderStatus = new Subject<boolean>();
-  loaderStatusObservable = this.loaderStatus.asObservable();
+  private loaderSubject = new Subject<boolean>();
+  loaderSubjectObservable = this.loaderSubject.asObservable();
 
   // Окно добавления пользователя: объявление
   private isAddUserModalVisible = false;
-  private addUserModalVisibleStatus = new Subject<boolean>();
-  addUserModalVisibleStatusObservable = this.addUserModalVisibleStatus.asObservable();
+  private addUserModalVisibleSubject = new Subject<boolean>();
+  addUserModalVisibleSubjectObservable = this.addUserModalVisibleSubject.asObservable();
 
   // Окно импорта GeoJSON: объявление
   private isAddGeometryModalVisible = false;
-  private addGeometryModalVisibleStatus = new Subject<boolean>();
-  addGeometryModalVisibleStatusObservable = this.addGeometryModalVisibleStatus.asObservable();
+  private addGeometryModalVisibleSubject = new Subject<boolean>();
+  addGeometryModalVisibleSubjectObservable = this.addGeometryModalVisibleSubject.asObservable();
 
   // Окно списка гео: объявление
   private isGeometryListModalVisible = false;
-  private geometryListModalVisibleStatus = new Subject<boolean>();
-  geometryListModalVisibleStatusObservable = this.geometryListModalVisibleStatus.asObservable();
+  private geometryListModalVisibleSubject = new Subject<boolean>();
+  geometryListModalVisibleSubjectObservable = this.geometryListModalVisibleSubject.asObservable();
+
+  // Окно статусов калькулятора: объявление
+  private isStatusModalVisible = false;
+  private statusModalVisibleSubject = new Subject<boolean>();
+  statusModalVisibleSubjectObservable = this.statusModalVisibleSubject.asObservable();
+
+  // Окно статусов калькулятора - калькулятор: объявление
+  private calculatorSubject = new Subject<Calculator>();
+  calculatorSubjectObservable = this.calculatorSubject.asObservable();
 
 
   // Анимация загрзуки: реализация
-  emitLoaderStatus(loaderStatus: boolean) {
-    this.loaderStatus.next(loaderStatus);
+  emitLoader(loaderStatus: boolean) {
+    this.loaderSubject.next(loaderStatus);
   }
 
   // Окно добавления пользователя: реализация
-  emitAddUserModalVisibleStatus() {
+  emitAddUserModalVisible() {
     this.isAddUserModalVisible = !this.isAddUserModalVisible;
-    this.addUserModalVisibleStatus.next(this.isAddUserModalVisible);
+    this.addUserModalVisibleSubject.next(this.isAddUserModalVisible);
   }
 
   // Окно импорта GeoJSON: реализация
-  emitAddGeometryModalVisibleStatus() {
+  emitAddGeometryModalVisible() {
     this.isAddGeometryModalVisible = !this.isAddGeometryModalVisible;
-    this.addGeometryModalVisibleStatus.next(this.isAddGeometryModalVisible);
+    this.addGeometryModalVisibleSubject.next(this.isAddGeometryModalVisible);
   }
 
   // Окно списка гео: реализация
-  emitGeometryListModalVisibleStatus() {
+  emitGeometryListModalVisible() {
     this.isGeometryListModalVisible = !this.isGeometryListModalVisible;
-    this.geometryListModalVisibleStatus.next(this.isGeometryListModalVisible);
+    this.geometryListModalVisibleSubject.next(this.isGeometryListModalVisible);
   }
+
+  // Окно статусов калькулятора: реализация
+  emitStatusModalVisible() {
+    this.isStatusModalVisible = !this.isStatusModalVisible;
+    this.statusModalVisibleSubject.next(this.isStatusModalVisible);
+  }
+
+  // Окно статусов калькулятора - калькулятор: реализация
+  emitCalculator(calculator: Calculator) {
+    this.calculatorSubject.next(calculator);
+  }
+
+
 }

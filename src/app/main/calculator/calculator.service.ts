@@ -3,6 +3,7 @@ import {AppConfig} from '../../app.config';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Calculator} from './calculator.model';
+import {CalculatorStatus} from './calculator-status.model';
 
 @Injectable()
 export class CalculatorService {
@@ -22,5 +23,11 @@ export class CalculatorService {
     const url = this.baseURL + '/send-key/' + id;
     return this.http.get(url);
   }
+
+  public getStatuses(id): Observable<CalculatorStatus[]> {
+    const url = this.baseURL + '/status/' + id;
+    return this.http.get<CalculatorStatus[]>(url);
+  }
+
 
 }

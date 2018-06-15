@@ -1,13 +1,9 @@
+<app-modal [title]="'История изменения статуса'" [visible]="isStatusModalVisible"
+           (visibleEmitter)="toggleStatusModal()">
+  <app-status></app-status>
+</app-modal>
+
 <div class="container-fluid">
-
-  <div class="buffer"></div>
-
-  <div class="row">
-    <div class="col">
-      <button class="button-icon text" (click)="toggleAddUserModal()"><i class="fa fa-plus"></i><span>Добавить</span>
-      </button>
-    </div>
-  </div>
 
   <div class="buffer"></div>
 
@@ -22,9 +18,10 @@
           <th class="col-1">#</th>
           <th class="col-3">Имя</th>
           <th class="col-2">Адрес</th>
-          <th class="col-2">Ключ</th>
-          <th class="col-2">Актив</th>
-          <th class="col-2">Архив</th>
+          <th class="col-1 d-flex justify-content-center">Ключ</th>
+          <th class="col-1 d-flex justify-content-center">Актив</th>
+          <th class="col-1 d-flex justify-content-center">Архив</th>
+          <th class="col-3 d-flex justify-content-end"></th>
         </tr>
         </thead>
 
@@ -33,13 +30,32 @@
           <td class="col-1">{{calculator.id}}</td>
           <td class="col-3">{{calculator.name}}</td>
           <td class="col-2">{{calculator.address}}</td>
-          <td class="col-2">{{calculator.needKey}}
-            <div *ngIf="calculator.needKey">
-              <button (click)="sendKey(calculator)">Отправить</button>
-            </div>
+          <td class="col-1 d-flex justify-content-center">
+            <i class="fa fa-check" *ngIf="!calculator.needKey"></i>
+            <i class="fa fa-close" *ngIf="calculator.needKey"></i>
           </td>
-          <td class="col-2">{{calculator.active}}</td>
-          <td class="col-2">{{calculator.archive}}</td>
+          <td class="col-1 d-flex justify-content-center">
+            <i class="fa fa-check big colored" *ngIf="calculator.active"></i>
+            <i class="fa fa-bolt big alert" *ngIf="!calculator.active && !calculator.archive"></i>
+            <i class="fa fa-close" *ngIf="calculator.archive"></i>
+          </td>
+          <td class="col-1 d-flex justify-content-center">
+            <i class="fa fa-check" *ngIf="calculator.archive"></i>
+          </td>
+          <td class="col-3 d-flex justify-content-end">
+            <button title="Отправить ключ" class="button-icon" (click)="sendKey(calculator)" *ngIf="calculator.needKey">
+              <i class="fa fa-key"></i>
+            </button>
+            <button title="Изменить настройки" class="button-icon" (click)="settings(calculator)">
+              <i class="fa fa-cog"></i>
+            </button>
+            <button title="Состояния" class="button-icon" (click)="status(calculator)">
+              <i class="fa fa-signal"></i>
+            </button>
+            <button title="Удалить калькулятор" class="btn-alert button-icon" (click)="deleteCalculator(calculator)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
         </tr>
         </tbody>
 

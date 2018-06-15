@@ -1,6 +1,4 @@
 import * as L from 'leaflet';
-import {control} from 'leaflet';
-import attribution = control.attribution;
 
 export class AppConfig {
   public static get baseURL(): string {
@@ -18,6 +16,10 @@ export class AppConfig {
       'icon': 'fa fa-calculator',
       'href': 'calculator'
     }, {
+      'title': 'Параметры',
+      'icon': 'fa fa-cog',
+      'href': 'setting'
+    }, {
       'title': 'Карта',
       'icon': 'fa fa-map',
       'href': 'map'
@@ -25,10 +27,6 @@ export class AppConfig {
       'title': 'Пользователи',
       'icon': 'fa fa-users',
       'href': 'user'
-    }, {
-      'title': 'Параметры',
-      'icon': 'fa fa-cog',
-      'href': '#'
     }];
   }
 

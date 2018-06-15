@@ -31,7 +31,7 @@ export class AddUserComponent {
 
   addUser() {
     const val = this.form.value;
-    this.sharedService.emitLoaderStatus(true);
+    this.sharedService.emitLoader(true);
     try {
       this.isUserExistingByUsername(val.username).subscribe((bool) => {
         if (!this.form.valid) {
@@ -46,7 +46,7 @@ export class AddUserComponent {
         this.userEmitter.emit(new User(val.username, val.password, val.role));
       });
     } finally {
-      this.sharedService.emitLoaderStatus(false);
+      this.sharedService.emitLoader(false);
     }
   }
 

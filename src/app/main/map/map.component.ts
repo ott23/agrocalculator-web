@@ -24,17 +24,17 @@ export class MapComponent implements OnInit {
   geometryArray: Geometry[] = [];
 
   constructor(private sharedService: SharedService, private mapService: MapService) {
-    this.sharedService.emitLoaderStatus(true);
-    this.sharedService.addGeometryModalVisibleStatusObservable.subscribe(
+    this.sharedService.emitLoader(true);
+    this.sharedService.addGeometryModalVisibleSubjectObservable.subscribe(
       (addGeometryModalVisibleStatus) => this.isAddGeometryModalVisible = addGeometryModalVisibleStatus
     );
-    this.sharedService.geometryListModalVisibleStatusObservable.subscribe(
+    this.sharedService.geometryListModalVisibleSubjectObservable.subscribe(
       (geoListModalVisibleStatus) => this.isGeometryListModalVisible = geoListModalVisibleStatus
     );
   }
 
   ngOnInit() {
-    this.sharedService.emitLoaderStatus(true);
+    this.sharedService.emitLoader(true);
     this.mapService.getLocation()
       .pipe(
         catchError(err => {
@@ -74,18 +74,18 @@ export class MapComponent implements OnInit {
         this.layerGroup = new L.FeatureGroup();
         this.layerGroup.addTo(map);
 
-        this.sharedService.emitLoaderStatus(false);
+        this.sharedService.emitLoader(false);
 
         this.map = map;
       });
   }
 
   toggleAddGeometryModal() {
-    this.sharedService.emitAddGeometryModalVisibleStatus();
+    this.sharedService.emitAddGeometryModalVisible();
   }
 
   toggleGeometryListModal() {
-    this.sharedService.emitGeometryListModalVisibleStatus();
+    this.sharedService.emitGeometryListModalVisible();
   }
 
   navigation(command: string) {

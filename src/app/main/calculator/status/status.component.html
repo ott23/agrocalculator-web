@@ -1,0 +1,19 @@
+<app-loader [centred]="true" [small]="true" [visible]="loaderVisible"></app-loader>
+
+<table class="table table-striped">
+
+  <thead>
+  <tr class="d-flex">
+    <th class="col-6 d-flex justify-content-center">Статус</th>
+    <th class="col-6 d-flex justify-content-center">Время</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr class="d-flex" *ngFor="let calculatorStatus of calculatorStatusList">
+    <td class="col-6 d-flex justify-content-center">{{calculatorStatus.status}}</td>
+    <td class="col-6 d-flex justify-content-center">{{calculatorStatus.dateTime | date :'HH:mm:ss dd.MM.yy'}}</td>
+  </tr>
+  </tbody>
+
+</table>

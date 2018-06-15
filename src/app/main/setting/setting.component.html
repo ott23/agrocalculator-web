@@ -1,0 +1,40 @@
+<div class="container-fluid">
+
+  <div class="buffer"></div>
+
+  <div class="row">
+
+    <div class="col">
+
+      <table class="table table-striped">
+
+        <thead>
+        <tr class="d-flex">
+          <th class="col-1">#</th>
+          <th class="col-3">Поле</th>
+          <th class="col-4">Значение</th>
+          <th class="col-2 d-flex justify-content-center">По умолчанию</th>
+          <th class="col-2 d-flex justify-content-center">Калькулятор</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="d-flex" *ngFor="let calculator of settingList">
+
+          <td class="col-1">{{calculator.id}}</td>
+          <td class="col-3">{{calculator.name}}</td>
+          <td class="col-4">{{calculator.address}}</td>
+          <td class="col-2 d-flex justify-content-center">
+            <i class="fa fa-check big-colored" *ngIf="!calculator.needKey"></i>
+          </td>
+          <td class="col-2 d-flex justify-content-center">{{calculator.active}}</td>
+        </tr>`
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

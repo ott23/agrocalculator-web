@@ -4,6 +4,7 @@ import {UserComponent} from './user/user.component';
 import {MapComponent} from './map/map.component';
 import {RoleGuard} from '../security/role.guard';
 import {CalculatorComponent} from './calculator/calculator.component';
+import {SettingComponent} from './setting/setting.component';
 
 export const mainRoutes: Routes = [
   {
@@ -18,6 +19,14 @@ export const mainRoutes: Routes = [
       {
         path: 'calculator',
         component: CalculatorComponent,
+        canActivate: [RoleGuard],
+        data: {
+          expectedRole: 'ROLE_ADMIN'
+        },
+      },
+      {
+        path: 'setting',
+        component: SettingComponent,
         canActivate: [RoleGuard],
         data: {
           expectedRole: 'ROLE_ADMIN'
