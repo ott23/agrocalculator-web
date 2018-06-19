@@ -1,4 +1,4 @@
-import {Component, OnInit, NgZone} from '@angular/core';
+import {Component, OnInit, NgZone, OnDestroy} from '@angular/core';
 import {UserService} from './user.service';
 import {SharedService} from '../../shared.service';
 import {RolesEnum} from './roles.enum';
@@ -9,13 +9,14 @@ import {timer} from 'rxjs';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
 
   isAddUserModalVisible = false;
   userList = [];
   roles = RolesEnum;
+  timer;
 
-  constructor(private userService: UserService, private sharedService: SharedService, private zone: NgZone) {
+  constructor(private userService: UserService, private sharedService: SharedService) {
     this.sharedService.emitLoader(true);
     this.sharedService.addUserModalVisibleSubjectObservable.subscribe(
       (addUserModalVisibleStatus) => this.isAddUserModalVisible = addUserModalVisibleStatus
@@ -25,7 +26,11 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.sharedService.emitLoader(true);
     this.refreshList();
-    timer(10000, 10000).subscribe(() => this.refreshList());
+    this.timer = timer(2000, 2000).subscribe(() => this.refreshList());
+  }
+
+  ngOnDestroy() {
+    this.timer.unsubscribe();
   }
 
   toggleAddUserModal() {
@@ -35,10 +40,8 @@ export class UserComponent implements OnInit {
   refreshList() {
     this.userService.getAll().subscribe(
       (data) => {
-        this.zone.run(() => {
-          this.userList = data;
-          this.sharedService.emitLoader(false);
-        });
+        this.userList = data;
+        this.sharedService.emitLoader(false);
       }
     );
   }

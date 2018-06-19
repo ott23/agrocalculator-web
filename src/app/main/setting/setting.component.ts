@@ -1,5 +1,5 @@
-import {Component, NgZone, OnInit} from '@angular/core';
-import {timer} from 'rxjs';
+import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
+import {Observable, timer} from 'rxjs';
 import {SharedService} from '../../shared.service';
 import {SettingService} from './setting.service';
 
@@ -8,27 +8,30 @@ import {SettingService} from './setting.service';
   templateUrl: './setting.component.html',
   styleUrls: ['./setting.component.scss']
 })
-export class SettingComponent implements OnInit {
+export class SettingComponent implements OnInit, OnDestroy {
 
   settingList = [];
+  timer;
 
-  constructor(private settingService: SettingService, private sharedService: SharedService, private zone: NgZone) {
+  constructor(private settingService: SettingService, private sharedService: SharedService) {
     this.sharedService.emitLoader(true);
   }
 
   ngOnInit() {
     this.sharedService.emitLoader(true);
     this.refreshList();
-    timer(10000, 10000).subscribe(() => this.refreshList());
+    this.timer = timer(2000, 2000).subscribe(() => this.refreshList());
+  }
+
+  ngOnDestroy() {
+    this.timer.unsubscribe();
   }
 
   refreshList() {
     this.settingService.getAll().subscribe(
       (data) => {
-        this.zone.run(() => {
-          this.settingList = data;
-          this.sharedService.emitLoader(false);
-        });
+        this.settingList = data;
+        this.sharedService.emitLoader(false);
       }
     );
   }

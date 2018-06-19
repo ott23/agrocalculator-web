@@ -1,4 +1,4 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {SharedService} from '../../shared.service';
 import {CalculatorService} from './calculator.service';
 import {timer} from 'rxjs';
@@ -8,15 +8,14 @@ import {timer} from 'rxjs';
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.scss']
 })
-export class CalculatorComponent implements OnInit {
+export class CalculatorComponent implements OnInit, OnDestroy {
 
   isStatusModalVisible = false;
-
   calculatorList = [];
-
   calculator = null;
+  timer;
 
-  constructor(private calculatorService: CalculatorService, private sharedService: SharedService, private zone: NgZone) {
+  constructor(private calculatorService: CalculatorService, private sharedService: SharedService) {
     this.sharedService.emitLoader(true);
     this.sharedService.statusModalVisibleSubjectObservable.subscribe(
       (statusModalVisibleStatus) => this.isStatusModalVisible = statusModalVisibleStatus
@@ -26,36 +25,50 @@ export class CalculatorComponent implements OnInit {
   ngOnInit() {
     this.sharedService.emitLoader(true);
     this.refreshList();
-    timer(10000, 10000).subscribe(() => this.refreshList());
+    this.timer = timer(2000, 2000).subscribe(() => this.refreshList());
+  }
+
+  ngOnDestroy() {
+    this.timer.unsubscribe();
   }
 
   toggleStatusModal() {
-    this.sharedService.emitCalculator(this.calculator);
     this.sharedService.emitStatusModalVisible();
   }
 
   refreshList() {
     this.calculatorService.getAll().subscribe(
       (data) => {
-        this.zone.run(() => {
-          this.calculatorList = data;
-          this.sharedService.emitLoader(false);
-        });
+        this.calculatorList = data;
+        this.sharedService.emitLoader(false);
       }
     );
   }
 
   sendKey(calculator) {
+    calculator.loader = true;
+    calculator.key = 'key';
     this.calculatorService.sendKey(calculator.id).subscribe((data) => {
       if (data === 'Success') {
+        calculator.loader = false;
+      }
+    });
+  }
+
+  deleteCalculator(calculator) {
+    calculator.loader = true;
+    this.calculatorService.delete(calculator.id).subscribe((data) => {
+      if (data === 'Success') {
         this.refreshList();
+        calculator.loader = false;
       }
     });
   }
 
   status(calculator) {
     this.calculator = calculator;
-    this.toggleStatusModal();
+    this.sharedService.emitLoader(true);
+    this.sharedService.emitCalculator(this.calculator);
   }
 
 }

@@ -19,6 +19,11 @@ export class CalculatorService {
     return this.http.get<Calculator[]>(url);
   }
 
+  public delete(id: number): Observable<any> {
+    const url = this.baseURL + '/delete/' + id;
+    return this.http.get(url);
+  }
+
   public sendKey(id: number): Observable<any> {
     const url = this.baseURL + '/send-key/' + id;
     return this.http.get(url);

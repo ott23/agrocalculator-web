@@ -18,7 +18,8 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 export class LoaderComponent {
 
   @Input() visible: boolean;
-  @Input() centred: boolean;
+  @Input() gray: boolean;
+  @Input() center: boolean;
   @Input() small: boolean;
 
   constructor() {

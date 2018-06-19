@@ -2,7 +2,8 @@ export class Calculator {
   id: number;
   address: string;
   name: string;
-  needKey: boolean;
+  key: string;
   active: boolean;
   archive: boolean;
+  loader: boolean;
 }
