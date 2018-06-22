@@ -72,7 +72,7 @@ export class MainComponent implements AfterContentChecked {
   constructor(private auth: SecurityService,
               private router: Router,
               private sharedService: SharedService) {
-    this.sharedService.loaderSubjectObservable.subscribe(
+    this.sharedService.loaderObservable.subscribe(
       (loaderStatus) => this.isLoadingActive = loaderStatus
     );
     if (localStorage.getItem('user') != null) {

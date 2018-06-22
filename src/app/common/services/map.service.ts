@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map, mergeMap} from 'rxjs/internal/operators';
-import {Location} from './models/location.model';
+import {Location} from '../../main/map/models/location.model';
 import * as L from 'leaflet';
 
 @Injectable()

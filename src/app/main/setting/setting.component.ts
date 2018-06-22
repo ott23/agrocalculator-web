@@ -1,7 +1,8 @@
 import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {Observable, timer} from 'rxjs';
 import {SharedService} from '../../shared.service';
-import {SettingService} from './setting.service';
+import {SettingService} from '../../common/services/setting.service';
+import {Setting} from '../../common/models/setting.model';
 
 @Component({
   selector: 'app-setting',
@@ -11,6 +12,7 @@ import {SettingService} from './setting.service';
 export class SettingComponent implements OnInit, OnDestroy {
 
   settingList = [];
+  editedSettingId = null;
   timer;
 
   constructor(private settingService: SettingService, private sharedService: SharedService) {
@@ -34,6 +36,32 @@ export class SettingComponent implements OnInit, OnDestroy {
         this.sharedService.emitLoader(false);
       }
     );
+  }
+
+  trackBySettings(index: number, setting: Setting): number {
+    return setting.id;
+  }
+
+  setEdited(id: number) {
+    this.editedSettingId = id;
+  }
+
+  setSetting(setting: Setting, value: string) {
+    setting.value = value;
+    this.setEdited(null);
+    this.sharedService.emitLoader(true);
+    this.settingService.setSetting(setting).subscribe(() => {
+      this.refreshList();
+      this.sharedService.emitLoader(false);
+    });
+  }
+
+  deleteSetting(id: number) {
+    this.sharedService.emitLoader(true);
+    this.settingService.deleteSetting(id).subscribe(() => {
+      this.refreshList();
+      this.sharedService.emitLoader(false);
+    });
   }
 
 }

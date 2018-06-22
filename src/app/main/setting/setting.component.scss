@@ -1,5 +1,16 @@
 @import "../../../styles-variables";
 
+.edit {
+  cursor: pointer;
+  &:hover {
+    color: $color-main;
+  }
+}
+
+.edited {
+  padding: 5px;
+}
+
 .big {
   font-size: 200%;
 

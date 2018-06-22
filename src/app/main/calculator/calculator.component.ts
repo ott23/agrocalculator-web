@@ -1,6 +1,6 @@
 import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {SharedService} from '../../shared.service';
-import {CalculatorService} from './calculator.service';
+import {CalculatorService} from '../../common/services/calculator.service';
 import {timer} from 'rxjs';
 
 @Component({
@@ -11,14 +11,17 @@ import {timer} from 'rxjs';
 export class CalculatorComponent implements OnInit, OnDestroy {
 
   isStatusModalVisible = false;
+  isSettingModalVisible = false;
   calculatorList = [];
-  calculator = null;
   timer;
 
   constructor(private calculatorService: CalculatorService, private sharedService: SharedService) {
     this.sharedService.emitLoader(true);
-    this.sharedService.statusModalVisibleSubjectObservable.subscribe(
-      (statusModalVisibleStatus) => this.isStatusModalVisible = statusModalVisibleStatus
+    this.sharedService.statusModalVisibleObservable.subscribe(
+      (data) => this.isStatusModalVisible = data
+    );
+    this.sharedService.settingModalVisibleObservable.subscribe(
+      (data) => this.isSettingModalVisible = data
     );
   }
 
@@ -34,6 +37,10 @@ export class CalculatorComponent implements OnInit, OnDestroy {
 
   toggleStatusModal() {
     this.sharedService.emitStatusModalVisible();
+  }
+
+  toggleSettingModal() {
+    this.sharedService.emitSettingModalVisible();
   }
 
   refreshList() {
@@ -65,10 +72,16 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     });
   }
 
-  status(calculator) {
-    this.calculator = calculator;
+  setting(calculator) {
     this.sharedService.emitLoader(true);
-    this.sharedService.emitCalculator(this.calculator);
+    this.sharedService.emitCalculator([calculator, 'setting']);
   }
+
+  status(calculator) {
+    this.sharedService.emitLoader(true);
+    this.sharedService.emitCalculator([calculator, 'status']);
+  }
+
+
 
 }

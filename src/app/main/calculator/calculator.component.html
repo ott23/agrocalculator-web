@@ -1,7 +1,12 @@
-<!--<app-modal [title]="'История изменения статуса'" [visible]="isStatusModalVisible"
+<app-modal [title]="'История изменения статуса'" [visible]="isStatusModalVisible"
            (visibleEmitter)="toggleStatusModal()">
   <app-status></app-status>
-</app-modal>-->
+</app-modal>
+
+<app-modal [title]="'Параметры вычислительного модуля'" [visible]="isSettingModalVisible"
+           (visibleEmitter)="toggleSettingModal()">
+  <app-setting></app-setting>
+</app-modal>
 
 <div class="container-fluid">
 
@@ -15,7 +20,7 @@
 
         <thead>
         <tr class="d-flex">
-          <th class="col-1 d-flex justify-content-center">#</th>
+          <th class="col-1">#</th>
           <th class="col-3">Имя</th>
           <th class="col-2">Адрес</th>
           <th class="col-1 d-flex justify-content-center">Ключ</th>
@@ -27,8 +32,7 @@
 
         <tbody>
         <tr class="d-flex" *ngFor="let calculator of calculatorList">
-          <td class="col-1 d-flex justify-content-center">
-            <app-loader [center]="true" [gray]="false" [small]="true" [visible]="calculator.loader"></app-loader>
+          <td class="col-1">
             {{calculator.id}}
           </td>
           <td class="col-3">{{calculator.name}}</td>
@@ -46,10 +50,11 @@
             <i class="fa fa-check" *ngIf="calculator.archive"></i>
           </td>
           <td class="col-3 d-flex justify-content-end">
+            <app-loader [center]="false" [gray]="false" [small]="true" [visible]="calculator.loader"></app-loader>
             <button title="Отправить ключ" class="button-icon" (click)="sendKey(calculator)" *ngIf="calculator.key == null">
               <i class="fa fa-key"></i>
             </button>
-            <button title="Изменить настройки" class="button-icon" (click)="settings(calculator)">
+            <button title="Изменить настройки" class="button-icon" (click)="setting(calculator)">
               <i class="fa fa-cog"></i>
             </button>
             <button title="Состояния" class="button-icon" (click)="status(calculator)">

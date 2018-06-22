@@ -1,0 +1,29 @@
+<table class="table table-striped">
+
+  <thead>
+  <tr class="d-flex">
+    <th class="col-4">Поле</th>
+    <th class="col-6">Значение</th>
+    <th class="col-2"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr class="d-flex" *ngFor="let setting of calculatorSettingList" [ngClass]="{'default': (setting.calculator == null)}">
+    <td class="col-4">{{setting.name}}</td>
+    <td class="col-6 edit" *ngIf="setting.id !== editedSettingId" (click)="setEdited(setting.id)">
+      {{setting.value}}
+    </td>
+    <td class="col-6 edited" *ngIf="setting.id === editedSettingId">
+      <app-edit-in-table [item]="setting.value" (itemEmitter)="setSetting(setting, $event)" (closeEmitter)="setEdited(null)"></app-edit-in-table>
+    </td>
+    <td class="col-2 buttons d-flex justify-content-center">
+      <i class="fa fa-file-o" *ngIf="setting.calculator == null"></i>
+      <button title="Сбросить настройку" class="btn-alert button-icon left-margin" (click)="deleteSetting(setting.id)" *ngIf="setting.calculator != null">
+        <i class="fa fa-reply"></i>
+      </button>
+    </td>
+  </tr>
+  </tbody>
+
+</table>

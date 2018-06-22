@@ -12,13 +12,13 @@ export class AddGeometryComponent implements OnInit {
   form: FormGroup;
 
   constructor(private fb: FormBuilder) {
+  }
+
+  ngOnInit() {
     this.form = this.fb.group({
       name: [''],
       geojson: ['', Validators.required]
     });
-  }
-
-  ngOnInit() {
   }
 
   addGeometry() {

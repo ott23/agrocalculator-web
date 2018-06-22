@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {CalculatorService} from '../calculator.service';
+import {CalculatorService} from '../../../common/services/calculator.service';
 import {SharedService} from '../../../shared.service';
-import {Calculator} from '../calculator.model';
+import {Calculator} from '../../../common/models/calculator.model';
 
 @Component({
   selector: 'app-status',
@@ -15,21 +15,25 @@ export class StatusComponent {
   calculatorStatusList = [];
 
   constructor(private calculatorService: CalculatorService, private sharedService: SharedService) {
-    this.sharedService.calculatorSubjectObservable.subscribe(
-      (calculator) => {
-        this.calculator = calculator;
-        this.calculatorStatusList = [];
-        this.refreshList();
+    this.sharedService.calculatorObservable.subscribe(
+      (data) => {
+        if(data[1] === 'status') {
+          this.calculator = data[0];
+          this.calculatorStatusList = [];
+          this.refreshList();
+        }
       }
     );
   }
 
   refreshList() {
-    this.calculatorService.getStatuses(this.calculator.id).subscribe(
+    this.calculatorService.getStatusesByCalculatorId(this.calculator.id).subscribe(
       (data) => {
         this.calculatorStatusList = data;
         this.sharedService.emitLoader(false);
-        this.sharedService.emitStatusModalVisible();
+        if (!this.sharedService.isStatusModalVisible) {
+          this.sharedService.emitStatusModalVisible();
+        }
       }
     );
   }

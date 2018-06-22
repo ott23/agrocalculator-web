@@ -1,0 +1,21 @@
+@import "../../../../styles-variables";
+
+table {
+  width: 700px;
+  max-width: 100%;
+}
+
+.default {
+  color: $gray-dark;
+}
+
+.edit {
+  cursor: pointer;
+  &:hover {
+    color: $color-main;
+  }
+}
+
+.edited, .buttons {
+  padding: 5px;
+}

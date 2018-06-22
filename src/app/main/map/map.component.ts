@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SharedService} from '../../shared.service';
 import * as L from 'leaflet';
 import {AppConfig} from '../../app.config';
-import {MapService} from './map.service';
+import {MapService} from '../../common/services/map.service';
 import {catchError} from 'rxjs/internal/operators';
 import {Location} from './models/location.model';
 import {of} from 'rxjs';
@@ -25,11 +25,11 @@ export class MapComponent implements OnInit {
 
   constructor(private sharedService: SharedService, private mapService: MapService) {
     this.sharedService.emitLoader(true);
-    this.sharedService.addGeometryModalVisibleSubjectObservable.subscribe(
-      (addGeometryModalVisibleStatus) => this.isAddGeometryModalVisible = addGeometryModalVisibleStatus
+    this.sharedService.addGeometryModalVisibleObservable.subscribe(
+      (data) => this.isAddGeometryModalVisible = data
     );
-    this.sharedService.geometryListModalVisibleSubjectObservable.subscribe(
-      (geoListModalVisibleStatus) => this.isGeometryListModalVisible = geoListModalVisibleStatus
+    this.sharedService.geometryListModalVisibleObservable.subscribe(
+      (data) => this.isGeometryListModalVisible = data
     );
   }
 

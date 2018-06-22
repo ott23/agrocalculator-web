@@ -1,0 +1,18 @@
+:host {
+  width: 100%;
+}
+
+form {
+
+  width: 100%;
+
+  * {
+    float: left;
+  }
+
+  input {
+    height: 34px;
+    width: calc(100% - 80px);
+    padding: 3px 10px;
+  }
+}

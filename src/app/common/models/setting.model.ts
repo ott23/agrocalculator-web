@@ -1,4 +1,4 @@
-import {Calculator} from '../calculator/calculator.model';
+import {Calculator} from './calculator.model';
 
 export class Setting {
   id: number;

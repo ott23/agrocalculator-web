@@ -1,5 +1,5 @@
-import {Component, OnInit, NgZone, OnDestroy} from '@angular/core';
-import {UserService} from './user.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {UserService} from '../../common/services/user.service';
 import {SharedService} from '../../shared.service';
 import {RolesEnum} from './roles.enum';
 import {timer} from 'rxjs';
@@ -18,7 +18,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserService, private sharedService: SharedService) {
     this.sharedService.emitLoader(true);
-    this.sharedService.addUserModalVisibleSubjectObservable.subscribe(
+    this.sharedService.addUserModalVisibleObservable.subscribe(
       (addUserModalVisibleStatus) => this.isAddUserModalVisible = addUserModalVisibleStatus
     );
   }

@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {User} from '../user.model';
-import {UserService} from '../user.service';
+import {User} from '../../../common/models/user.model';
+import {UserService} from '../../../common/services/user.service';
 import {SharedService} from '../../../shared.service';
 import {catchError, map} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
@@ -12,7 +12,7 @@ import {RolesEnum} from '../roles.enum';
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.scss']
 })
-export class AddUserComponent {
+export class AddUserComponent implements OnInit{
 
   @Output() userEmitter = new EventEmitter<User>();
   form: FormGroup;
@@ -20,7 +20,9 @@ export class AddUserComponent {
   roles = RolesEnum;
   roleKeys;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private sharedService: SharedService) {
+  constructor(private fb: FormBuilder, private userService: UserService, private sharedService: SharedService) {}
+
+  ngOnInit() {
     this.form = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -33,12 +35,12 @@ export class AddUserComponent {
     const val = this.form.value;
     this.sharedService.emitLoader(true);
     try {
-      this.isUserExistingByUsername(val.username).subscribe((bool) => {
-        if (!this.form.valid) {
-          alert('Введены некорректные данные');
-          return;
-        }
-        if (bool) {
+      if (!this.form.valid) {
+        alert('Введены некорректные данные');
+        return;
+      }
+      this.isUserExistingByUsername(val.username).subscribe((isUserExisting) => {
+        if (isUserExisting) {
           alert('Пользователь с таким именем уже существует');
           return;
         }

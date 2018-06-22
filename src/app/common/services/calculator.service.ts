@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {AppConfig} from '../../app.config';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Calculator} from './calculator.model';
-import {CalculatorStatus} from './calculator-status.model';
+import {Calculator} from '../models/calculator.model';
+import {CalculatorStatus} from '../models/calculator-status.model';
+import {Setting} from '../models/setting.model';
 
 @Injectable()
 export class CalculatorService {
@@ -29,10 +30,12 @@ export class CalculatorService {
     return this.http.get(url);
   }
 
-  public getStatuses(id): Observable<CalculatorStatus[]> {
+  public getStatusesByCalculatorId(id): Observable<CalculatorStatus[]> {
     const url = this.baseURL + '/status/' + id;
     return this.http.get<CalculatorStatus[]>(url);
   }
+
+
 
 
 }

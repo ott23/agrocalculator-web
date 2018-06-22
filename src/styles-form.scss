@@ -30,6 +30,10 @@ button {
     justify-content: center;
     font-size: 18pt;
 
+    &.left-margin {
+      margin: 0 0 0 6px;
+    }
+
     &.big-text {
       width: auto;
       height: 40px;

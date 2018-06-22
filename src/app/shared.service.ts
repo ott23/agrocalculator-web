@@ -1,37 +1,42 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {Calculator} from './main/calculator/calculator.model';
+import {Calculator} from './common/models/calculator.model';
 
 @Injectable()
 export class SharedService {
 
   // Анимация загрузки: объявление
   private loaderSubject = new Subject<boolean>();
-  loaderSubjectObservable = this.loaderSubject.asObservable();
+  loaderObservable = this.loaderSubject.asObservable();
 
   // Окно добавления пользователя: объявление
   private isAddUserModalVisible = false;
   private addUserModalVisibleSubject = new Subject<boolean>();
-  addUserModalVisibleSubjectObservable = this.addUserModalVisibleSubject.asObservable();
+  addUserModalVisibleObservable = this.addUserModalVisibleSubject.asObservable();
 
   // Окно импорта GeoJSON: объявление
   private isAddGeometryModalVisible = false;
   private addGeometryModalVisibleSubject = new Subject<boolean>();
-  addGeometryModalVisibleSubjectObservable = this.addGeometryModalVisibleSubject.asObservable();
+  addGeometryModalVisibleObservable = this.addGeometryModalVisibleSubject.asObservable();
 
   // Окно списка гео: объявление
   private isGeometryListModalVisible = false;
   private geometryListModalVisibleSubject = new Subject<boolean>();
-  geometryListModalVisibleSubjectObservable = this.geometryListModalVisibleSubject.asObservable();
+  geometryListModalVisibleObservable = this.geometryListModalVisibleSubject.asObservable();
+
+  // Калькулятор: объявление
+  private calculatorSubject = new Subject<[Calculator, string]>();
+  calculatorObservable = this.calculatorSubject.asObservable();
 
   // Окно статусов калькулятора: объявление
-  private isStatusModalVisible = false;
+  public isStatusModalVisible = false;
   private statusModalVisibleSubject = new Subject<boolean>();
-  statusModalVisibleSubjectObservable = this.statusModalVisibleSubject.asObservable();
+  statusModalVisibleObservable = this.statusModalVisibleSubject.asObservable();
 
-  // Окно статусов калькулятора - калькулятор: объявление
-  private calculatorSubject = new Subject<Calculator>();
-  calculatorSubjectObservable = this.calculatorSubject.asObservable();
+  // Окно настроек калькулятора: объявление
+  public isSettingModalVisible = false;
+  private settingModalVisibleSubject = new Subject<boolean>();
+  settingModalVisibleObservable = this.settingModalVisibleSubject.asObservable();
 
 
   // Анимация загрзуки: реализация
@@ -57,16 +62,21 @@ export class SharedService {
     this.geometryListModalVisibleSubject.next(this.isGeometryListModalVisible);
   }
 
+  // Калькулятор: реализация
+  emitCalculator(calculatorModal: [Calculator, string]) {
+    this.calculatorSubject.next(calculatorModal);
+  }
+
   // Окно статусов калькулятора: реализация
   emitStatusModalVisible() {
     this.isStatusModalVisible = !this.isStatusModalVisible;
     this.statusModalVisibleSubject.next(this.isStatusModalVisible);
   }
 
-  // Окно статусов калькулятора - калькулятор: реализация
-  emitCalculator(calculator: Calculator) {
-    this.calculatorSubject.next(calculator);
+  // Окно настроек калькулятора: реализация
+  emitSettingModalVisible() {
+    this.isSettingModalVisible = !this.isSettingModalVisible;
+    this.settingModalVisibleSubject.next(this.isSettingModalVisible);
   }
-
 
 }
