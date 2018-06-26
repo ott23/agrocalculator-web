@@ -20,8 +20,23 @@ export class CalculatorService {
     return this.http.get<Calculator[]>(url);
   }
 
+  public kill(id: number): Observable<any> {
+    const url = this.baseURL + '/kill/' + id;
+    return this.http.get(url);
+  }
+
   public delete(id: number): Observable<any> {
     const url = this.baseURL + '/delete/' + id;
+    return this.http.get(url);
+  }
+
+  public switch(id: number): Observable<any> {
+    const url = this.baseURL + '/switch/' + id;
+    return this.http.get(url);
+  }
+
+  public shutdown(id: number): Observable<any> {
+    const url = this.baseURL + '/shutdown/' + id;
     return this.http.get(url);
   }
 

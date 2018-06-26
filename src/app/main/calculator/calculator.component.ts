@@ -1,7 +1,8 @@
-import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SharedService} from '../../shared.service';
 import {CalculatorService} from '../../common/services/calculator.service';
 import {timer} from 'rxjs';
+import {Calculator} from '../../common/models/calculator.model';
 
 @Component({
   selector: 'app-client',
@@ -52,22 +53,50 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     );
   }
 
+  trackBySettings(index: number, calculator: Calculator): number {
+    return calculator.id;
+  }
+
+  filterTaskByTypeIsKey(task) {
+    return (task.type === 'key');
+  }
+
   sendKey(calculator) {
-    calculator.loader = true;
-    calculator.key = 'key';
     this.calculatorService.sendKey(calculator.id).subscribe((data) => {
       if (data === 'Success') {
-        calculator.loader = false;
+        this.refreshList();
       }
     });
   }
 
-  deleteCalculator(calculator) {
-    calculator.loader = true;
+  switch(calculator) {
+    this.calculatorService.switch(calculator.id).subscribe((data) => {
+      if (data === 'Success') {
+        this.refreshList();
+      }
+    });
+  }
+
+  shutdown(calculator) {
+    this.calculatorService.shutdown(calculator.id).subscribe((data) => {
+      if (data === 'Success') {
+        this.refreshList();
+      }
+    });
+  }
+
+  kill(calculator) {
+    this.calculatorService.kill(calculator.id).subscribe((data) => {
+      if (data === 'Success') {
+        this.refreshList();
+      }
+    });
+  }
+
+  delete(calculator) {
     this.calculatorService.delete(calculator.id).subscribe((data) => {
       if (data === 'Success') {
         this.refreshList();
-        calculator.loader = false;
       }
     });
   }
@@ -81,7 +110,6 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     this.sharedService.emitLoader(true);
     this.sharedService.emitCalculator([calculator, 'status']);
   }
-
 
 
 }

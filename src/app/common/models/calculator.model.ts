@@ -1,9 +1,12 @@
+import {Task} from './task.model';
+
 export class Calculator {
   id: number;
   address: string;
   name: string;
   key: string;
-  active: boolean;
+  status: boolean;
+  connection: boolean;
   archive: boolean;
-  loader: boolean;
+  tasks: Task[];
 }

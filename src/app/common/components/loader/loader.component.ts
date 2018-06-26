@@ -4,6 +4,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 @Component({
   selector: 'app-loader',
   templateUrl: './loader.component.html',
+  styleUrls: ['./loader.component.scss'],
   animations: [
     trigger(
       'loaderTrigger',

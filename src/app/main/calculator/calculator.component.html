@@ -21,48 +21,87 @@
         <thead>
         <tr class="d-flex">
           <th class="col-1">#</th>
-          <th class="col-3">Имя</th>
+          <th class="col-2">Имя</th>
           <th class="col-2">Адрес</th>
           <th class="col-1 d-flex justify-content-center">Ключ</th>
-          <th class="col-1 d-flex justify-content-center">Актив</th>
+          <th class="col-1 d-flex justify-content-center">Соединение</th>
+          <th class="col-1 d-flex justify-content-center">Статус</th>
           <th class="col-1 d-flex justify-content-center">Архив</th>
           <th class="col-3 d-flex justify-content-end"></th>
         </tr>
         </thead>
 
         <tbody>
-        <tr class="d-flex" *ngFor="let calculator of calculatorList">
+        <tr class="d-flex" *ngFor="let calculator of calculatorList; trackBy: trackBySettings">
           <td class="col-1">
             {{calculator.id}}
           </td>
-          <td class="col-3">{{calculator.name}}</td>
+          <td class="col-2">{{calculator.name}}</td>
           <td class="col-2">{{calculator.address}}</td>
           <td class="col-1 d-flex justify-content-center">
-            <i class="fa fa-check" *ngIf="calculator.key != null"></i>
-            <i class="fa fa-close" *ngIf="calculator.key == null"></i>
+            <i class="fas fa-check" *ngIf="calculator.key && calculator.tasks.filter(filterTaskByTypeIsKey).length == 0"></i>
+            <i class="fas fa-times" *ngIf="!calculator.key || calculator.tasks.filter(filterTaskByTypeIsKey).length > 0"></i>
           </td>
           <td class="col-1 d-flex justify-content-center">
-            <i class="fa fa-check big colored" *ngIf="calculator.active"></i>
-            <i class="fa fa-bolt big alert" *ngIf="!calculator.active && !calculator.archive"></i>
-            <i class="fa fa-close" *ngIf="!calculator.active && calculator.archive"></i>
+            <i class="fas fa-check big colored" *ngIf="calculator.connection"></i>
+            <i class="fas fa-bolt big alert" *ngIf="!calculator.connection && !calculator.archive"></i>
+            <i class="fas fa-times" *ngIf="!calculator.connection && calculator.archive"></i>
           </td>
           <td class="col-1 d-flex justify-content-center">
-            <i class="fa fa-check" *ngIf="calculator.archive"></i>
+            <i class="fas fa-play big colored" *ngIf="calculator.connection && calculator.status"></i>
+            <i class="fas fa-stop big" *ngIf="calculator.connection && !calculator.status"></i>
+            <i class="fas fa-question big" *ngIf="!calculator.connection"></i>
           </td>
-          <td class="col-3 d-flex justify-content-end">
-            <app-loader [center]="false" [gray]="false" [small]="true" [visible]="calculator.loader"></app-loader>
-            <button title="Отправить ключ" class="button-icon" (click)="sendKey(calculator)" *ngIf="calculator.key == null">
-              <i class="fa fa-key"></i>
+          <td class="col-1 d-flex justify-content-center">
+            <i class="fas fa-check" *ngIf="calculator.archive"></i>
+            <div></div>
+          </td>
+          <td class="col-3 d-flex flex-row justify-content-end">
+
+            <app-loader [center]="false" [gray]="false" [small]="true" [visible]="calculator.tasks.length > 0"><a>{{calculator.tasks.length}}</a></app-loader>
+
+            <!-- Key -->
+            <button title="Отправить ключ" class="button-icon focus" (click)="sendKey(calculator)" *ngIf="!calculator.key && !calculator.archive">
+              <i class="fas fa-key"></i>
             </button>
-            <button title="Изменить настройки" class="button-icon" (click)="setting(calculator)">
-              <i class="fa fa-cog"></i>
-            </button>
-            <button title="Состояния" class="button-icon" (click)="status(calculator)">
-              <i class="fa fa-signal"></i>
-            </button>
-            <button title="Удалить калькулятор" class="btn-alert button-icon" (click)="deleteCalculator(calculator)">
-              <i class="fa fa-trash"></i>
-            </button>
+
+
+            <div class="d-flex flex-column">
+
+              <div class="d-flex flex-row">
+                <!-- Play / Stop -->
+                <button title="Переключить" class="button-icon" (click)="switch(calculator)" [disabled]="!calculator.key || !calculator.connection">
+                  <i class="fas fa-play" *ngIf="!calculator.connection || !calculator.status"></i>
+                  <i class="fas fa-stop" *ngIf="calculator.connection && calculator.status"></i>
+                </button>
+                <!-- Settings -->
+                <button title="Изменить настройки" class="button-icon" (click)="setting(calculator)">
+                  <i class="fas fa-cog"></i>
+                </button>
+                <!-- Statuses -->
+                <button title="Таблица состояний" class="button-icon" (click)="status(calculator)">
+                  <i class="fas fa-signal"></i>
+                </button>
+              </div>
+
+              <div class="d-flex flex-row">
+                <!-- Off -->
+                <button title="Выключить" class="button-icon" (click)="shutdown(calculator)" [disabled]="!calculator.key || !calculator.connection">
+                  <i class="fas fa-power-off"></i>
+                </button>
+
+                <!-- Kill -->
+                <button title="Убить" class="btn-alert button-icon" (click)="kill(calculator)" [disabled]="!calculator.key || !calculator.connection">
+                  <i class="fas fa-skull"></i>
+                </button>
+                <!-- Remove -->
+                <button title="Удалить" class="btn-alert button-icon" (click)="delete(calculator)" [disabled]="!calculator.archive || calculator.connection">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+
+            </div>
+
           </td>
         </tr>
         </tbody>

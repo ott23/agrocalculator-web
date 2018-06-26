@@ -31,7 +31,7 @@
           </td>
           <td class="col-2 d-flex justify-content-center">
             <div *ngIf="setting.calculator != null">{{setting.calculator.name}}</div>
-            <i class="fa fa-file-o" *ngIf="setting.calculator == null"></i>
+            <i class="fas fa-file" *ngIf="setting.calculator == null"></i>
           </td>
           <td class="col-2 d-flex justify-content-end">
             <button title="Удалить настройку" class="btn-alert button-icon without-vertical-margin" (click)="deleteSetting(setting.id)" *ngIf="setting.calculator != null">

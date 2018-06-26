@@ -21,6 +21,19 @@ button {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 
+  &:disabled {
+    opacity: 0.5;
+    box-shadow: none;
+
+    &:hover {
+      background: $gray-normal;
+
+      &.btn-alert {
+        background: $gray-normal;
+      }
+    }
+  }
+
   &.button-icon {
     width: 34px;
     height: 34px;
@@ -40,8 +53,9 @@ button {
       font-size: 24pt;
 
       span {
-        margin-left: 7px;
+        margin-right: 7px;
         font-size: 13pt;
+        font-weight: bold;
       }
     }
 
@@ -63,6 +77,15 @@ button {
 
     &.btn-alert {
       background: $color-alert;
+    }
+  }
+
+  &.focus {
+    background: $color-focus;
+    box-shadow: 1px 1px 3px 0 $gray-normal;
+
+    &:hover {
+      box-shadow: none;
     }
   }
 
