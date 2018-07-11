@@ -18,7 +18,7 @@ export class EditInTableComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      value: [this.item, Validators.required]
+      value: [this.item]
     });
   }
 

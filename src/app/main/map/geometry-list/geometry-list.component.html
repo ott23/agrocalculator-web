@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table class="table table-striped middle-modal">
 
   <thead>
   <tr class="d-flex">
@@ -8,12 +8,12 @@
   </tr>
   </thead>
 
-  <div *ngIf="geometryArray.length===0" class="d-flex justify-content-center">
-    Список геометрий пуст
+  <div *ngIf="geometryList.length===0" class="d-flex justify-content-center">
+    <br>Список пуст<br>
   </div>
 
   <tbody>
-  <tr class="d-flex" *ngFor="let geometry of geometryArray; let i = index">
+  <tr class="d-flex" *ngFor="let geometry of geometryList; let i = index">
     <td class="col-6">{{geometry.name}}</td>
     <td class="col-4">{{geometry.isVisible}}</td>
     <td class="col-2 d-flex justify-content-end">

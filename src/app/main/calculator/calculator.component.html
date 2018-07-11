@@ -31,12 +31,23 @@
         </tr>
         </thead>
 
+        <div *ngIf="calculatorList.length===0" class="d-flex justify-content-center">
+          <br>Список пуст<br>
+        </div>
+
         <tbody>
-        <tr class="d-flex" *ngFor="let calculator of calculatorList; trackBy: trackBySettings">
+        <tr class="d-flex" *ngFor="let calculator of calculatorList; trackBy: track">
           <td class="col-1">
             {{calculator.id}}
           </td>
-          <td class="col-2">{{calculator.name}}</td>
+
+          <td class="col-2 edit" *ngIf="calculator.id !== editedCalculatorId" (click)="setEditedId(calculator.id)">
+            {{(calculator.name == null || calculator.name == "") ? calculator.code : calculator.name}}
+          </td>
+          <td class="col-2 edited" *ngIf="calculator.id === editedCalculatorId">
+            <app-edit-in-table [item]="calculator.name" (itemEmitter)="setEditedName(calculator, $event)" (closeEmitter)="setEditedId(null)"></app-edit-in-table>
+          </td>
+
           <td class="col-2">{{calculator.address}}</td>
           <td class="col-1 d-flex justify-content-center">
             <i class="fas fa-check" *ngIf="calculator.key && calculator.tasks.filter(filterTaskByTypeIsKey).length == 0"></i>
@@ -65,37 +76,35 @@
               <i class="fas fa-key"></i>
             </button>
 
-
             <div class="d-flex flex-column">
 
               <div class="d-flex flex-row">
                 <!-- Play / Stop -->
-                <button title="Переключить" class="button-icon" (click)="switch(calculator)" [disabled]="!calculator.key || !calculator.connection">
+                <button title="Переключить" class="button-icon" (click)="switch(calculator)" [disabled]="!calculator.key || !calculator.connection || calculator.archive">
                   <i class="fas fa-play" *ngIf="!calculator.connection || !calculator.status"></i>
                   <i class="fas fa-stop" *ngIf="calculator.connection && calculator.status"></i>
                 </button>
                 <!-- Settings -->
-                <button title="Изменить настройки" class="button-icon" (click)="setting(calculator)">
+                <button title="Изменить настройки" class="button-icon" (click)="setting(calculator)" [disabled]="calculator.archive">
                   <i class="fas fa-cog"></i>
                 </button>
                 <!-- Statuses -->
-                <button title="Таблица состояний" class="button-icon" (click)="status(calculator)">
+                <button title="Таблица состояний" class="button-icon" (click)="status(calculator)" [disabled]="calculator.archive">
                   <i class="fas fa-signal"></i>
                 </button>
               </div>
 
               <div class="d-flex flex-row">
                 <!-- Off -->
-                <button title="Выключить" class="button-icon" (click)="shutdown(calculator)" [disabled]="!calculator.key || !calculator.connection">
+                <button title="Выключить" class="button-icon" (click)="shutdown(calculator)" [disabled]="!calculator.key || !calculator.connection || calculator.archive">
                   <i class="fas fa-power-off"></i>
                 </button>
-
                 <!-- Kill -->
-                <button title="Убить" class="btn-alert button-icon" (click)="kill(calculator)" [disabled]="!calculator.key || !calculator.connection">
+                <button title="Убить" class="btn-alert button-icon" (click)="kill(calculator)" [disabled]="!calculator.key || !calculator.connection || calculator.archive">
                   <i class="fas fa-skull"></i>
                 </button>
                 <!-- Remove -->
-                <button title="Удалить" class="btn-alert button-icon" (click)="delete(calculator)" [disabled]="!calculator.archive || calculator.connection">
+                <button title="Удалить" class="btn-alert button-icon" (click)="delete(calculator)" [disabled]="calculator.connection">
                   <i class="fas fa-trash"></i>
                 </button>
               </div>

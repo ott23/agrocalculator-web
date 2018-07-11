@@ -6,7 +6,7 @@ import {LoaderModule} from '../../common/components/loader/loader.module';
 import {UserService} from '../../common/services/user.service';
 import {SharedService} from '../../shared.service';
 import {ModalModule} from '../../common/components/modal/modal.module';
-import { AddUserComponent } from './add-user/add-user.component';
+import { FormUserComponent } from './form-user/form-user.component';
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { AddUserComponent } from './add-user/add-user.component';
     ModalModule
   ],
   exports: [UserComponent],
-  declarations: [UserComponent, AddUserComponent],
+  declarations: [UserComponent, FormUserComponent],
   providers: [
     UserService,
     SharedService

@@ -13,3 +13,14 @@
     color: $color-alert;
   }
 }
+
+.edit {
+  cursor: pointer;
+  &:hover {
+    color: $color-main;
+  }
+}
+
+.edited {
+  padding: 5px;
+}

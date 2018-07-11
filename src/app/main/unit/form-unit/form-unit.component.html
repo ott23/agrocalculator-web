@@ -1,0 +1,11 @@
+<form class="form" [formGroup]="form" (ngSubmit)="save()">
+  <label>Название:</label><br>
+  <input name="name" formControlName="name" type="text"><br>
+  <label>IMEI:</label><br>
+  <input name="imei" formControlName="imei" type="text"><br>
+  <label>UUID клиента:</label><br>
+  <input name="client" formControlName="client" type="text"><br>
+  <button type="submit" class="color">
+    Добавить
+  </button>
+</form>

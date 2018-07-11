@@ -1,0 +1,61 @@
+<app-modal [title]="'Форма объекта'" [visible]="isUnitModalVisible" (visibleEmitter)="toggleUnitModal()">
+  <app-form-unit [unit]="unit" (emitter)="closeUnitModal()"></app-form-unit>
+</app-modal>
+
+<div class="container-fluid">
+
+  <div class="buffer"></div>
+
+  <div class="row">
+    <div class="col">
+      <button class="button-icon text" (click)="add()"><i class="fa fa-plus"></i><span>Добавить</span></button>
+    </div>
+  </div>
+
+  <div class="buffer"></div>
+
+  <div class="row">
+
+    <div class="col">
+
+      <table class="table table-striped">
+
+        <thead>
+        <tr class="d-flex">
+          <th class="col-3">UUID</th>
+          <th class="col-2">Название</th>
+          <th class="col-2">IMEI</th>
+          <th class="col-3">UUID клиента</th>
+          <th class="col-2"></th>
+        </tr>
+        </thead>
+
+        <div *ngIf="unitList.length===0" class="d-flex justify-content-center">
+          <br>Список пуст<br>
+        </div>
+
+        <tbody>
+        <tr class="d-flex" *ngFor="let unit of unitList; trackBy: track">
+
+          <td class="col-3">{{unit.id}}</td>
+          <td class="col-2">{{unit.name}}</td>
+          <td class="col-2">{{unit.imei}}</td>
+          <td class="col-3">{{unit.client}}</td>
+          <td class="col-2 d-flex justify-content-end">
+            <button title="Изменить" class="button-icon without-vertical-margin" (click)="edit(unit)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button title="Удалить" class="btn-alert button-icon without-vertical-margin" (click)="delete(unit)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

@@ -2,7 +2,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../common/services/user.service';
 import {SharedService} from '../../shared.service';
 import {RolesEnum} from './roles.enum';
-import {timer} from 'rxjs';
+import {Subscription, timer} from 'rxjs';
+import {User} from '../../common/models/user.model';
+import {Client} from '../../common/models/client.model';
 
 @Component({
   selector: 'app-user',
@@ -11,16 +13,14 @@ import {timer} from 'rxjs';
 })
 export class UserComponent implements OnInit, OnDestroy {
 
-  isAddUserModalVisible = false;
-  userList = [];
+  isUserModalVisible = false;
+  userList: User[] = [];
+  user: User = new User();
   roles = RolesEnum;
-  timer;
+  timer: Subscription;
 
   constructor(private userService: UserService, private sharedService: SharedService) {
     this.sharedService.emitLoader(true);
-    this.sharedService.addUserModalVisibleObservable.subscribe(
-      (addUserModalVisibleStatus) => this.isAddUserModalVisible = addUserModalVisibleStatus
-    );
   }
 
   ngOnInit() {
@@ -33,8 +33,17 @@ export class UserComponent implements OnInit, OnDestroy {
     this.timer.unsubscribe();
   }
 
-  toggleAddUserModal() {
-    this.sharedService.emitAddUserModalVisible();
+  track(index: number, user: User): number {
+    return user.id;
+  }
+
+  closeUserModal() {
+    this.toggleUserModal();
+    this.refreshList();
+  }
+
+  toggleUserModal() {
+    this.isUserModalVisible = !this.isUserModalVisible;
   }
 
   refreshList() {
@@ -46,16 +55,26 @@ export class UserComponent implements OnInit, OnDestroy {
     );
   }
 
-  addUser(user) {
-    this.toggleAddUserModal();
+  add() {
+    this.user = new User();
+    this.toggleUserModal();
+  }
+
+  edit(user) {
+    this.user = user;
+    this.toggleUserModal();
+  }
+
+  save(user) {
+    this.toggleUserModal();
     this.sharedService.emitLoader(true);
-    this.userService.create(user).subscribe(() => {
+    this.userService.save(user).subscribe(() => {
       this.refreshList();
       this.sharedService.emitLoader(false);
     });
   }
 
-  deleteUser(user) {
+  delete(user) {
     this.sharedService.emitLoader(true);
     this.userService.delete(user.id).subscribe(() => {
       this.refreshList();

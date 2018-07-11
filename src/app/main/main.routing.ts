@@ -5,6 +5,8 @@ import {MapComponent} from './map/map.component';
 import {RoleGuard} from '../security/role.guard';
 import {CalculatorComponent} from './calculator/calculator.component';
 import {SettingComponent} from './setting/setting.component';
+import {ClientComponent} from './client/client.component';
+import {UnitComponent} from './unit/unit.component';
 
 export const mainRoutes: Routes = [
   {
@@ -39,6 +41,22 @@ export const mainRoutes: Routes = [
       {
         path: 'user',
         component: UserComponent,
+        canActivate: [RoleGuard],
+        data: {
+          expectedRole: 'ROLE_ADMIN'
+        }
+      },
+      {
+        path: 'client',
+        component: ClientComponent,
+        canActivate: [RoleGuard],
+        data: {
+          expectedRole: 'ROLE_ADMIN'
+        }
+      },
+      {
+        path: 'unit',
+        component: UnitComponent,
         canActivate: [RoleGuard],
         data: {
           expectedRole: 'ROLE_ADMIN'

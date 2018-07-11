@@ -28,7 +28,7 @@ export class SettingService {
     return this.http.post(url, setting);
   }
 
-  public setSetting(setting): Observable<any> {
+  public setEditedValue(setting): Observable<any> {
     const url = this.baseURL + '/set';
     return this.http.post(url, setting);
   }

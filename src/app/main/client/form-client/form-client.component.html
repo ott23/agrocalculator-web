@@ -1,0 +1,9 @@
+<form class="form" [formGroup]="form" (ngSubmit)="save()">
+  <label>Имя клиента:</label><br>
+  <input name="name" formControlName="name" type="text"><br>
+  <label>Пароль:</label><br>
+  <input name="password" formControlName="password" type="text"><br>
+  <button type="submit" class="color">
+    Добавить
+  </button>
+</form>

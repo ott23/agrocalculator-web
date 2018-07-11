@@ -1,6 +1,6 @@
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
- * You can add your own extra polyfills to this file.
+ * You can save your own extra polyfills to this file.
  *
  * This file is divided into 2 sections:
  *   1. Browser polyfills. These are applied before loading ZoneJS and are sorted by browsers.
@@ -55,7 +55,7 @@ import 'core-js/es7/reflect';
 
 /**
  * By default, zone.js will patch all possible macroTask and DomEvents
- * user can disable parts of macroTask/DomEvents patch by setting following flags
+ * user can disable parts of macroTask/DomEvents patch by unit following flags
  */
 
  // (window as any).__Zone_disable_requestAnimationFrame = true; // disable patch requestAnimationFrame

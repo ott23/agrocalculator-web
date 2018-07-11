@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, SystemJsNgModuleLoader} from '@angular/core';
 import {SharedService} from '../../shared.service';
 import * as L from 'leaflet';
 import {AppConfig} from '../../app.config';
@@ -15,7 +15,7 @@ import {Geometry} from './models/geometry.model';
 })
 export class MapComponent implements OnInit {
 
-  isAddGeometryModalVisible = false;
+  isGeometryModalVisible = false;
   isGeometryListModalVisible = false;
   mapLayers = AppConfig.mapLayers;
   location: Location;
@@ -25,12 +25,6 @@ export class MapComponent implements OnInit {
 
   constructor(private sharedService: SharedService, private mapService: MapService) {
     this.sharedService.emitLoader(true);
-    this.sharedService.addGeometryModalVisibleObservable.subscribe(
-      (data) => this.isAddGeometryModalVisible = data
-    );
-    this.sharedService.geometryListModalVisibleObservable.subscribe(
-      (data) => this.isGeometryListModalVisible = data
-    );
   }
 
   ngOnInit() {
@@ -80,18 +74,18 @@ export class MapComponent implements OnInit {
       });
   }
 
-  toggleAddGeometryModal() {
-    this.sharedService.emitAddGeometryModalVisible();
+  toggleGeometryModal() {
+    this.isGeometryModalVisible = !this.isGeometryModalVisible;
   }
 
   toggleGeometryListModal() {
-    this.sharedService.emitGeometryListModalVisible();
+    this.isGeometryListModalVisible = !this.isGeometryListModalVisible;
   }
 
   navigation(command: string) {
     switch (command) {
       case 'showAddGeometryModal':
-        this.toggleAddGeometryModal();
+        this.toggleGeometryModal();
         break;
       case 'showGeometryListModal':
         this.toggleGeometryListModal();
@@ -128,8 +122,9 @@ export class MapComponent implements OnInit {
   }
 
   addGeometry(geometry) {
-    if (this.isAddGeometryModalVisible) {
-      this.toggleAddGeometryModal();
+    console.log(geometry);
+    if (this.isGeometryModalVisible) {
+      this.toggleGeometryModal();
     }
     const name = geometry[0];
     const geo = L.geoJSON(JSON.parse(geometry[1]));
@@ -145,7 +140,6 @@ export class MapComponent implements OnInit {
     } else {
       this.layerGroup.addLayer(geo.layer);
     }
-    // geo.isVisible = !geo.isVisible;
     this.geometryArray[id].isVisible = !this.geometryArray[id].isVisible;
   }
 

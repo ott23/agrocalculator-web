@@ -9,24 +9,32 @@ export class AppConfig {
   public static get mainMenu() {
     return [{
       'title': 'Монитор',
-      'icon': 'fa fa-desktop',
+      'icon': 'fas fa-desktop',
       'href': '#'
     }, {
       'title': 'Вычислители',
-      'icon': 'fa fa-calculator',
+      'icon': 'fas fa-calculator',
       'href': 'calculator'
     }, {
       'title': 'Параметры',
-      'icon': 'fa fa-cog',
+      'icon': 'fas fa-cog',
       'href': 'setting'
     }, {
       'title': 'Карта',
-      'icon': 'fa fa-map',
+      'icon': 'fas fa-map',
       'href': 'map'
     }, {
       'title': 'Пользователи',
-      'icon': 'fa fa-users',
+      'icon': 'fas fa-users',
       'href': 'user'
+    }, {
+      'title': 'Клиенты',
+      'icon': 'fas fa-server',
+      'href': 'client'
+    }, {
+      'title': 'Транспорт',
+      'icon': 'fas fa-bus',
+      'href': 'unit'
     }];
   }
 

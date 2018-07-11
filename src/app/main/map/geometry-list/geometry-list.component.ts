@@ -8,7 +8,7 @@ import {Geometry} from '../models/geometry.model';
 })
 export class GeometryListComponent implements OnInit {
 
-  @Input() geometryArray: Geometry[];
+  @Input() geometryList: Geometry[];
   @Output() geometryListEmitter = new EventEmitter<[string, number]>();
 
   constructor() {

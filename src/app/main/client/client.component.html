@@ -1,0 +1,59 @@
+<app-modal [title]="'Форма клиента'" [visible]="isClientModalVisible" (visibleEmitter)="toggleClientModal()">
+  <app-form-client [client]="client" (emitter)="closeClientModal()"></app-form-client>
+</app-modal>
+
+<div class="container-fluid">
+
+  <div class="buffer"></div>
+
+  <div class="row">
+    <div class="col">
+      <button class="button-icon text" (click)="add()"><i class="fa fa-plus"></i><span>Добавить</span></button>
+    </div>
+  </div>
+
+  <div class="buffer"></div>
+
+  <div class="row">
+
+    <div class="col">
+
+      <table class="table table-striped">
+
+        <thead>
+        <tr class="d-flex">
+          <th class="col-3">UUID</th>
+          <th class="col-3">Имя</th>
+          <th class="col-3">Пароль</th>
+          <th class="col-3"></th>
+        </tr>
+        </thead>
+
+        <div *ngIf="unitList.length===0" class="d-flex justify-content-center">
+          <br>Список пуст<br>
+        </div>
+
+        <tbody>
+        <tr class="d-flex" *ngFor="let client of unitList; trackBy: track">
+
+          <td class="col-3">{{client.id}}</td>
+          <td class="col-3">{{client.name}}</td>
+          <td class="col-3">{{client.password}}</td>
+          <td class="col-3 d-flex justify-content-end">
+            <button title="Изменить" class="button-icon without-vertical-margin" (click)="edit(client)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button title="Удалить" class="btn-alert button-icon without-vertical-margin" (click)="delete(client)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

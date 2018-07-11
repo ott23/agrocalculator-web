@@ -1,8 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SharedService} from '../../shared.service';
 import {CalculatorService} from '../../common/services/calculator.service';
-import {timer} from 'rxjs';
+import {Observable, of, timer} from 'rxjs';
 import {Calculator} from '../../common/models/calculator.model';
+import {Setting} from '../../common/models/setting.model';
+import {catchError, map} from 'rxjs/operators';
+import {User} from '../../common/models/user.model';
 
 @Component({
   selector: 'app-client',
@@ -14,16 +17,11 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   isStatusModalVisible = false;
   isSettingModalVisible = false;
   calculatorList = [];
+  editedCalculatorId = null;
   timer;
 
   constructor(private calculatorService: CalculatorService, private sharedService: SharedService) {
     this.sharedService.emitLoader(true);
-    this.sharedService.statusModalVisibleObservable.subscribe(
-      (data) => this.isStatusModalVisible = data
-    );
-    this.sharedService.settingModalVisibleObservable.subscribe(
-      (data) => this.isSettingModalVisible = data
-    );
   }
 
   ngOnInit() {
@@ -37,11 +35,11 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   }
 
   toggleStatusModal() {
-    this.sharedService.emitStatusModalVisible();
+    this.isStatusModalVisible = !this.isStatusModalVisible;
   }
 
   toggleSettingModal() {
-    this.sharedService.emitSettingModalVisible();
+    this.isSettingModalVisible = !this.isSettingModalVisible;
   }
 
   refreshList() {
@@ -53,12 +51,41 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     );
   }
 
-  trackBySettings(index: number, calculator: Calculator): number {
+  track(index: number, calculator: Calculator): number {
     return calculator.id;
   }
 
   filterTaskByTypeIsKey(task) {
     return (task.type === 'key');
+  }
+
+  setEditedId(id: number) {
+    this.editedCalculatorId = id;
+  }
+
+  setEditedName(calculator: Calculator, name: string) {
+    this.isCalculatorExistingByName(calculator, name).subscribe((isCalculatorExisting) => {
+      if (isCalculatorExisting) {
+        alert('Калькулятор с таким именем уже существует');
+        return;
+      }
+      calculator.name = name;
+      this.setEditedId(null);
+      this.sharedService.emitLoader(true);
+      this.calculatorService.setEditedValue(calculator).subscribe(() => {
+        this.refreshList();
+        this.sharedService.emitLoader(false);
+      });
+    });
+  }
+
+  isCalculatorExistingByName(calculator: Calculator, name: string): Observable<boolean> {
+    return this.calculatorService.getAllByName(name).pipe(
+      map((calculators: Calculator[]) => {
+        return calculators.filter(c => c.code !== calculator.code).length !== 0;
+      }),
+      catchError(() => of(false))
+    );
   }
 
   sendKey(calculator) {

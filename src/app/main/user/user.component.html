@@ -1,6 +1,6 @@
-<app-modal [title]="'Добавление пользователя'" [visible]="isAddUserModalVisible"
-           (visibleEmitter)="toggleAddUserModal()">
-  <app-add-user (userEmitter)="addUser($event)"></app-add-user>
+<app-modal [title]="'Добавление пользователя'" [visible]="isUserModalVisible"
+           (visibleEmitter)="toggleUserModal()">
+  <app-form-user [user]="user" (emitter)="closeUserModal()"></app-form-user>
 </app-modal>
 
 <div class="container-fluid">
@@ -9,7 +9,7 @@
 
   <div class="row">
     <div class="col">
-      <button class="button-icon text" (click)="toggleAddUserModal()"><i class="fa fa-plus"></i><span>Добавить</span></button>
+      <button class="" (click)="add()"><i class="fa fa-plus"></i><span>Добавить</span></button>
     </div>
   </div>
 
@@ -30,14 +30,21 @@
         </tr>
         </thead>
 
+        <div *ngIf="userList.length===0" class="d-flex justify-content-center">
+          <br>Список пуст<br>
+        </div>
+
         <tbody>
-        <tr class="d-flex" *ngFor="let user of userList">
+        <tr class="d-flex" *ngFor="let user of userList; trackBy: track">
           <td class="col-1">{{user.id}}</td>
           <td class="col-sm-4 col-lg-4">{{user.username}}</td>
           <td class="col-sm-4 col-lg-5">{{roles[user.role]}}</td>
           <td class="col-sm-3 col-lg-2 d-flex justify-content-end">
-            <button title="Удалить пользователя" class="btn-alert button-icon" (click)="deleteUser(user)">
-              <i class="fa fa-trash"></i>
+            <button title="Изменить" class="button-icon without-vertical-margin" (click)="edit(user)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button title="Удалить" class="btn-alert button-icon without-vertical-margin" (click)="delete(user)">
+              <i class="fas fa-trash"></i>
             </button>
           </td>
         </tr>

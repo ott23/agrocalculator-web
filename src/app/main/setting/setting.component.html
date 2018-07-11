@@ -19,22 +19,22 @@
         </thead>
 
         <tbody>
-        <tr class="d-flex" *ngFor="let setting of settingList; trackBy: trackBySettings">
+        <tr class="d-flex" *ngFor="let setting of settingList; trackBy: track">
 
           <td class="col-1">{{setting.id}}</td>
           <td class="col-3">{{setting.name}}</td>
-          <td class="col-4 edit" *ngIf="setting.id !== editedSettingId" (click)="setEdited(setting.id)">
+          <td class="col-4 edit" *ngIf="setting.id !== editedSettingId" (click)="setEditedId(setting.id)">
             {{setting.value}}
           </td>
           <td class="col-4 edited" *ngIf="setting.id === editedSettingId">
-            <app-edit-in-table [item]="setting.value" (itemEmitter)="setSetting(setting, $event)" (closeEmitter)="setEdited(null)"></app-edit-in-table>
+            <app-edit-in-table [item]="setting.value" (itemEmitter)="setEditedValue(setting, $event)" (closeEmitter)="setEditedId(null)"></app-edit-in-table>
           </td>
           <td class="col-2 d-flex justify-content-center">
             <div *ngIf="setting.calculator != null">{{setting.calculator.name}}</div>
             <i class="fas fa-file" *ngIf="setting.calculator == null"></i>
           </td>
           <td class="col-2 d-flex justify-content-end">
-            <button title="Удалить настройку" class="btn-alert button-icon without-vertical-margin" (click)="deleteSetting(setting.id)" *ngIf="setting.calculator != null">
+            <button title="Удалить настройку" class="btn-alert button-icon without-vertical-margin" (click)="delete(setting.id)" *ngIf="setting.calculator != null">
               <i class="fa fa-trash"></i>
             </button>
           </td>

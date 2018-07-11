@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Calculator} from '../models/calculator.model';
 import {CalculatorStatus} from '../models/calculator-status.model';
-import {Setting} from '../models/setting.model';
+import {User} from '../models/user.model';
 
 @Injectable()
 export class CalculatorService {
@@ -17,6 +17,11 @@ export class CalculatorService {
 
   public getAll(): Observable<Calculator[]> {
     const url = this.baseURL;
+    return this.http.get<Calculator[]>(url);
+  }
+
+  public getAllByName(name: string): Observable<Calculator[]> {
+    const url = this.baseURL + '/getAllByName/' + name;
     return this.http.get<Calculator[]>(url);
   }
 
@@ -41,7 +46,7 @@ export class CalculatorService {
   }
 
   public sendKey(id: number): Observable<any> {
-    const url = this.baseURL + '/send-key/' + id;
+    const url = this.baseURL + '/sendKey/' + id;
     return this.http.get(url);
   }
 
@@ -50,7 +55,9 @@ export class CalculatorService {
     return this.http.get<CalculatorStatus[]>(url);
   }
 
-
-
+  public setEditedValue(calculator): Observable<any> {
+    const url = this.baseURL + '/set';
+    return this.http.post(url, calculator);
+  }
 
 }

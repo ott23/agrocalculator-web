@@ -1,9 +1,9 @@
-<app-modal [title]="'Импорт GeoJSON'" [(visible)]="isAddGeometryModalVisible" (visibleEmitter)="toggleAddGeometryModal()">
-  <app-add-geometry (geometryEmitter)="addGeometry($event)"></app-add-geometry>
+<app-modal [title]="'Импорт GeoJSON'" [(visible)]="isGeometryModalVisible" (visibleEmitter)="toggleGeometryModal()">
+  <app-form-geometry (geometryEmitter)="addGeometry($event)"></app-form-geometry>
 </app-modal>
 
 <app-modal [title]="'Список геоданных'" [(visible)]="isGeometryListModalVisible" (visibleEmitter)="toggleGeometryListModal()">
-  <app-geometry-list [geometryArray]="geometryArray" (geometryListEmitter)="geometryList($event)"></app-geometry-list>
+  <app-geometry-list [geometryList]="geometryArray" (geometryListEmitter)="geometryList($event)"></app-geometry-list>
 </app-modal>
 
 <div id="map">

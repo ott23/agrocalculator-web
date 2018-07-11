@@ -11,7 +11,7 @@ import {Setting} from '../../common/models/setting.model';
 })
 export class SettingComponent implements OnInit, OnDestroy {
 
-  settingList = [];
+  settingList: Setting[] = [];
   editedSettingId = null;
   timer;
 
@@ -38,25 +38,25 @@ export class SettingComponent implements OnInit, OnDestroy {
     );
   }
 
-  trackBySettings(index: number, setting: Setting): number {
+  track(index: number, setting: Setting): number {
     return setting.id;
   }
 
-  setEdited(id: number) {
+  setEditedId(id: number) {
     this.editedSettingId = id;
   }
 
-  setSetting(setting: Setting, value: string) {
+  setEditedValue(setting: Setting, value: string) {
     setting.value = value;
-    this.setEdited(null);
+    this.setEditedId(null);
     this.sharedService.emitLoader(true);
-    this.settingService.setSetting(setting).subscribe(() => {
+    this.settingService.setEditedValue(setting).subscribe(() => {
       this.refreshList();
       this.sharedService.emitLoader(false);
     });
   }
 
-  deleteSetting(id: number) {
+  delete(id: number) {
     this.sharedService.emitLoader(true);
     this.settingService.deleteSetting(id).subscribe(() => {
       this.refreshList();

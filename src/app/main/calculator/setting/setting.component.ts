@@ -32,22 +32,18 @@ export class SettingComponent {
     this.settingService.getAllByCalculatorId(this.calculator.id).subscribe(
       (data) => {
         this.calculatorSettingList = data;
-        this.sharedService.emitLoader(false);
-        if (!this.sharedService.isSettingModalVisible) {
-          this.sharedService.emitSettingModalVisible();
-        }
       }
     );
   }
 
-  setEdited(id: number) {
+  setEditedId(id: number) {
     this.editedSettingId = id;
   }
 
   setSetting(setting: Setting, value: string) {
     setting.value = value;
     setting.calculator = this.calculator;
-    this.setEdited(null);
+    this.setEditedId(null);
     this.sharedService.emitLoader(true);
     this.settingService.setSettingForCalculator(setting).subscribe(() => {
       this.refreshList();

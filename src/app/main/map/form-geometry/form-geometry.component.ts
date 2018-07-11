@@ -2,11 +2,11 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
-  selector: 'app-add-geometry',
-  templateUrl: './add-geometry.component.html',
-  styleUrls: ['./add-geometry.component.scss']
+  selector: 'app-form-geometry',
+  templateUrl: './form-geometry.component.html',
+  styleUrls: ['./form-geometry.component.scss']
 })
-export class AddGeometryComponent implements OnInit {
+export class FormGeometryComponent implements OnInit {
 
   @Output() geometryEmitter = new EventEmitter<any[]>();
   form: FormGroup;
@@ -22,16 +22,15 @@ export class AddGeometryComponent implements OnInit {
   }
 
   addGeometry() {
-    const val = this.form.value;
     if (!this.form.valid) {
       alert('Введены некорректные данные');
       return;
     }
-    if (val.name === '') {
-      val.name = 'Без названия';
+    if (this.form.value.name === '') {
+      this.form.value.name = 'Без названия';
     }
+    this.geometryEmitter.emit([this.form.value.name, this.form.value.geojson]);
     this.form.reset();
-    this.geometryEmitter.emit([val.name, val.geojson]);
   }
 
 }
