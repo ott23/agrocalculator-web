@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CalculatorComponent} from './calculator.component';
-import {CalculatorService} from '../../common/services/calculator.service';
+import {NodeComponent} from './node.component';
+import {NodeService} from '../../common/services/node.service';
 import {SharedService} from '../../shared.service';
 import {StatusComponent} from './status/status.component';
 import {ModalModule} from '../../common/components/modal/modal.module';
@@ -17,11 +17,11 @@ import {EditInTableModule} from '../../common/components/edit-in-table/edit-in-t
     ModalModule,
     EditInTableModule
   ],
-  declarations: [CalculatorComponent, StatusComponent, SettingComponent],
+  declarations: [NodeComponent, StatusComponent, SettingComponent],
   providers: [
-    CalculatorService,
+    NodeService,
     SettingService,
     SharedService
   ]
 })
-export class CalculatorModule { }
+export class NodeModule { }

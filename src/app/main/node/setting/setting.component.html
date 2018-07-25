@@ -9,7 +9,7 @@
   </thead>
 
   <tbody>
-  <tr class="d-flex" *ngFor="let setting of calculatorSettingList" [ngClass]="{'default': (setting.calculator == null)}">
+  <tr class="d-flex" *ngFor="let setting of nodeSettingList" [ngClass]="{'default': (setting.node == null)}">
     <td class="col-4">{{setting.name}}</td>
     <td class="col-6 edit" *ngIf="setting.id !== editedSettingId" (click)="setEditedId(setting.id)">
       {{setting.value}}
@@ -18,8 +18,8 @@
       <app-edit-in-table [item]="setting.value" (itemEmitter)="setSetting(setting, $event)" (closeEmitter)="setEditedId(null)"></app-edit-in-table>
     </td>
     <td class="col-2 buttons d-flex justify-content-center">
-      <i class="fa fa-file-o" *ngIf="setting.calculator == null"></i>
-      <button title="Сбросить настройку" class="btn-alert button-icon left-margin" (click)="deleteSetting(setting.id)" *ngIf="setting.calculator != null">
+      <i class="fa fa-file-o" *ngIf="setting.node == null"></i>
+      <button title="Сбросить настройку" class="btn-alert button-icon left-margin" (click)="deleteSetting(setting.id)" *ngIf="setting.node != null">
         <i class="fa fa-reply"></i>
       </button>
     </td>

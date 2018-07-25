@@ -1,26 +1,27 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SharedService} from '../../shared.service';
-import {CalculatorService} from '../../common/services/calculator.service';
+import {NodeService} from '../../common/services/node.service';
 import {Observable, of, timer} from 'rxjs';
-import {Calculator} from '../../common/models/calculator.model';
+import {Node} from '../../common/models/node.model';
 import {Setting} from '../../common/models/setting.model';
 import {catchError, map} from 'rxjs/operators';
 import {User} from '../../common/models/user.model';
 
 @Component({
-  selector: 'app-client',
-  templateUrl: './calculator.component.html',
-  styleUrls: ['./calculator.component.scss']
+  selector: 'app-node',
+  templateUrl: './node.component.html',
+  styleUrls: ['./node.component.scss']
 })
-export class CalculatorComponent implements OnInit, OnDestroy {
+export class NodeComponent implements OnInit, OnDestroy {
 
   isStatusModalVisible = false;
   isSettingModalVisible = false;
-  calculatorList = [];
-  editedCalculatorId = null;
+  nodeList: Node[] = [];
+  node: Node = new Node();
+  editedNodeId = null;
   timer;
 
-  constructor(private calculatorService: CalculatorService, private sharedService: SharedService) {
+  constructor(private nodeService: NodeService, private sharedService: SharedService) {
     this.sharedService.emitLoader(true);
   }
 
@@ -43,16 +44,16 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   }
 
   refreshList() {
-    this.calculatorService.getAll().subscribe(
+    this.nodeService.getAll().subscribe(
       (data) => {
-        this.calculatorList = data;
+        this.nodeList = data;
         this.sharedService.emitLoader(false);
       }
     );
   }
 
-  track(index: number, calculator: Calculator): number {
-    return calculator.id;
+  track(index: number, node: Node): number {
+    return node.id;
   }
 
   filterTaskByTypeIsKey(task) {
@@ -60,82 +61,84 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   }
 
   setEditedId(id: number) {
-    this.editedCalculatorId = id;
+    this.editedNodeId = id;
   }
 
-  setEditedName(calculator: Calculator, name: string) {
-    this.isCalculatorExistingByName(calculator, name).subscribe((isCalculatorExisting) => {
-      if (isCalculatorExisting) {
+  setEditedName(node: Node, name: string) {
+    this.isNodeExistingByName(node, name).subscribe((isNodeExisting) => {
+      if (isNodeExisting) {
         alert('Калькулятор с таким именем уже существует');
         return;
       }
-      calculator.name = name;
+      node.name = name;
       this.setEditedId(null);
       this.sharedService.emitLoader(true);
-      this.calculatorService.setEditedValue(calculator).subscribe(() => {
+      this.nodeService.setEditedValue(node).subscribe(() => {
         this.refreshList();
         this.sharedService.emitLoader(false);
       });
     });
   }
 
-  isCalculatorExistingByName(calculator: Calculator, name: string): Observable<boolean> {
-    return this.calculatorService.getAllByName(name).pipe(
-      map((calculators: Calculator[]) => {
-        return calculators.filter(c => c.code !== calculator.code).length !== 0;
+  isNodeExistingByName(node: Node, name: string): Observable<boolean> {
+    return this.nodeService.getAllByName(name).pipe(
+      map((nodes: Node[]) => {
+        return nodes.filter(c => c.code !== node.code).length !== 0;
       }),
       catchError(() => of(false))
     );
   }
 
-  sendKey(calculator) {
-    this.calculatorService.sendKey(calculator.id).subscribe((data) => {
+  sendKey(node) {
+    this.nodeService.sendKey(node.id).subscribe((data) => {
       if (data === 'Success') {
         this.refreshList();
       }
     });
   }
 
-  switch(calculator) {
-    this.calculatorService.switch(calculator.id).subscribe((data) => {
+  switch(node) {
+    this.nodeService.switch(node.id).subscribe((data) => {
       if (data === 'Success') {
         this.refreshList();
       }
     });
   }
 
-  shutdown(calculator) {
-    this.calculatorService.shutdown(calculator.id).subscribe((data) => {
+  shutdown(node) {
+    this.nodeService.shutdown(node.id).subscribe((data) => {
       if (data === 'Success') {
         this.refreshList();
       }
     });
   }
 
-  kill(calculator) {
-    this.calculatorService.kill(calculator.id).subscribe((data) => {
+  kill(node) {
+    this.nodeService.kill(node.id).subscribe((data) => {
       if (data === 'Success') {
         this.refreshList();
       }
     });
   }
 
-  delete(calculator) {
-    this.calculatorService.delete(calculator.id).subscribe((data) => {
+  delete(node) {
+    this.nodeService.delete(node.id).subscribe((data) => {
       if (data === 'Success') {
         this.refreshList();
       }
     });
   }
 
-  setting(calculator) {
+  setting(node) {
     this.sharedService.emitLoader(true);
-    this.sharedService.emitCalculator([calculator, 'setting']);
+    this.node = node;
+    this.toggleSettingModal();
   }
 
-  status(calculator) {
+  status(node) {
     this.sharedService.emitLoader(true);
-    this.sharedService.emitCalculator([calculator, 'status']);
+    this.node = node;
+    this.toggleStatusModal();
   }
 
 

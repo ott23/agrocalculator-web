@@ -2,27 +2,26 @@ import {Injectable} from '@angular/core';
 import {AppConfig} from '../../app.config';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Calculator} from '../models/calculator.model';
-import {CalculatorStatus} from '../models/calculator-status.model';
-import {User} from '../models/user.model';
+import {Node} from '../models/node.model';
+import {CalculatorStatus} from '../models/node-status.model';
 
 @Injectable()
-export class CalculatorService {
+export class NodeService {
 
   baseURL: string;
 
   constructor(private http: HttpClient) {
-    this.baseURL = AppConfig.baseURL + '/calculator';
+    this.baseURL = AppConfig.baseURL + '/node';
   }
 
-  public getAll(): Observable<Calculator[]> {
+  public getAll(): Observable<Node[]> {
     const url = this.baseURL;
-    return this.http.get<Calculator[]>(url);
+    return this.http.get<Node[]>(url);
   }
 
-  public getAllByName(name: string): Observable<Calculator[]> {
+  public getAllByName(name: string): Observable<Node[]> {
     const url = this.baseURL + '/getAllByName/' + name;
-    return this.http.get<Calculator[]>(url);
+    return this.http.get<Node[]>(url);
   }
 
   public kill(id: number): Observable<any> {
@@ -50,7 +49,7 @@ export class CalculatorService {
     return this.http.get(url);
   }
 
-  public getStatusesByCalculatorId(id): Observable<CalculatorStatus[]> {
+  public getStatusesByNodeId(id): Observable<CalculatorStatus[]> {
     const url = this.baseURL + '/status/' + id;
     return this.http.get<CalculatorStatus[]>(url);
   }

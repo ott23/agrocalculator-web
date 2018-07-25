@@ -13,7 +13,7 @@
           <th class="col-1">#</th>
           <th class="col-3">Поле</th>
           <th class="col-4">Значение</th>
-          <th class="col-2 d-flex justify-content-center">Калькулятор</th>
+          <th class="col-2 d-flex justify-content-center">Нода</th>
           <th class="col-2"></th>
         </tr>
         </thead>
@@ -30,11 +30,11 @@
             <app-edit-in-table [item]="setting.value" (itemEmitter)="setEditedValue(setting, $event)" (closeEmitter)="setEditedId(null)"></app-edit-in-table>
           </td>
           <td class="col-2 d-flex justify-content-center">
-            <div *ngIf="setting.calculator != null">{{setting.calculator.name}}</div>
-            <i class="fas fa-file" *ngIf="setting.calculator == null"></i>
+            <div *ngIf="setting.node != null">{{setting.node.name}}</div>
+            <i class="fas fa-file" *ngIf="setting.node == null"></i>
           </td>
           <td class="col-2 d-flex justify-content-end">
-            <button title="Удалить настройку" class="btn-alert button-icon without-vertical-margin" (click)="delete(setting.id)" *ngIf="setting.calculator != null">
+            <button title="Удалить настройку" class="btn-alert button-icon without-vertical-margin" (click)="delete(setting.id)" *ngIf="setting.node != null">
               <i class="fa fa-trash"></i>
             </button>
           </td>

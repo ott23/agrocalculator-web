@@ -5,7 +5,7 @@ import {Client} from '../../common/models/client.model';
 import {ClientService} from '../../common/services/client.service';
 
 @Component({
-  selector: 'app-client',
+  selector: 'app-node',
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.scss']
 })

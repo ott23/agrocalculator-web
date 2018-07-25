@@ -1,7 +1,8 @@
 import {Task} from './task.model';
 
-export class Calculator {
+export class Node {
   id: number;
+  type: string;
   address: string;
   name: string;
   code: string;

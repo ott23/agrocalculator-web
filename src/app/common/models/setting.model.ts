@@ -1,8 +1,8 @@
-import {Calculator} from './calculator.model';
+import {Node} from './node.model';
 
 export class Setting {
   id: number;
   name: string;
   value: string;
-  calculator: Calculator;
+  node: Node;
 }

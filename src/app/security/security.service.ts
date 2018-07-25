@@ -15,21 +15,8 @@ export class SecurityService {
   }
 
   public doLogin(credentials): Observable<any> {
-
     const url = this.baseURL + '/login';
-    return this.http.post<any>(url, credentials, {observe: 'response'}).pipe(
-      map(
-        data => { // Success
-
-          const helper = new JwtHelperService();
-          const token = data.headers.get('X-Token');
-          const subject = helper.decodeToken(token).sub;
-          localStorage.setItem('user', subject);
-          localStorage.setItem('token', data.headers.get('X-Token'));
-          return data;
-        }
-      )
-    );
+    return this.http.post<any>(url, credentials, {observe: 'response'});
   }
 
 

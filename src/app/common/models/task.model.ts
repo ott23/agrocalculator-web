@@ -1,8 +1,8 @@
-import {Calculator} from './calculator.model';
+import {Node} from './node.model';
 
 export class Task {
   id: number;
-  calculator: Calculator;
+  node: Node;
   type: string;
   value: string;
   confirmed: boolean;

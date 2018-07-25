@@ -1,8 +1,8 @@
-import {Calculator} from './calculator.model';
+import {Node} from './node.model';
 
 export class CalculatorStatus {
   id: number;
-  calculator: Calculator;
+  node: Node;
   status: string;
   dateTime: Date;
 }

@@ -1,5 +1,5 @@
-import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
-import {Observable, timer} from 'rxjs';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {timer} from 'rxjs';
 import {SharedService} from '../../shared.service';
 import {SettingService} from '../../common/services/setting.service';
 import {Setting} from '../../common/models/setting.model';

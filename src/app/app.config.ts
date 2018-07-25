@@ -2,8 +2,7 @@ import * as L from 'leaflet';
 
 export class AppConfig {
   public static get baseURL(): string {
-    // return 'http://192.168.1.10:8080';
-    return 'http://localhost:8080';
+    return 'http://localhost:33380';
   }
 
   public static get mainMenu() {
@@ -12,9 +11,9 @@ export class AppConfig {
       'icon': 'fas fa-desktop',
       'href': '#'
     }, {
-      'title': 'Вычислители',
-      'icon': 'fas fa-calculator',
-      'href': 'calculator'
+      'title': 'Ноды',
+      'icon': 'fas fa-grip-vertical',
+      'href': 'node'
     }, {
       'title': 'Параметры',
       'icon': 'fas fa-cog',

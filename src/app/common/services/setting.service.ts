@@ -18,13 +18,13 @@ export class SettingService {
     return this.http.get<Setting[]>(url);
   }
 
-  public getAllByCalculatorId(id): Observable<Setting[]> {
-    const url = this.baseURL + '/getByCalculator/' + id;
+  public getAllByNodeId(id): Observable<Setting[]> {
+    const url = this.baseURL + '/getByNode/' + id;
     return this.http.get<Setting[]>(url);
   }
 
-  public setSettingForCalculator(setting): Observable<any> {
-    const url = this.baseURL + '/setForCalculator';
+  public setSettingForNode(setting): Observable<any> {
+    const url = this.baseURL + '/setForNode';
     return this.http.post(url, setting);
   }
 

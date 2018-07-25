@@ -3,7 +3,7 @@ import {MainComponent} from './main.component';
 import {UserComponent} from './user/user.component';
 import {MapComponent} from './map/map.component';
 import {RoleGuard} from '../security/role.guard';
-import {CalculatorComponent} from './calculator/calculator.component';
+import {NodeComponent} from './node/node.component';
 import {SettingComponent} from './setting/setting.component';
 import {ClientComponent} from './client/client.component';
 import {UnitComponent} from './unit/unit.component';
@@ -19,8 +19,8 @@ export const mainRoutes: Routes = [
         redirectTo: 'map'
       },
       {
-        path: 'calculator',
-        component: CalculatorComponent,
+        path: 'node',
+        component: NodeComponent,
         canActivate: [RoleGuard],
         data: {
           expectedRole: 'ROLE_ADMIN'

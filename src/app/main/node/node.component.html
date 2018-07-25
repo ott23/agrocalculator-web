@@ -1,0 +1,131 @@
+<app-modal [title]="'История изменения статуса'" [visible]="isStatusModalVisible"
+           (visibleEmitter)="toggleStatusModal()">
+  <app-status [node]="node"></app-status>
+</app-modal>
+
+<app-modal [title]="'Параметры вычислительного модуля'" [visible]="isSettingModalVisible"
+           (visibleEmitter)="toggleSettingModal()">
+  <app-setting [node]="node"></app-setting>
+</app-modal>
+
+<div class="container-fluid">
+
+  <div class="buffer"></div>
+
+  <div class="row">
+
+    <div class="col">
+
+      <table class="table table-striped">
+
+        <thead>
+        <tr class="d-flex">
+          <th class="col-1">#</th>
+          <th class="col-1">Тип</th>
+          <th class="col-2">Имя</th>
+          <th class="col-2">Адрес</th>
+          <th class="col-1 d-flex justify-content-center">Ключ</th>
+          <th class="col-1 d-flex justify-content-center">Соединение</th>
+          <th class="col-1 d-flex justify-content-center">Статус</th>
+          <th class="col-1 d-flex justify-content-center">Архив</th>
+          <th class="col-2 d-flex justify-content-end"></th>
+        </tr>
+        </thead>
+
+        <div *ngIf="nodeList.length===0" class="d-flex justify-content-center">
+          <br>Список пуст<br>
+        </div>
+
+        <tbody>
+        <tr class="d-flex" *ngFor="let node of nodeList; trackBy: track">
+          <td class="col-1">
+            {{node.id}}
+          </td>
+
+          <td class="col-1">
+            <i class="fas fa-calculator big" *ngIf="node.type == 'CalcNode'"></i>
+            <i class="fas fa-archway big" *ngIf="node.type == 'GateNode'"></i>
+            <i class="fas fa-desktop big" *ngIf="node.type == 'RestNode'"></i>
+          </td>
+
+          <td class="col-2 edit" *ngIf="node.id !== editedNodeId" (click)="setEditedId(node.id)">
+            {{(node.name == null || node.name == "") ? node.code : node.name}}
+          </td>
+          <td class="col-2 edited" *ngIf="node.id === editedNodeId">
+            <app-edit-in-table [item]="node.name" (itemEmitter)="setEditedName(node, $event)" (closeEmitter)="setEditedId(null)"></app-edit-in-table>
+          </td>
+
+          <td class="col-2">{{node.address}}</td>
+          <td class="col-1 d-flex justify-content-center">
+            <i class="fas fa-check" *ngIf="node.key && node.tasks.filter(filterTaskByTypeIsKey).length == 0"></i>
+            <i class="fas fa-times" *ngIf="!node.key || node.tasks.filter(filterTaskByTypeIsKey).length > 0"></i>
+          </td>
+          <td class="col-1 d-flex justify-content-center">
+            <i class="fas fa-check big colored" *ngIf="node.connection"></i>
+            <i class="fas fa-bolt big alert" *ngIf="!node.connection && !node.archive"></i>
+            <i class="fas fa-times" *ngIf="!node.connection && node.archive"></i>
+          </td>
+          <td class="col-1 d-flex justify-content-center">
+            <i class="fas fa-play big colored" *ngIf="node.connection && node.status"></i>
+            <i class="fas fa-stop big" *ngIf="node.connection && !node.status"></i>
+            <i class="fas fa-question big" *ngIf="!node.connection"></i>
+          </td>
+          <td class="col-1 d-flex justify-content-center">
+            <i class="fas fa-check" *ngIf="node.archive"></i>
+            <div></div>
+          </td>
+          <td class="col-2 d-flex flex-row justify-content-end">
+
+            <app-loader [center]="false" [gray]="false" [small]="true" [visible]="node.tasks.length > 0"><a>{{node.tasks.length}}</a></app-loader>
+
+            <!-- Key -->
+            <button title="Отправить ключ" class="button-icon focus" (click)="sendKey(node)" *ngIf="!node.key && !node.archive">
+              <i class="fas fa-key"></i>
+            </button>
+
+            <div class="d-flex flex-column">
+
+              <div class="d-flex flex-row">
+                <!-- Play / Stop -->
+                <button title="Переключить" class="button-icon" (click)="switch(node)" [disabled]="!node.key || !node.connection || node.archive">
+                  <i class="fas fa-play" *ngIf="!node.connection || !node.status"></i>
+                  <i class="fas fa-stop" *ngIf="node.connection && node.status"></i>
+                </button>
+                <!-- Settings -->
+                <button title="Изменить настройки" class="button-icon" (click)="setting(node)" [disabled]="node.archive">
+                  <i class="fas fa-cog"></i>
+                </button>
+                <!-- Statuses -->
+                <button title="Таблица состояний" class="button-icon" (click)="status(node)" [disabled]="node.archive">
+                  <i class="fas fa-signal"></i>
+                </button>
+              </div>
+
+              <div class="d-flex flex-row">
+                <!-- Off -->
+                <button title="Выключить" class="button-icon" (click)="shutdown(node)" [disabled]="!node.key || !node.connection || node.archive">
+                  <i class="fas fa-power-off"></i>
+                </button>
+                <!-- Kill -->
+                <button title="Убить" class="btn-alert button-icon" (click)="kill(node)" [disabled]="!node.key || !node.connection || node.archive">
+                  <i class="fas fa-skull"></i>
+                </button>
+                <!-- Remove -->
+                <button title="Удалить" class="btn-alert button-icon" (click)="delete(node)" [disabled]="node.connection">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+
+            </div>
+
+          </td>
+        </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

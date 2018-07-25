@@ -1,0 +1,17 @@
+<table class="table table-striped">
+
+  <thead>
+  <tr class="d-flex">
+    <th class="col-6 d-flex justify-content-center">Статус</th>
+    <th class="col-6 d-flex justify-content-center">Время</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr class="d-flex" *ngFor="let nodeStatus of nodeStatusList">
+    <td class="col-6 d-flex justify-content-center">{{nodeStatus.status}}</td>
+    <td class="col-6 d-flex justify-content-center">{{nodeStatus.dateTime | date :'HH:mm:ss dd.MM.yy'}}</td>
+  </tr>
+  </tbody>
+
+</table>
