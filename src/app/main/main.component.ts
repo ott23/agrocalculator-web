@@ -66,7 +66,7 @@ export class MainComponent implements AfterContentChecked {
   isSidebarActive = false;
   isLoadingActive = true;
 
-  currentUser: string;
+  currentUser;
   roles = RolesEnum;
 
   constructor(private auth: SecurityService,
