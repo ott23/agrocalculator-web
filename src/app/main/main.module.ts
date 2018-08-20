@@ -12,6 +12,7 @@ import {NodeModule} from './node/node.module';
 import {SettingModule} from './setting/setting.module';
 import {ClientModule} from './client/client.module';
 import {UnitModule} from './unit/unit.module';
+import {GeozoneModule} from './geozone/geozone.module';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import {UnitModule} from './unit/unit.module';
     UserModule,
     ClientModule,
     UnitModule,
+    GeozoneModule,
     LoaderModule,
     RouterModule.forChild(mainRoutes)
   ],

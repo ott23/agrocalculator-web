@@ -2,7 +2,8 @@ import * as L from 'leaflet';
 
 export class AppConfig {
   public static get baseURL(): string {
-    return 'http://93.90.221.10:33380';
+    // return 'http://93.90.221.10:33380';
+     return 'http://localhost:33380';
   }
 
   public static get mainMenu() {
@@ -34,6 +35,10 @@ export class AppConfig {
       'title': 'Транспорт',
       'icon': 'fas fa-bus',
       'href': 'unit'
+    }, {
+      'title': 'Геозоны',
+      'icon': 'fas fa-map-marker-alt',
+      'href': 'geozone'
     }];
   }
 

@@ -1,5 +1,5 @@
-<app-modal [title]="'Форма объекта'" [visible]="isUnitModalVisible" (visibleEmitter)="toggleUnitModal()">
-  <app-form-unit [unit]="unit" (emitter)="closeUnitModal()"></app-form-unit>
+<app-modal [title]="'Форма объекта'" [visible]="isGeozoneModalVisible" (visibleEmitter)="toggleGeozoneModal()">
+  <app-form-geozone [geozone]="geozone" (emitter)="closeGeozoneModal()"></app-form-geozone>
 </app-modal>
 
 <div class="container-fluid">
@@ -24,28 +24,28 @@
         <tr class="d-flex">
           <th class="col-2">UUID</th>
           <th class="col-2">Название</th>
-          <th class="col-4">IMEI</th>
+          <th class="col-4">Геометрия</th>
           <th class="col-2">UUID клиента</th>
           <th class="col-2"></th>
         </tr>
         </thead>
 
-        <div *ngIf="unitList.length===0" class="d-flex justify-content-center">
+        <div *ngIf="geozoneList.length===0" class="d-flex justify-content-center">
           <br>Список пуст<br>
         </div>
 
         <tbody>
-        <tr class="d-flex" *ngFor="let unit of unitList; trackBy: track">
+        <tr class="d-flex" *ngFor="let geozone of geozoneList; trackBy: track">
 
-          <td class="col-2">{{unit.id}}</td>
-          <td class="col-2">{{unit.name}}</td>
-          <td class="col-4">{{unit.imei}}</td>
-          <td class="col-2">{{unit.client}}</td>
+          <td class="col-2">{{geozone.id}}</td>
+          <td class="col-2">{{geozone.name}}</td>
+          <td class="col-4">{{geozone.geometry}}</td>
+          <td class="col-2">{{geozone.client}}</td>
           <td class="col-2 d-flex justify-content-end">
-            <button title="Изменить" class="button-icon without-vertical-margin" (click)="edit(unit)">
+            <button title="Изменить" class="button-icon without-vertical-margin" (click)="edit(geozone)">
               <i class="fas fa-edit"></i>
             </button>
-            <button title="Удалить" class="btn-alert button-icon without-vertical-margin" (click)="delete(unit)">
+            <button title="Удалить" class="btn-alert button-icon without-vertical-margin" (click)="delete(geozone)">
               <i class="fas fa-trash"></i>
             </button>
           </td>

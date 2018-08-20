@@ -22,10 +22,10 @@
 
         <thead>
         <tr class="d-flex">
-          <th class="col-3">UUID</th>
+          <th class="col-2">UUID</th>
           <th class="col-3">Имя</th>
           <th class="col-3">Пароль</th>
-          <th class="col-3"></th>
+          <th class="col-4"></th>
         </tr>
         </thead>
 
@@ -36,10 +36,10 @@
         <tbody>
         <tr class="d-flex" *ngFor="let client of unitList; trackBy: track">
 
-          <td class="col-3">{{client.id}}</td>
+          <td class="col-2">{{client.id}}</td>
           <td class="col-3">{{client.name}}</td>
           <td class="col-3">{{client.password}}</td>
-          <td class="col-3 d-flex justify-content-end">
+          <td class="col-4 d-flex justify-content-end">
             <button title="Изменить" class="button-icon without-vertical-margin" (click)="edit(client)">
               <i class="fas fa-edit"></i>
             </button>

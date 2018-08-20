@@ -7,6 +7,7 @@ import {NodeComponent} from './node/node.component';
 import {SettingComponent} from './setting/setting.component';
 import {ClientComponent} from './client/client.component';
 import {UnitComponent} from './unit/unit.component';
+import {GeozoneComponent} from './geozone/geozone.component';
 
 export const mainRoutes: Routes = [
   {
@@ -57,6 +58,14 @@ export const mainRoutes: Routes = [
       {
         path: 'unit',
         component: UnitComponent,
+        canActivate: [RoleGuard],
+        data: {
+          expectedRole: 'ROLE_ADMIN'
+        }
+      },
+      {
+        path: 'geozone',
+        component: GeozoneComponent,
         canActivate: [RoleGuard],
         data: {
           expectedRole: 'ROLE_ADMIN'

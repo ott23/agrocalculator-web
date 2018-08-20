@@ -48,6 +48,7 @@ export class SettingComponent implements OnInit, OnDestroy {
 
   setEditedValue(setting: Setting, value: string) {
     setting.value = value;
+    console.log(value);
     this.setEditedId(null);
     this.sharedService.emitLoader(true);
     this.settingService.setEditedValue(setting).subscribe(() => {

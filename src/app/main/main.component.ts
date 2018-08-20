@@ -3,7 +3,6 @@ import {SecurityService} from '../security/security.service';
 import {Router} from '@angular/router';
 import {SharedService} from '../shared.service';
 import {animate, group, query, state, style, transition, trigger} from '@angular/animations';
-import {RoleGuard} from '../security/role.guard';
 import {RolesEnum} from './user/roles.enum';
 
 @Component({

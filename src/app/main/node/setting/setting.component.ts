@@ -28,6 +28,7 @@ export class SettingComponent implements OnChanges {
       this.settingService.getAllByNodeId(this.node.id).subscribe(
         (data) => {
           this.nodeSettingList = data;
+          console.log(data);
           this.sharedService.emitLoader(false);
         }
       );

@@ -1,0 +1,11 @@
+<form class="form big-modal" [formGroup]="form" (ngSubmit)="save()">
+  <label>Название:</label><br>
+  <input name="name" formControlName="name" type="text"><br>
+  <label>Геометрия:</label><br>
+  <textarea name="geometry" formControlName="geometry" type="text"></textarea><br>
+  <label>UUID клиента:</label><br>
+  <input name="client" formControlName="client" type="text"><br>
+  <button type="submit" class="color">
+    Добавить
+  </button>
+</form>

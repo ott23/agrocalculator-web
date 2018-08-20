@@ -1,6 +1,6 @@
-export class Unit {
+export class Geozone {
   id: string;
   client: string;
   name: string;
-  imei: string;
+  geometry: string;
 }
