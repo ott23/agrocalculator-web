@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {routes} from './app.routing';
 import {SecurityModule} from './security/security.module';
@@ -11,7 +11,14 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {SecurityInterceptor} from './security/security.interceptor';
 import {PreloadAllModules, RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ConfigurationService} from './common/services/configuration.service';
 
+
+export function init_app(configurationService: ConfigurationService) {
+  return () => {
+    return configurationService.load();
+  };
+}
 
 @NgModule({
   declarations: [
@@ -30,6 +37,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
       provide: HTTP_INTERCEPTORS,
       useClass: SecurityInterceptor,
       multi: true
+    },
+    ConfigurationService,
+    {
+      'provide': APP_INITIALIZER,
+      'useFactory': init_app,
+      'deps': [ConfigurationService],
+      'multi': true,
     }
   ],
   bootstrap: [AppComponent]

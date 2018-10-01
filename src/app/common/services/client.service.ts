@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
-import {AppConfig} from '../../app.config';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Client} from '../models/client.model';
+import {ConfigurationService} from './configuration.service';
 
 @Injectable()
 export class ClientService {
 
   baseURL: string;
 
-  constructor(private http: HttpClient) {
-    this.baseURL = AppConfig.baseURL + '/client';
+  constructor(private http: HttpClient, private configurationService: ConfigurationService) {
+    this.baseURL = configurationService.config.baseUrl + '/client';
   }
 
   public getAll(): Observable<Client[]> {

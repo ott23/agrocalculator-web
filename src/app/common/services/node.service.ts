@@ -1,17 +1,17 @@
 import {Injectable} from '@angular/core';
-import {AppConfig} from '../../app.config';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Node} from '../models/node.model';
 import {CalculatorStatus} from '../models/node-status.model';
+import {ConfigurationService} from './configuration.service';
 
 @Injectable()
 export class NodeService {
 
   baseURL: string;
 
-  constructor(private http: HttpClient) {
-    this.baseURL = AppConfig.baseURL + '/node';
+  constructor(private http: HttpClient, private configurationService: ConfigurationService) {
+    this.baseURL = configurationService.config.baseUrl + '/node';
   }
 
   public getAll(): Observable<Node[]> {

@@ -1,15 +1,18 @@
 import {Injectable} from '@angular/core';
 import {HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {AppConfig} from '../app.config';
 import {map} from 'rxjs/operators';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {ConfigurationService} from '../common/services/configuration.service';
 
 
 @Injectable()
 export class SecurityInterceptor implements HttpInterceptor {
 
-  constructor() {
+  baseURL: string;
+
+  constructor(private configurationService: ConfigurationService) {
+    this.baseURL = 'test';
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
@@ -17,7 +20,7 @@ export class SecurityInterceptor implements HttpInterceptor {
     const TOKEN_PREFIX = 'Bearer';
     const token = localStorage.getItem('token');
     let authReq = req;
-    if (token != null && req.url.startsWith(AppConfig.baseURL)) {
+    if (token != null && req.url.startsWith(this.baseURL)) {
       authReq = req.clone({headers: req.headers.set(TOKEN_HEADER, TOKEN_PREFIX + ' ' + token)});
     }
     return next.handle(authReq).pipe(

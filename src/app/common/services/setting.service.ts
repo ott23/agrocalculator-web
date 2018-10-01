@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {AppConfig} from '../../app.config';
 import {Setting} from '../models/setting.model';
+import {ConfigurationService} from './configuration.service';
 
 @Injectable()
 export class SettingService {
 
   baseURL: string;
 
-  constructor(private http: HttpClient) {
-    this.baseURL = AppConfig.baseURL + '/setting';
+  constructor(private http: HttpClient, private configurationService: ConfigurationService) {
+    this.baseURL = configurationService.config.baseUrl + '/setting';
   }
 
   public getAll(): Observable<Setting[]> {

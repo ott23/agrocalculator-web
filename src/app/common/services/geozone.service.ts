@@ -3,14 +3,15 @@ import {AppConfig} from '../../app.config';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Geozone} from '../models/geozone.model';
+import {ConfigurationService} from './configuration.service';
 
 @Injectable()
 export class GeozoneService {
 
   baseURL: string;
 
-  constructor(private http: HttpClient) {
-    this.baseURL = AppConfig.baseURL + '/geozone';
+  constructor(private http: HttpClient, private configurationService: ConfigurationService) {
+    this.baseURL = configurationService.config.baseUrl + '/geozone';
   }
 
   public getAll(): Observable<Geozone[]> {
